@@ -4,13 +4,13 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-**TailBliss** is a modern Hugo static site generator theme combining:
+**Nicolas's Portfolio & Skills Repository** is a personal portfolio website built with:
 - Hugo (v0.148.2+) for static site generation
 - TailwindCSS 4.1 with Vite for build optimization
 - Alpine.js 3.15.8 for lightweight interactivity
 - Full dark/light mode support
 
-The theme is structured as a proper Hugo theme with layouts, assets, and static files in the root, and example content in `exampleSite/`. When used in other projects, it's placed in `themes/tailbliss/`.
+The site uses the **TailBliss theme** (Apache 2.0 licensed). This repository contains the personal portfolio content and configuration. For theme-specific technical questions, refer to the [TailBliss repository](https://github.com/nusserstudios/tailbliss).
 
 ## Common Development Commands
 
@@ -64,9 +64,8 @@ node install.js       # Alternative: Direct install script execution
 - **`layouts/`**: Hugo templates using `baseof.html` as base wrapper with component partials
 - **`assets/css/`**: TailwindCSS 4 with custom OKLCH color variables and prose styles
 - **`assets/js/`**: Dark mode toggle (localStorage-backed, respects OS preference)
-- **`content/`**: Markdown posts with YAML frontmatter; blog posts in `posts/` subdirectory
+- **`content/`**: Markdown posts with YAML frontmatter; portfolio pages and blog posts
 - **`static/css/`**: Generated CSS output (cache-busted, auto-cleaned during rebuilds)
-- **`exampleSite/`**: Reference content and Hugo config for testing the theme
 
 ### CSS Architecture (TailwindCSS 4)
 - **Custom Colors**: Primary (Indigo), Secondary (Pink), Neutral, Gray, Zinc using OKLCH color space
@@ -117,15 +116,31 @@ If you see "failed to read directory 'static/css'" error:
 
 ## Content Structure
 
+**Portfolio Content Locations:**
+- **`content/about.md`** - About page (main profile)
+- **`content/contact.md`** - Contact form page
+- **`content/prose.md`** - Long-form writing or project showcases
+- **`content/posts/`** - Blog posts and project documentation (YAML frontmatter)
+
+**Content Requirements:**
 - **Frontmatter**: YAML metadata (title, date, categories, tags, description)
-- **Image Storage**: `assets/images/` for source; automatically optimized for WebP
-- **Markdown Extensions Enabled**: Tables, footnotes, strikethrough, task lists, typographer
-- **Taxonomies**: Categories and Tags with paginated archive pages
+  - Use `draft: false` for published posts
+  - Use past/current dates (future dates won't publish)
+- **Image Storage**: `assets/images/` for source images (auto-optimized to WebP)
+- **Markdown Extensions**: Tables, footnotes, strikethrough, task lists, typographer all enabled
+- **Image Shortcode**: Use `{{< imgc src="image.jpg" alt="description" >}}` for WebP optimization with lazy loading
+- **Taxonomies**: Posts automatically categorized and tagged; generates archive pages
 
-## Development Tips
+## License & Attribution
 
-1. **Fast iteration**: Use `pnpm run dev:watch` to avoid manual CSS rebuilds
-2. **Hard refresh**: `Cmd+Shift+R` (Mac) or `Ctrl+Shift+R` (Windows) if styles seem stale (rare with new timestamp system)
-3. **Content setup**: The `install.js` script only runs if no `content/` directory exists; won't overwrite existing content
-4. **Theme testing**: The `exampleSite/` uses a symlink to test the theme; useful for PR validation
-5. **Performance**: Check Hugo lighthouse scores in README; theme achieves high performance via asset optimization and lazy loading
+- **Theme License**: Apache 2.0 (TailBliss by Nusser Studios)
+- **Content License**: Creative Commons Attribution 4.0 (CC-BY 4.0)
+- Keep `LICENSE` file intact for theme attribution
+- All personal content (posts, projects, images) is CC-BY 4.0 licensed
+
+## Development Workflow
+
+1. **Feature branch strategy**: Create branches for new posts or major changes
+2. **Content focus**: This is a portfolio site—prioritize content quality over theme modifications
+3. **Hugo build validation**: Run `pnpm run test` before committing to catch syntax errors
+4. **Performance**: Theme includes Hugo image optimization and lazy loading; ensure images are under 1MB
