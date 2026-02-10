@@ -468,46 +468,96 @@ LOBBY (auto-save snapshot, return to menu)
 
 ---
 
-## 8. Lobby Layer (not yet prototyped)
+## 8. Lobby Layer (prototyped)
 
 ### Concept
 
-The Lobby is the session management screen. Like a video game main menu: you see it on login and when you End Session. The workshop is always entered *through* the lobby.
+The Lobby is the entry screen. Like a video game main menu: you see it on login and when you End Session. The workshop is always entered *through* the lobby. One workspace, always — no session files, no save/load. Pearls, drafts, and validation queue persist in their own storage (PostgreSQL/Neo4j).
 
-### Proposed Structure
+### Layout
 
 ```
 ┌─────────────────────────────────────┐
 │                                     │
-│         ndb                         │  Literata, centered
+│            ndb                      │  Literata 28px, centered
+│         backoffice                  │  Commit Mono 11px, text-tertiary
 │                                     │
-│    [Continue]     Resume last        │  last session name + timestamp
-│    [Load]         Open project       │  project/snapshot picker
-│    [Options]      Preferences        │  import sources, API, display
-│    [Account]      Logout             │
+│  ┌─────────────────────────────┐    │
+│  │ Continue              2h ago│    │  DOMINANT — pearl title, elevated bg
+│  │ Last in Capture mode        │    │  workspace state summary
+│  │ +4 pearls · 3 validation ·  │    │  colored indicators
+│  │ 1 draft                     │    │
+│  └─────────────────────────────┘    │
 │                                     │
-│    ─────                            │
-│    847 pearls · 12 projects         │  quiet stats
-│    last session: 2h ago             │
+│  [Options]  [Account]  [Logout]     │  3 equal secondary buttons
+│                                     │
+│  847 pearls · 12 projects · 4 pat  │  quiet stats, centered
+│  last capture 2h ago                │  freshness heartbeat
+│                                     │
+│  ndb backoffice v0.1.0 · phase 0   │  version stamp
 │                                     │
 └─────────────────────────────────────┘
 ```
+
+### Component: Continue Card (dominant)
+
+- Max-width: 420px, centered
+- Background: `--surface`, border `--border`. On hover: `--surface-elevated`, border `--pearl`
+- Title: "Continue" in Literata 18px, weight 700, pearl color
+- Timestamp: Commit Mono 11px, text-tertiary, right-aligned — "2 hours ago"
+- Subtitle: "Last in {mode} mode" — Hanken Grotesk 13px, text-secondary
+- Status indicators (Commit Mono 11px):
+  - `+4 pearls today` — `--fresh` (green)
+  - `3 awaiting validation` — `--convergence` (amber)
+  - `1 draft in progress` — `--temporal` (blue)
+- When not authenticated: subtitle becomes "Sign in to enter the workspace"
+
+### Component: Secondary Buttons (equal row)
+
+- Three buttons, flex equal width, max-width 420px total
+- Background: `--surface`. On hover: `--surface-elevated`
+- Label: Hanken Grotesk 14px, weight 600
+- Subtitle: Commit Mono 11px, text-tertiary
+- **Options** — "Preferences" — config, import sources, API, display
+- **Account** — "Profile" — user profile settings
+- **Logout** — "End & exit" — label in `--pattern` (coral), direct action, no submenu
+- When not authenticated: all three greyed out (opacity 0.4)
+
+### Login Flow
+
+- When not authenticated, clicking Continue opens an inline login form (not a separate page)
+- Form: username + password inputs, pearl-colored "Sign in" button
+- Note: "Single-user system · local auth" — honest about the architecture
+- After login: Continue card restores workspace state indicators
+- No registration flow in UI (single-user, created via CLI or first-run setup)
 
 ### What Lives in Options (not in workshop)
 
 - Import source configuration (Obsidian vault paths, Logseq, GitHub repos)
 - API keys (Claude, embedding model)
-- Display preferences (configurable default mode on session start)
+- Display preferences (default mode on session start)
 - Training gauge and model version management
 - Export/backup settings
-- User profile
+
+### What Lives in Account (not in workshop)
+
+- User profile (name, avatar if any)
+- Password change
+- Data export (full pearl dump)
 
 ### Design Notes
 
-- Dark theme (same as workshop)
-- Sparse, centered layout — this is a pause, not a workspace
-- No persistent capture bar (you're not in the workshop yet)
-- Continue button = most prominent (resume is the default action)
+- Background: `--surface-recessed` (darker than workshop `--surface`) — creates visual threshold
+- Dark theme, same tokens as workshop
+- Vertically + horizontally centered — this is a pause, not a workspace
+- No quick capture bar (not in the workshop yet)
+- No mode tabs (modes live inside the workshop)
+- No nav (lobby IS the root)
+- Continue is ~80% of lobby interactions — sized and positioned accordingly
+
+### Why No "Load"
+
+One workspace. No session files. Pearls persist in the database, drafts persist in their store, validation queue persists in its queue. The workspace is always the same room — you walk back in. There's no added value to saving/loading different workspace states. Removed to avoid premature complexity.
 
 ---
 
@@ -598,6 +648,11 @@ Summarized from UX specification. These constrain all future decisions.
 | 2026-02-10 | Mode indicators: ●/○/◉ circles | Filled = active, empty = inactive, dot-in-circle = signal ready. |
 | 2026-02-10 | End Session → top-right context bar | Not a mode, not in nav. Quiet exit, always available. |
 | 2026-02-10 | Lobby/Workshop two-layer architecture | Settings, load, account live in Lobby. Workshop is pure workflow. Like a game session menu. |
+| 2026-02-10 | No Load/Save sessions | One workspace, always. Pearls/drafts persist in DB, not session files. Removed premature complexity. |
+| 2026-02-10 | Logout as direct button | No submenu. Options / Account / Logout as three equal buttons. One click to exit. |
+| 2026-02-10 | "Continue" as universal entry label | Works for first connection (proceed to workspace) and return visits (resume). No overthinking. |
+| 2026-02-10 | Login = inline form on Continue click | Not a separate page. Single-user local auth. Registration via CLI/first-run. |
+| 2026-02-10 | Lobby background: surface-recessed | Darker than workshop surface. Visual threshold between layers. |
 
 ---
 
@@ -605,13 +660,12 @@ Summarized from UX specification. These constrain all future decisions.
 
 | # | Question | Context | Priority |
 |---|---|---|---|
-| 1 | Temporal force-directed graph: library or custom? | D3-force with time axis vs. fully custom Canvas renderer. Affects styling control. | Phase 0-1 |
-| 2 | Lobby visual design | Sparse/centered proposed but not prototyped. How much info to show? | Phase 0 |
-| 3 | Portfolio inner pages | Posts detail, Patterns gallery, full Timeline, About — same visual language but layout TBD. | Phase 0 |
-| 4 | Freshness: build-time vs. live fetch? | Hugo static = shows "at build time". Client-side fetch = live but adds dependency. | Phase 0 |
-| 5 | Compose mode: inline editor vs. export-only? | Phase 0 spec says export-based. But the prototype shows an inline editor. Clarify scope. | Phase 0 |
-| 6 | Mobile/responsive behavior | Portfolio needs responsive. BackOffice is desktop-only (keyboard + mouse). Portfolio breakpoints? | Phase 0 |
-| 7 | Graph manipulation tools | Pan, zoom, select, highlight. D3 built-ins or custom controls? | Phase 1 |
-| 8 | Mermaid rendering in Compose mode | Mermaid pearls should render visually in the compose editor. Integration approach? | Phase 1 |
-| 9 | Training gauge location | Spec says "quiet, in context bar". Does it go in context bar or Options? | Phase 1 |
-| 10 | Fog of war timing | When to introduce frontier mapping. Spec says 500+ pearls. Verify threshold. | Phase 2 |
+| 1 | Portfolio inner pages | Posts detail, Patterns gallery, full Timeline, About — layout TBD. | Phase 0 — NEXT |
+| 2 | Temporal force-directed graph: library or custom? | D3-force with time axis vs. fully custom Canvas renderer. Affects styling control. | Phase 0-1 |
+| 3 | Freshness: build-time vs. live fetch? | Hugo static = shows "at build time". Client-side fetch = live but adds dependency. | Phase 0 |
+| 4 | Compose mode: inline editor vs. export-only? | Phase 0 spec says export-based. Prototype shows inline editor. Clarify scope. | Phase 0 |
+| 5 | Mobile/responsive behavior | Portfolio needs responsive. BackOffice is desktop-only. Portfolio breakpoints? | Phase 0 |
+| 6 | Graph manipulation tools | Pan, zoom, select, highlight. D3 built-ins or custom controls? | Phase 1 |
+| 7 | Mermaid rendering in Compose mode | Mermaid pearls should render visually in compose editor. Integration approach? | Phase 1 |
+| 8 | Training gauge location | Spec says "quiet, in context bar". Does it go in context bar or Options? | Phase 1 |
+| 9 | Fog of war timing | When to introduce frontier mapping. Spec says 500+ pearls. Verify threshold. | Phase 2 |
