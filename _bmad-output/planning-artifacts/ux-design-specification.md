@@ -5,12 +5,17 @@ inputDocuments:
   - /var/home/nicolas/github/ndb_hugo-tailbliss/README.md
   - /home/nicolas/github/MakerSkillTree/README_fr-geek.md
 date: "2026-02-08"
+designSpecPromotion: "2026-02-11"
 ---
 
 # UX Design Specification: ndb_hugo-tailbliss
 
 **Author:** Nicolas
 **Date:** 2026-02-08
+
+> **Note (2026-02-11):** Visual design decisions from this spec have been promoted to **`_bmad-output/implementation-artifacts/DESIGN-SPEC.md`** — the authoritative source for typography, colors, spacing, component specs, and interaction patterns. That document also contains decisions made during UI prototyping (lobby layer, post page, no left nav, no theme toggle) that supersede earlier concepts here. Steps 8-14 of this UX spec should reference DESIGN-SPEC.md rather than re-derive visual decisions.
+>
+> **Architecture change (2026-02-11):** The monorepo structure described in this spec has been revised to **linked repos** (Hugo portfolio stays in its own repo, backoffice gets a separate repo, shared tokens extracted later). See DESIGN-SPEC.md §1 and PRD v2.1 amendments for details.
 
 ---
 

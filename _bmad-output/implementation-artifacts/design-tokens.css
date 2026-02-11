@@ -1,16 +1,20 @@
 /*──────────────────────────────────────────────────────────────
   ndb design tokens — single source of truth
-  
-  Location: shared/tokens/design-tokens.css
+
+  Phase 0 location: defined in Hugo repo (assets/css/main.css)
+  Future: extracted to ndb_design-tokens/ when backoffice starts
+
   Consumed by:
-    - portfolio/assets/css/main.css  (@import)
-    - backoffice/src/app.css         (@import)
-  
+    - portfolio: assets/css/main.css  (direct, Phase 0)
+    - backoffice: src/app.css         (via shared package, later)
+
   Color space: OKLCH (perceptually uniform)
   Theme: .light (portfolio) / .dark (backoffice)
-  
-  Last updated: 2026-02-10
-  Locked decisions: typography (The Archivist), color semantics
+  Architecture: linked repos, not monorepo
+
+  Last updated: 2026-02-11
+  Locked decisions: typography (The Archivist), color semantics,
+                    linked repos, Netlify deployment
 ──────────────────────────────────────────────────────────────*/
 
 

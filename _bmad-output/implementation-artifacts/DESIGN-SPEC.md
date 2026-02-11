@@ -2,7 +2,7 @@
 
 **Date:** 2026-02-10
 **Status:** Phase 0 foundation locked
-**Token file:** `shared/tokens/design-tokens.css`
+**Token file:** `assets/css/main.css` (Hugo repo, extracted to shared package later)
 **Prototypes:** `portfolio-home-v4-final.html`, `backoffice-v2.html`
 
 ---
@@ -28,18 +28,37 @@
 
 ### Dual Application, Single Design Language
 
+**Linked repos** (not monorepo). Each app has its own repository, its own deploy pipeline, and its own lifecycle. The only shared artifact is the design token vocabulary — extracted when both apps need it, not before.
+
 ```
-project-root/
-├── shared/tokens/
-│   └── design-tokens.css       ← single source of truth (CSS custom properties)
-├── portfolio/                   ← Hugo static site (PUBLIC)
-│   ├── assets/css/main.css     ← @import shared tokens
-│   └── <html class="light">
-├── backoffice/                  ← Svelte web app (PRIVATE)
-│   ├── src/app.css             ← @import shared tokens
-│   └── <html class="dark">
-└── DESIGN-SPEC.md              ← this file
+ndb_hugo-tailbliss/             ← Hugo portfolio (PUBLIC) — this repo
+├── assets/css/main.css         ← design tokens defined here first
+├── layouts/, content/, static/
+└── deploys via Netlify (git push → rebuild)
+
+ndb_backoffice/                 ← Svelte + FastAPI (PRIVATE) — separate repo, later
+├── src/app.css                 ← will consume extracted tokens
+└── runs as Docker container (local first, VPS later)
+
+ndb_design-tokens/              ← extracted when both apps need it (not yet)
+└── design-tokens.css           ← git submodule or npm package
 ```
+
+**Phase 0 strategy:** Define tokens in Hugo's `assets/css/main.css`. When the backoffice repo starts, extract shared tokens into a separate package. Don't restructure anything until the second consumer exists.
+
+**BackOffice baseline:** Proven FastAPI + SvelteKit stack from `mvp0-betterCallSaul` (config-driven architecture, layered services, session auth, 49 tests). Adapts — not rebuilds — that foundation.
+
+### Deployment Topology
+
+| Application | Deploy method | Hosting | Trigger |
+|---|---|---|---|
+| Portfolio (Hugo) | Netlify | CDN (static) | `git push` to main branch |
+| BackOffice (Svelte + FastAPI) | Docker container | Local network first, VPS later | Manual deploy / CI |
+| Databases (Neo4j + PostgreSQL) | Docker compose | Same host as backoffice | Part of container stack |
+
+**Portfolio publishes independently.** New posts = git commit `.md` files → Netlify rebuilds automatically. No dependency on the backoffice being operational.
+
+**BackOffice publishes TO the portfolio** via git commit (the bridge). But the portfolio doesn't need the backoffice to function — you can write `.md` files directly.
 
 ### Theme Model
 
@@ -57,9 +76,12 @@ Two rooms in the same building. Same vocabulary (tokens), different density (sca
 | Component | Technology | Notes |
 |---|---|---|
 | Portfolio | Hugo + TailBliss + TailwindCSS 4.1 | Static, markdown-native, OKLCH already configured |
-| BackOffice | Svelte + Vite + TailwindCSS 4.1 | Reactive UI, containerized (Docker) |
-| Shared tokens | CSS custom properties (OKLCH) | One file, imported by both apps |
+| BackOffice | Svelte + Vite + TailwindCSS 4.1 | Reactive UI, containerized (Docker). Based on betterCallSaul stack. |
+| Backend API | FastAPI (Python) | Config-driven, layered architecture, proven in betterCallSaul |
+| Shared tokens | CSS custom properties (OKLCH) | Defined in Hugo first, extracted to shared package when backoffice starts |
 | Graph viz | D3.js (Phase 0 static) → temporal force-directed | Custom SVG/Canvas, full style control |
+| Graph DB | Neo4j + Graphiti | Temporal knowledge graph, convergence detection |
+| Pearl storage | PostgreSQL | Structured metadata + training log (append-only) |
 | Diagrams | Mermaid | Text-based, renders in both Hugo and Svelte |
 
 ---
@@ -751,6 +773,12 @@ Summarized from UX specification. These constrain all future decisions.
 | 2026-02-10 | Evidence trail order: chronological (oldest first) | Opposite of homepage timeline (recent first). Post evidence builds forward as narrative. |
 | 2026-02-10 | Post meta includes timespan | "March 2024 → January 2025" shows duration of learning, not just publication date. Unique differentiator. |
 | 2026-02-10 | Blockquote: convergence left border | 3px amber accent, Literata italic. Visually distinct from body without heavy decoration. |
+| 2026-02-11 | Linked repos, not monorepo | Hugo portfolio stays in its own repo. BackOffice gets separate repo. Shared tokens extracted when second consumer exists. Avoids premature restructuring. |
+| 2026-02-11 | Netlify for portfolio deployment | Git push → Netlify rebuild. Static CDN. Portfolio deploys independently of backoffice. |
+| 2026-02-11 | Tokens defined in Hugo first | Design tokens live in `assets/css/main.css`. Extracted to shared package only when backoffice needs them. |
+| 2026-02-11 | Frontend-first priority | Update portfolio UI to implement design spec, ship to Netlify, document progress as posts. BackOffice developed in parallel later. |
+| 2026-02-11 | betterCallSaul as backoffice baseline | Proven FastAPI + SvelteKit stack (config-driven, layered services, session auth). Adapt, not rebuild. |
+| 2026-02-11 | BackOffice = Docker container | Local network first, deployable to VPS. No cloud dependency for core functionality. |
 
 ---
 

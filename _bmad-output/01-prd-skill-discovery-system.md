@@ -1,7 +1,7 @@
 # Product Requirements Document: Knowledge-First Portfolio System
 
 **Project**: Nicolas's Portfolio & Skills Repository
-**Version**: 2.0 (Portfolio-First)
+**Version**: 2.1 (Portfolio-First, Architecture Locked)
 **Date**: 2026-02-07
 **Author**: Nicolas (with multi-agent collaborative input)
 **Status**: Ready for Design & Implementation
@@ -799,6 +799,80 @@ User Notification (optional)
 - C) Deep historical (comprehensive archaeology)
 
 **Recommendation**: Forward-only for Phase 1; historical becomes Phase 3+ option
+
+---
+
+## v2.1 Amendments (2026-02-11)
+
+The following decisions were made during UX design, UI prototyping, and architecture sessions. They refine — not replace — the original PRD vision.
+
+### Technology Locks
+
+| Component | PRD v2.0 | Locked Decision | Rationale |
+|---|---|---|---|
+| Frontend (Portfolio) | Hugo | **Hugo + TailBliss + TailwindCSS 4.1** | Already running, OKLCH configured |
+| Frontend (BackOffice) | "React/Vue" | **Svelte + Vite + TailwindCSS 4.1** | Reactive, fast iteration, proven in betterCallSaul MVP |
+| Backend | "Node.js / Python (FastAPI)" | **FastAPI (Python only)** | Config-driven, layered architecture, proven with 49 tests in betterCallSaul |
+| Graph ingestion | Graphiti | **Graphiti (confirmed)** | Temporal tracking, convergence detection |
+| Graph DB | Neo4j | **Neo4j (confirmed)** | Flexible relationships, compatible with Graphiti |
+| Pearl/training storage | "PostgreSQL or Vector DB" | **PostgreSQL** | Structured metadata + append-only training log |
+| Hosting (Portfolio) | "TBD (Vercel, Netlify, self-hosted)" | **Netlify** | Git push → CDN rebuild, zero-config |
+| Hosting (BackOffice) | TBD | **Docker container** | Local network first, VPS deployable later |
+| Visualization | "D3.js / Cytoscape.js" | **D3.js** | Custom SVG/Canvas, full style control |
+| Diagrams | Not specified | **Mermaid** | AI-friendly, renders in Hugo + Svelte, git-diffable |
+
+### Architecture Change: Linked Repos (Not Monorepo)
+
+The UX spec proposed a monorepo (`shared/tokens/ + portfolio/ + backoffice/`). This was revised to **linked repos**:
+
+- `ndb_hugo-tailbliss/` — Hugo portfolio (this repo, deploys to Netlify)
+- `ndb_backoffice/` — Svelte + FastAPI (separate repo, Docker container)
+- `ndb_design-tokens/` — shared CSS tokens (extracted when second consumer exists)
+
+**Rationale:** Portfolio and backoffice have different lifecycles, different deploy methods, and different audiences. Don't restructure the working Hugo repo. Define tokens in Hugo first, extract when backoffice starts consuming them.
+
+### Phasing Change: Walking Skeleton (Phase 0)
+
+The original PRD proposed horizontal phases (Foundation → Emergence → Visualization → Integration). This is replaced by **vertical slices**:
+
+**Phase 0 (Walking Skeleton):** Prove the full pipeline end-to-end with one thin slice:
+1. Hugo portfolio with real visual charter (not generic TailBliss)
+2. Minimal BackOffice: import notes → pearl list → basic graph view
+3. FastAPI backend: ingestion + Graphiti + basic graph queries
+4. One compose/publish flow: select pearls → draft → git commit → Hugo rebuilds
+5. One published post derived from real pearl data
+
+**Frontend-first priority:** Update portfolio UI to implement the design spec, deploy to Netlify, document progress as posts — while building the backoffice in parallel. The two apps are not directly connected, so this is a viable strategy.
+
+### Capture Model Refinement: Upload-First
+
+The PRD proposed "CLI or markdown-based" capture. The UX design refined this to **upload-first**:
+
+- BackOffice receives content, doesn't create it (content created elsewhere — workshop, field, edge devices)
+- Upload raw material → AI pre-processing (chunk, label, categorize) → pearl candidates for validation
+- **AI proposes, user decides** — chunking boundaries, labels, categorization all user-validated
+- Every accept/reject/edit is a labeled data point (validation IS training)
+
+### Narrative Model: Pearl / Necklace / Pattern
+
+Three scales of story refined from the original flat model:
+
+| Scale | Metaphor | Time range | Content |
+|---|---|---|---|
+| Micro | Pearl | Moment | Single capture (note, photo, idea) |
+| Meso | Necklace | Days/weeks | Composed post, milestone, savepoint |
+| Macro | Pattern | Months/years | Skill arc, capability narrative |
+
+### Two-Layer Storage
+
+| Layer | Database | Purpose |
+|---|---|---|
+| Operational | Neo4j (graph) | Current state: validated labels, confidence, relationships, queries |
+| Training | PostgreSQL (log) | Historical diffs: AI proposal vs. user action, immutable ledger |
+
+### Design Spec Reference
+
+Visual charter, typography, color system, component specifications, and interaction patterns are documented in `_bmad-output/implementation-artifacts/DESIGN-SPEC.md` (2026-02-10, updated 2026-02-11). That document is the authoritative source for all UI/UX implementation decisions.
 
 ---
 

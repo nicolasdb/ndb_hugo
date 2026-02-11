@@ -91,12 +91,14 @@ Build a **living knowledge graph** (with temporal tracking) that:
 
 | Resource | Status | Notes |
 |----------|--------|-------|
-| Graph Database (Neo4j, etc.) | ⚙️ TBD | Open-source option preferred |
+| Graph Database | ✅ Neo4j + Graphiti | Temporal knowledge graph, convergence detection |
 | LLM Integration (Claude API) | ✅ Available | Existing account; cost-effective |
-| Data Schema Design | ✅ In Progress | Multi-dimensional skill model defined |
-| Visualization Library | ⚙️ TBD | D3.js, Cytoscape.js candidates |
-| Backend (Node.js/Python) | ⚙️ TBD | Simple API for capture + queries |
-| Time & Iteration | ⚙️ Critical | 12-16 weeks estimated for full vision |
+| Data Schema Design | ✅ Locked | Pearl/necklace/pattern model, two-layer storage (Neo4j + PostgreSQL) |
+| Visualization Library | ✅ D3.js | Custom SVG/Canvas, full style control |
+| Backend | ✅ FastAPI (Python) | Config-driven, layered architecture, proven in betterCallSaul MVP |
+| BackOffice Frontend | ✅ Svelte + Vite | Reactive UI, TailwindCSS 4.1, containerized |
+| Design System | ✅ Locked | TailwindCSS 4.1, OKLCH tokens, "The Archivist" typography |
+| Time & Iteration | ⚙️ Active | Phase 0 walking skeleton approach (vertical slices) |
 
 ### Constraints
 
@@ -107,10 +109,12 @@ Build a **living knowledge graph** (with temporal tracking) that:
 
 ### What's Available
 
-✅ Portfolio site infrastructure (Hugo + TailwindCSS)
+✅ Portfolio site infrastructure (Hugo + TailBliss + TailwindCSS 4.1 + OKLCH)
+✅ Visual charter and design tokens locked (DESIGN-SPEC.md, design-tokens.css)
+✅ UI prototypes for portfolio homepage, post page, backoffice, and lobby
+✅ Proven backend baseline (FastAPI + SvelteKit from betterCallSaul MVP)
 ✅ Existing outcome/project documentation
 ✅ Network of advisors with domain expertise
-✅ Community interest in skill visualization
 
 ---
 
@@ -173,10 +177,14 @@ Build a **living knowledge graph** (with temporal tracking) that:
 
 - ✅ **README** (this file) - Project overview + grant template structure
 - ✅ **CLAUDE.md** - Development guidelines + architecture notes
-- ✅ **PRD** (`_bmad-output/01-prd-skill-discovery-system.md`) - Complete specification
-- ⏳ **Architecture Docs** (Phase 2) - System design details
-- ⏳ **User Guide** (Phase 4) - How to use the skill discovery system
-- ⏳ **API Reference** (Phase 2) - Outcome logging + query endpoints
+- ✅ **PRD v2.1** (`_bmad-output/01-prd-skill-discovery-system.md`) - Complete specification with architecture amendments
+- ✅ **UX Design Spec** (`_bmad-output/planning-artifacts/ux-design-specification.md`) - UX framework (steps 1-7 of 14)
+- ✅ **Design Spec** (`_bmad-output/implementation-artifacts/DESIGN-SPEC.md`) - Visual charter, typography, colors, components
+- ✅ **Design Tokens** (`_bmad-output/implementation-artifacts/design-tokens.css`) - CSS custom properties (OKLCH)
+- ✅ **UI Prototypes** (`_bmad-output/implementation-artifacts/`) - HTML mockups for portfolio, backoffice, lobby, post page
+- ⏳ **Architecture Doc** - In progress (linked repos, deployment topology, tech stack)
+- ⏳ **User Guide** (Phase 1+) - How to use the skill discovery system
+- ⏳ **API Reference** (Phase 1+) - Outcome logging + query endpoints
 
 ### Open-Source Commitment
 
@@ -197,33 +205,39 @@ Documentation will be:
 
 ## 🚀 Implementation Roadmap
 
-### Phase 1: Foundation (Weeks 1-4)
-- [ ] Design outcome logging mechanism (CLI or markdown)
-- [ ] Build graph DB schema + data model
-- [ ] Implement XP calculation engine
-- [ ] Create basic graph query API
-- [ ] Establish manual skill tagging workflow
+**Strategy:** Vertical slices (walking skeleton), not horizontal layers. Each phase delivers end-to-end value. Frontend-first priority — portfolio ships while backoffice develops in parallel.
 
-### Phase 2: Emergence (Weeks 5-8)
-- [ ] Build memory pearl capture system
-- [ ] Integrate LLM skill discovery pipeline
-- [ ] Create relationship inference engine
-- [ ] Implement pearl serendipity matching
-- [ ] Build skill validation UI
+**Architecture:** Linked repos. Hugo portfolio (this repo, Netlify). BackOffice (separate repo, Docker container). Shared design tokens extracted when second consumer exists.
 
-### Phase 3: Visualization (Weeks 9-12)
-- [ ] Design + build interactive graph visualization
-- [ ] Create timeline/narrative view
-- [ ] Map exploration frontier + fog of war
-- [ ] Build skill detail pages
-- [ ] Implement visibility controls (public/private)
+### Phase 0: Walking Skeleton (Current)
 
-### Phase 4: Integration & Polish (Weeks 13+)
-- [ ] Integrate into portfolio site
-- [ ] Design foundational pages (Graph, Timeline, Frontier, Memory)
-- [ ] Optimize performance & UX
-- [ ] User testing & refinement
-- [ ] Documentation & open-source release
+**Portfolio (this repo):**
+- [x] Design spec locked (typography, colors, spacing, components)
+- [x] Design tokens defined (OKLCH, CSS custom properties)
+- [x] UI prototypes created (homepage, post page, backoffice, lobby)
+- [ ] Implement design spec in Hugo templates (replace generic TailBliss)
+- [ ] Deploy to Netlify
+- [ ] Publish first posts documenting progress
+
+**BackOffice (separate repo, parallel track):**
+- [ ] Set up repo from betterCallSaul baseline (FastAPI + Svelte)
+- [ ] Minimal pearl capture: upload → AI processing → validation queue
+- [ ] Basic graph view (D3.js static force-directed)
+- [ ] One compose/publish flow: pearls → draft → git commit → Hugo rebuilds
+
+### Phase 1: Emergence
+- [ ] Full pearl capture pipeline (multi-format: text, images, code)
+- [ ] Pattern recognition pipeline (embed → cluster → label → validate)
+- [ ] Natural language graph queries
+- [ ] %Confidence display and training gauge
+- [ ] Import existing data (Obsidian vaults, Logseq graphs)
+
+### Phase 2: Visualization & Frontier
+- [ ] Interactive graph visualization (temporal force-directed)
+- [ ] Pattern gallery on portfolio (skill subgraph cards)
+- [ ] Timeline view (anagnorisis moments)
+- [ ] Fog of war / frontier mapping (500+ pearls threshold)
+- [ ] Edge devices (Rust + ESP32-S3, parallel track)
 
 ---
 
@@ -259,5 +273,7 @@ You can share and adapt with attribution.
 pnpm run dev:watch    # Start development at http://localhost:1313
 ```
 
-**Built with**: [Hugo](https://gohugo.io/) + [TailwindCSS](https://tailwindcss.com/) + [Alpine.js](https://alpinejs.dev/)
+**Built with**: [Hugo](https://gohugo.io/) + [TailwindCSS 4.1](https://tailwindcss.com/) + [Alpine.js](https://alpinejs.dev/) + OKLCH color space
+**Design system**: "The Archivist" — Literata + Hanken Grotesk + Commit Mono
+**Deploys to**: [Netlify](https://netlify.com/) (git push → CDN rebuild)
 For full setup and technical documentation, see the [TailBliss theme repository](https://github.com/nusserstudios/tailbliss).
