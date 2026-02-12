@@ -1,6 +1,6 @@
 # Story 1.1: Remove TailBliss Defaults & Sample Content
 
-Status: ready-for-dev
+Status: done
 
 ## Story
 
@@ -21,53 +21,53 @@ So that I have a clean slate to build my own visual identity.
 
 ## Tasks / Subtasks
 
-- [ ] Task 1: Remove 14 sample posts (AC: #1)
-  - [ ] Delete `content/posts/blog-post-{1-7}.md` (7 files)
-  - [ ] Delete `content/posts/news-post-{1-7}.md` (7 files)
-- [ ] Task 2: Remove unused partials (AC: #2)
-  - [ ] Delete `layouts/partials/newsletter.html`
-  - [ ] Delete `layouts/partials/posts-template.html`
-  - [ ] Delete `layouts/partials/post-tile.html`
-  - [ ] Remove `{{ partial "newsletter.html" . }}` call from `layouts/index.html:210`
-  - [ ] Remove `{{ partial "post-tile.html" . }}` call from `layouts/index.html:201`
-  - [ ] Remove `{{ partial "posts-template.html" . }}` call from `layouts/_default/list.html:16`
-- [ ] Task 3: Remove TailBliss branding images (AC: #3, #4)
-  - [ ] Delete `assets/images/pages/tailbliss-rocket-indigo.png`
-  - [ ] Delete `assets/images/pages/hacktoberfest.jpg`
-  - [ ] Delete `assets/images/global/sample-logo.svg`
-  - [ ] Delete `static/images/sample-logo.svg`
-  - [ ] Delete `static/images/tailbliss-cover.png`
-  - [ ] Delete `static/images/tailbliss-full-blue.png`
-  - [ ] Delete `static/images/tailbliss-full-blue.svg`
-  - [ ] Delete `static/images/tailbliss-rocket-indigo.webp`
-  - [ ] Delete `static/images/tailbliss-white.svg`
-  - [ ] Delete `images/logo-tailbliss-round.svg` (root `images/` dir)
-  - [ ] Delete `images/tailbliss-lighthouse-11-03-22.png` (root `images/` dir)
-  - [ ] Remove hero image references from `layouts/index.html:20` and `layouts/partials/head.html:23`
-  - [ ] Remove sample-logo fallback from `layouts/index.html:154` (sponsors section)
-- [ ] Task 4: Remove unused platform configs (AC: #5)
-  - [ ] Delete `Dockerfile`
-  - [ ] Delete `nginx.conf`
-  - [ ] Delete `nixpacks.toml`
-  - [ ] Delete `cloudflare.md`
-  - [ ] Delete `theme.toml`
-- [ ] Task 5: Review and remove `content/prose.md` (AC: #6)
-  - [ ] Confirm prose.md is TailBliss typography demo (375+ lines of lorem ipsum) — remove it
-  - [ ] Remove `assets/images/featured/featured-img-placeholder.png` referenced by prose.md
-- [ ] Task 6: Audit `assets/css/style.css` (AC: #7)
-  - [ ] Read style.css (large file ~50k tokens) — identify anything NOT covered by TailwindCSS 4.1 + main.css
-  - [ ] If useful styles exist: merge into `assets/css/main.css` under custom utilities section
-  - [ ] If no useful content: delete entirely
-  - [ ] Verify no templates reference style.css directly (check `<link>` tags, `@import` statements)
-- [ ] Task 7: Clean up template references to removed files (AC: #8)
-  - [ ] Update `layouts/index.html` — remove/stub sections that referenced deleted content (hero image, blog section with post-tile, newsletter, sponsors with sample-logo)
-  - [ ] Update `layouts/_default/list.html` — remove posts-template partial call
-  - [ ] Update `layouts/partials/head.html` — remove hero image preload
-  - [ ] Grep codebase for "tailbliss", "sample-logo", "hacktoberfest", "newsletter" — fix any remaining references
-- [ ] Task 8: Verify Hugo build passes (AC: #8)
-  - [ ] Run `pnpm run test` — must pass
-  - [ ] Run `pnpm run dev` — site loads without errors in browser
-  - [ ] Confirm no broken image references or missing partial errors in console
+- [x] Task 1: Remove 14 sample posts (AC: #1)
+  - [x] Delete `content/posts/blog-post-{1-7}.md` (7 files)
+  - [x] Delete `content/posts/news-post-{1-7}.md` (7 files)
+- [x] Task 2: Remove unused partials (AC: #2)
+  - [x] Delete `layouts/partials/newsletter.html`
+  - [x] Delete `layouts/partials/posts-template.html`
+  - [x] Delete `layouts/partials/post-tile.html`
+  - [x] Remove `{{ partial "newsletter.html" . }}` call from `layouts/index.html:210`
+  - [x] Remove `{{ partial "post-tile.html" . }}` call from `layouts/index.html:201`
+  - [x] Remove `{{ partial "posts-template.html" . }}` call from `layouts/_default/list.html:16`
+- [x] Task 3: Remove TailBliss branding images (AC: #3, #4)
+  - [x] Delete `assets/images/pages/tailbliss-rocket-indigo.png`
+  - [x] Delete `assets/images/pages/hacktoberfest.jpg`
+  - [x] Delete `assets/images/global/sample-logo.svg`
+  - [x] Delete `static/images/sample-logo.svg`
+  - [x] Delete `static/images/tailbliss-cover.png`
+  - [x] Delete `static/images/tailbliss-full-blue.png`
+  - [x] Delete `static/images/tailbliss-full-blue.svg`
+  - [x] Delete `static/images/tailbliss-rocket-indigo.webp`
+  - [x] Delete `static/images/tailbliss-white.svg`
+  - [x] Delete `images/logo-tailbliss-round.svg` (root `images/` dir)
+  - [x] Delete `images/tailbliss-lighthouse-11-03-22.png` (root `images/` dir)
+  - [x] Remove hero image references from `layouts/index.html:20` and `layouts/partials/head.html:23`
+  - [x] Remove sample-logo fallback from `layouts/index.html:154` (sponsors section)
+- [x] Task 4: Remove unused platform configs (AC: #5)
+  - [x] Delete `Dockerfile`
+  - [x] Delete `nginx.conf`
+  - [x] Delete `nixpacks.toml`
+  - [x] Delete `cloudflare.md`
+  - [x] Delete `theme.toml`
+- [x] Task 5: Review and remove `content/prose.md` (AC: #6)
+  - [x] Confirm prose.md is TailBliss typography demo (375+ lines of lorem ipsum) — remove it
+  - [x] Remove `assets/images/featured/featured-img-placeholder.png` referenced by prose.md
+- [x] Task 6: Audit `assets/css/style.css` (AC: #7)
+  - [x] Read style.css (large file ~50k tokens) — identify anything NOT covered by TailwindCSS 4.1 + main.css
+  - [x] If useful styles exist: merge into `assets/css/main.css` under custom utilities section
+  - [x] If no useful content: delete entirely
+  - [x] Verify no templates reference style.css directly (check `<link>` tags, `@import` statements)
+- [x] Task 7: Clean up template references to removed files (AC: #8)
+  - [x] Update `layouts/index.html` — remove/stub sections that referenced deleted content (hero image, blog section with post-tile, newsletter, sponsors with sample-logo)
+  - [x] Update `layouts/_default/list.html` — remove posts-template partial call
+  - [x] Update `layouts/partials/head.html` — remove hero image preload
+  - [x] Grep codebase for "tailbliss", "sample-logo", "hacktoberfest", "newsletter" — fix any remaining references
+- [x] Task 8: Verify Hugo build passes (AC: #8)
+  - [x] Run `pnpm run test` — must pass
+  - [x] Run `pnpm run dev` — site loads without errors in browser
+  - [x] Confirm no broken image references or missing partial errors in console
 
 ## Dev Notes
 
@@ -140,10 +140,77 @@ Per architecture D3.1: Create branch `phase0/1-1-remove-tailbliss-defaults` from
 
 ### Agent Model Used
 
-{{agent_model_name_version}}
+Claude Opus 4.6
 
 ### Debug Log References
 
 ### Completion Notes List
 
+- Deleted 14 sample posts (7 blog-post, 7 news-post)
+- Deleted 3 unused partials (newsletter.html, posts-template.html, post-tile.html)
+- Deleted 11 TailBliss branding/sample images across assets/, static/, and root images/
+- Deleted 5 unused platform configs (Dockerfile, nginx.conf, nixpacks.toml, cloudflare.md, theme.toml)
+- Deleted content/prose.md (TailBliss typography demo) and its placeholder image
+- Deleted assets/css/style.css — confirmed as old Tailwind v3 compiled output, entirely redundant with Vite + TailwindCSS 4.1 pipeline
+- Updated layouts/index.html: removed hero image, blog/post-tile section, sponsors section, newsletter section; kept P1/P2 sections with site params; added comment stubs for future stories
+- Updated layouts/_default/list.html: replaced posts-template partial call with comment stub
+- Updated layouts/partials/head.html: removed hero image preload block
+- Updated hugo.yaml: cleared og_image to empty string, disabled newsletter_signup
+- **CODE REVIEW FIXES (2026-02-12):**
+  - Fixed hugo.yaml: changed title from "TailBliss" to "Nicolas de Barquin", baseURL cleared, author changed to "Nicolas de Barquin", moto/description updated to portfolio-specific text, removed Hacktoberfest heading, disabled all social media links (nusserstudios URLs removed)
+  - Fixed package.json: changed name to "ndb-portfolio", author to "Nicolas de Barquin", repository URLs updated to ndb/ndb_hugo-tailbliss
+  - Fixed layouts/partials/footer.html: removed "Made with ❤️ by Nusser Studios" credit line
+  - Fixed archetypes/default.md: changed author from "TailBliss" to "Nicolas de Barquin"
+  - Fixed CLAUDE.md: updated partials list to remove references to deleted newsletter/post-tile partials
+- Note: root images/ directory still has screenshot.jpg and tn.jpg (TailBliss theme screenshots, not explicitly in story scope)
+- `pnpm run test` passes: 11 pages, 0 errors, 142ms build
+
 ### File List
+
+**Deleted:**
+- content/posts/blog-post-1.md
+- content/posts/blog-post-2.md
+- content/posts/blog-post-3.md
+- content/posts/blog-post-4.md
+- content/posts/blog-post-5.md
+- content/posts/blog-post-6.md
+- content/posts/blog-post-7.md
+- content/posts/news-post-1.md
+- content/posts/news-post-2.md
+- content/posts/news-post-3.md
+- content/posts/news-post-4.md
+- content/posts/news-post-5.md
+- content/posts/news-post-6.md
+- content/posts/news-post-7.md
+- layouts/partials/newsletter.html
+- layouts/partials/posts-template.html
+- layouts/partials/post-tile.html
+- assets/images/pages/tailbliss-rocket-indigo.png
+- assets/images/pages/hacktoberfest.jpg
+- assets/images/global/sample-logo.svg
+- assets/images/featured/featured-img-placeholder.png
+- static/images/sample-logo.svg
+- static/images/tailbliss-cover.png
+- static/images/tailbliss-full-blue.png
+- static/images/tailbliss-full-blue.svg
+- static/images/tailbliss-rocket-indigo.webp
+- static/images/tailbliss-white.svg
+- images/logo-tailbliss-round.svg
+- images/tailbliss-lighthouse-11-03-22.png
+- Dockerfile
+- nginx.conf
+- nixpacks.toml
+- cloudflare.md
+- theme.toml
+- content/prose.md
+- assets/css/style.css
+
+**Modified:**
+- layouts/index.html
+- layouts/_default/list.html
+- layouts/partials/head.html
+- layouts/partials/footer.html
+- hugo.yaml
+- package.json
+- archetypes/default.md
+- CLAUDE.md

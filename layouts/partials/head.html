@@ -18,16 +18,7 @@
 <link href="https://static.cloudflareinsights.com" rel="preconnect" rel="dns-prefetch">
 <link href="https://static.cloudflareinsights.com" crossorigin="anonymous" rel="preconnect">
 
-{{/* Preload critical hero image for better LCP performance */}}
-{{ if .IsHome }}
-{{ $heroImage := resources.Get "images/pages/tailbliss-rocket-indigo.png" }}
-{{ if $heroImage }}
-{{ $heroWebP := $heroImage.Resize "576x576 webp q85" }}
-<link href="{{ $heroWebP.RelPermalink }}" rel="preload" as="image" fetchpriority="high" loading="eager">
-{{ else }}
-<link as="image" href="/images/tailbliss-rocket-indigo.webp" rel="preload" fetchpriority="high" loading="eager">
-{{ end }}
-{{ end }}
+{{/* Hero image preload — added in Story 2.3 when hero is redesigned */}}
 
 {{/* Preload critical navigation logo to prevent CLS */}}
 <link href="/images/site-logo.svg" rel="preload" as="image" fetchpriority="high" loading="eager">

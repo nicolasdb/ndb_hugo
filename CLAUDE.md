@@ -75,7 +75,7 @@ node install.js       # Alternative: Direct install script execution
 
 ### Template Structure
 - **`baseof.html`**: Wraps all pages with `{{ block "main" . }}` for content injection
-- **Partials**: Reusable components (nav, footer, newsletter, post-tile, pagination)
+- **Partials**: Reusable components (nav, footer, head, meta, pagination)
 - **Shortcodes**: `imgc` for WebP image optimization with lazy loading
 - **Index & List Pages**: Homepage and category/tag archive pages with pagination (9 items/page)
 
