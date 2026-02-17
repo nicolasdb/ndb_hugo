@@ -1,6 +1,6 @@
 # Story 1.4: Deploy to Netlify & Verify Pipeline
 
-Status: in-progress
+Status: done
 
 <!-- Note: Validation is optional. Run validate-create-story for quality check before dev-story. -->
 
@@ -54,9 +54,9 @@ So that the full build/deploy pipeline is proven and I can deploy incrementally 
   - [x] 4.3 Verify Netlify triggers automatic rebuild
   - [x] 4.4 Verify updated site is live after rebuild
 
-- [ ] Task 5: Tag milestone (AC: #7) **After deployment verified**
-  - [ ] 5.1 Tag `v0.1.0-phase0-foundation` on `main` after successful deployment
-  - [ ] 5.2 Push tag to remote
+- [x] Task 5: Tag milestone (AC: #7) **After deployment verified**
+  - [x] 5.1 Tag `v0.1.0-phase0-foundation` on `main` after successful deployment
+  - [x] 5.2 Push tag to remote
 
 - [x] Task 6: Verify build passes locally (all ACs)
   - [x] 6.1 Run `pnpm run build` locally — must succeed

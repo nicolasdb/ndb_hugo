@@ -1,16 +1,16 @@
 {{ define "main" }}
 <main>
     {{/* Hero section — redesigned in Story 2.3 */}}
-    <div class="bg-gray-200 dark:bg-gray-900">
+    <div class="bg-gray-200">
         <div class="px-4 py-8 mx-auto max-w-screen-xl">
             <div class="text-center lg:text-left">
-                <h1 class="mb-2 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl xl:text-6xl dark:text-white">
+                <h1 class="mb-2 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl xl:text-6xl">
                     {{ .Site.Title }}
                 </h1>
-                <h2 class="pb-2 text-3xl font-light text-gray-800 dark:text-gray-300 md:text-4xl">
+                <h2 class="pb-2 text-3xl font-light text-gray-800 md:text-4xl">
                     {{ .Site.Params.Moto }}
                 </h2>
-                <p class="mx-auto mb-6 max-w-xl font-normal text-gray-900 lg:mx-0 xl:mb-2 md:text-lg xl:text-xl dark:text-gray-50">
+                <p class="mx-auto mb-6 max-w-xl font-normal text-gray-900 lg:mx-0 xl:mb-2 md:text-lg xl:text-xl">
                     {{ .Site.Params.Description}}
                 </p>
             </div>
@@ -35,13 +35,13 @@
             </div>
             <div class="relative px-4 mx-auto max-w-md sm:max-w-3xl sm:px-6 lg:px-0">
                 <div class="md:pt-12 sm:pt-6 lg:pt-20">
-                    <h2 class="text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-50 sm:text-4xl">
+                    <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
                         {{ .Heading }}
                     </h2>
-                    <div class="mt-6 text-gray-900 dark:text-white">
-                        <div class="mt-6 space-y-6 text-gray-900 dark:text-white">
+                    <div class="mt-6 text-gray-900">
+                        <div class="mt-6 space-y-6 text-gray-900">
                             {{ range .Content }}
-                            <p class="text-lg text-gray-900 dark:text-white">
+                            <p class="text-lg text-gray-900">
                                 {{ .text }}
                             </p>
                             {{ end }}
@@ -60,11 +60,11 @@
             <div>
                 <div class="md:mt-8">
                     <div class="mt-6 sm:max-w-xl">
-                        <h2 class="text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white sm:text-4xl md:mt-16">
+                        <h2 class="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl md:mt-16">
                             {{ .Heading }}
                         </h2>
                         {{ range .Content }}
-                        <p class="pb-12 mt-6 text-lg text-gray-900 dark:text-white">
+                        <p class="pb-12 mt-6 text-lg text-gray-900">
                             {{ .text }}
                         </p>
                         {{ end }}

@@ -4,8 +4,6 @@
 /* 2. TailwindCSS */
 @import "tailwindcss";
 
-@custom-variant dark (&:where(.dark, .dark *));
-
 @utility prose-2xl {
   max-width: 80ch !important;
   font-size: 110%;
@@ -111,7 +109,7 @@ img[loading="lazy"] {
     
     /* State patterns */
     "hover:*", "focus:*", "active:*", "disabled:*", "visited:*",
-    "dark:*", "group-hover:*", "group-focus:*",
+    "group-hover:*", "group-focus:*",
     
     /* Form & Interaction patterns */
     "placeholder:*", "focus-within:*", "focus-visible:*",
@@ -422,75 +420,6 @@ img[loading="lazy"] {
   margin: 0;
 }
 
-/* Dark mode prose styles */
-.dark .prose {
-  color: var(--color-zinc-200);
-}
-
-.dark .prose h1,
-.dark .prose h2,
-.dark .prose h3,
-.dark .prose h4,
-.dark .prose h5,
-.dark .prose h6 {
-  color: var(--color-white);
-}
-
-.dark .prose strong {
-  color: var(--color-white);
-}
-
-.dark .prose a {
-  color: var(--color-indigo-400);
-}
-
-.dark .prose a:hover {
-  color: var(--color-indigo-300);
-}
-
-.dark .prose blockquote {
-  color: var(--color-zinc-100);
-  border-left-color: var(--color-zinc-700);
-}
-
-.dark .prose code {
-  color: var(--color-indigo-400);
-  background-color: var(--color-zinc-800);
-}
-
-.dark .prose pre {
-  color: var(--color-zinc-200);
-  background-color: var(--color-zinc-900);
-}
-
-.dark .prose pre code {
-  color: var(--color-indigo-300);
-}
-
-.dark .prose thead {
-  border-bottom-color: var(--color-zinc-600);
-}
-
-.dark .prose thead th {
-  color: var(--color-white);
-}
-
-.dark .prose tbody tr {
-  border-bottom-color: var(--color-zinc-700);
-}
-
-/* Dark mode placeholder text fix */
-.dark input::placeholder,
-.dark textarea::placeholder {
-  color: var(--color-gray-300);
-  opacity: 1;
-}
-
-#cta-email .dark input::placeholder,
-#cta-email .dark textarea::placeholder {
-  color: var(--color-gray-400);
-  opacity: 1;
-}
 
 /* Light mode placeholder text */
 input::placeholder,

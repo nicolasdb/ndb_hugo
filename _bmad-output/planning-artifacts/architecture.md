@@ -234,12 +234,22 @@ Use existing `imgc` shortcode for WebP optimization with lazy loading. Images st
 
 ### Frontend Architecture
 
-**D2.1: CSS Integration — Separate Import**
+**D2.1: CSS Integration — Separate Import with Fixed Theme Philosophy**
 
 Design tokens lifecycle:
-- **Spec reference:** `_bmad-output/implementation-artifacts/design-tokens.css` (authoritative spec)
-- **Live implementation:** `assets/css/design-tokens.css` (what Hugo/Vite actually processes)
+- **Spec reference:** `_bmad-output/implementation-artifacts/design-tokens.css` (authoritative spec — complete with `.light` and `.dark` blocks)
+- **Live implementation:** `assets/css/design-tokens.css` (what Hugo/Vite actually processes — identical copy of spec)
 - Phase 0 implementation copies spec tokens into `assets/css/`. The `_bmad-output` version remains the design reference; `assets/css/` is the running code.
+
+**Fixed theme philosophy (radical and simple):**
+- **Portfolio:** ALWAYS light theme. No dark mode, no OS detection, no toggling. The `.light` block is used exclusively. The `.dark` block exists in tokens but is never activated in portfolio templates or CSS.
+- **BackOffice:** ALWAYS dark theme (when it exists in future repo). No light mode, no switching. The `.dark` block is used exclusively. Design is intentional and fixed, not reactive.
+
+**Design-tokens.css is the single source of truth** for both apps:
+- Contains complete token definitions: `.light { }` and `.dark { }`
+- Portfolio consumes: light block only
+- BackOffice consumes: dark block only
+- No theme switching logic in either app — each has one aesthetic
 
 Import chain in `assets/css/main.css` (order matters):
 ```css
@@ -254,8 +264,14 @@ Import chain in `assets/css/main.css` (order matters):
 
 Vite processes this import chain. Tokens must be defined before Tailwind's `@theme` block references them — verify during first build.
 
-- **Rationale:** Clean separation. When backoffice starts, extract `assets/css/design-tokens.css` to `ndb_design-tokens/` package. The `@import` path changes, nothing else does.
-- **Affects:** Build pipeline (Vite processes the import chain), future token extraction
+**Portfolio CSS implications (fixed light theme):**
+- `<html>` element always has `.light` class (never `.dark`)
+- No `@custom-variant dark` or `dark:` Tailwind variants needed
+- No `.dark .prose` or other dark-mode-specific styles in CSS
+- All CSS refers to light-theme tokens exclusively
+
+- **Rationale:** Clean separation. Single token file serves both apps intentionally. Portfolio is the "light gallery", BackOffice is the "dark workshop" — different aesthetics by design, not by user preference. When backoffice starts, extract `assets/css/design-tokens.css` to `ndb_design-tokens/` package. Each app uses its native theme block.
+- **Affects:** Build pipeline (Vite processes the import chain), portfolio CSS architecture (light-only, no dark variant support), future token extraction
 
 **D2.2: Responsive Breakpoints — Tailwind Defaults**
 
