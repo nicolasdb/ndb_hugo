@@ -2,6 +2,8 @@
 node_modules/
 resources/
 public/
+# Vite-generated CSS build artifacts (rebuilt on every deploy)
+static/css/
 .hugo_build.lock
 .vercel
 yarn-error.log

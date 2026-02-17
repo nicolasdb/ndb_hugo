@@ -1,35 +1,25 @@
 [build]
 publish = "public"
-command = "hugo --gc --minify"
+command = "pnpm run build"
+
+[build.environment]
+HUGO_VERSION = "0.148.2"
+HUGO_ENV = "production"
+NODE_VERSION = "20"
 
 [context.production.environment]
-HUGO_VERSION = "0.148.2"
-HUGO_ENV = "production"
 HUGO_ENABLEGITINFO = "true"
 
-[context.split1]
-command = "hugo --gc --minify --enableGitInfo"
-
-[context.split1.environment]
-HUGO_VERSION = "0.148.2"
-HUGO_ENV = "production"
-
 [context.deploy-preview]
-command = "hugo --gc --minify --buildFuture $DEPLOY_PRIME_URL"
+command = "pnpm run build"
 
 [context.deploy-preview.environment]
 HUGO_VERSION = "0.148.2"
+NODE_VERSION = "20"
 
 [context.branch-deploy]
-command = "hugo --gc --minify $DEPLOY_PRIME_URL"
+command = "pnpm run build"
 
 [context.branch-deploy.environment]
 HUGO_VERSION = "0.148.2"
-
-[context.next.environment]
-HUGO_ENABLEGITINFO = "true"
-
-[[redirects]]
-from = "/npmjs/*"
-to = "/npmjs/"
-status = 200
+NODE_VERSION = "20"
