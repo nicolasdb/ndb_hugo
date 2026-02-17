@@ -1,6 +1,6 @@
 baseURL: '' # To be configured when deployed
 title: Nicolas de Barquin
-languageCode: en-us
+languageCode: en-be
 DefaultContentLanguage: en
 enableEmoji: true
 enableGitInfo: false
@@ -49,7 +49,7 @@ params:
   authorimage: ../assets/images/global/author.webp
   og_image: ""
   moto: "Portfolio & Skills Repository"
-  description: "Personal portfolio showcasing projects, skills, and growth journey."
+  description: "Personal portfolio showcasing projects, skills, and current growth journey."
   disable_theme_toggle: true
   newsletter_signup: false
 
