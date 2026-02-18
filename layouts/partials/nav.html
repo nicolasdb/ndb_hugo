@@ -1,18 +1,20 @@
 <nav x-data="{ scrolled: false, open: false }"
-     @scroll.window="scrolled = window.scrollY > 10"
+     @scroll.window="scrolled = window.scrollY > 20"
      @keydown.escape="open = false"
-     :class="scrolled ? 'bg-[var(--surface-elevated)]/80 backdrop-blur-[10px] border-b border-[var(--border)]' : 'bg-transparent'"
-     class="fixed top-0 w-full z-50 transition-none h-[54px]">
+     :class="scrolled ? 'bg-[var(--surface)]/90 backdrop-blur-[10px] border-b border-[var(--border)]' : 'bg-[var(--surface)] border-b border-transparent'"
+     class="sticky top-0 w-full z-50 transition-none h-[54px]">
   <div class="mx-auto max-w-[920px] px-4 h-full flex items-center justify-between">
     {{/* Logo */}}
-    <a href="/" class="font-heading text-[18px] font-medium text-[var(--text-primary)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--text-primary)]">ndb</a>
+    <a href="/" aria-label="Nicolas de Barquin — home" class="flex items-center focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--text-primary)]">
+      <img src="/images/debarquin.svg" alt="" aria-hidden="true" width="28" height="28" style="width:28px;height:28px" class="w-7 h-7" />
+    </a>
 
     {{/* Desktop nav links */}}
     <div class="hidden sm:flex items-center gap-6">
       {{ range .Site.Menus.main }}
         {{ if ne .Identifier "home" }}
         <a href="{{ .URL }}"
-           class="font-body text-[14px] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--text-primary)] {{ if $.IsMenuCurrent "main" . }}text-[var(--text-primary)] font-semibold{{ else }}text-[var(--text-secondary)] font-normal hover:text-[var(--text-primary)]{{ end }}">
+           class="font-mono text-[14px] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--text-primary)] {{ if $.IsMenuCurrent "main" . }}text-[var(--text-primary)] font-semibold{{ else }}text-[var(--text-secondary)] font-normal hover:text-[var(--text-primary)]{{ end }}">
           {{ .Name }}
         </a>
         {{ end }}

@@ -1,0 +1,26 @@
+{{ with .Params.hero }}
+<header aria-label="Hero" class="mx-auto max-w-[920px] px-8 pt-[68px] pb-[52px]">
+  <h1 class="font-heading text-[40px] font-bold tracking-[-0.02em] max-w-[18ch]">
+    {{ $.Title }}
+  </h1>
+  {{ with .description }}
+  <p class="font-body text-[17px] leading-[1.7] text-[var(--text-secondary)] max-w-[54ch] mt-3">
+    {{ . }}
+  </p>
+  {{ end }}
+  {{ with .stats }}
+  <div class="font-mono text-[12px] text-[var(--border)] flex items-center gap-2 mt-4">
+    <span>{{ .pearls }} pearls</span>
+    <span>·</span>
+    <span>{{ .projects }} projects</span>
+    <span>·</span>
+    <span>{{ .patterns }} patterns</span>
+  </div>
+  {{ end }}
+  {{ with .freshness }}
+  <div class="font-mono text-[11px] text-[var(--frontier)] mt-2">
+    {{ . }}
+  </div>
+  {{ end }}
+</header>
+{{ end }}

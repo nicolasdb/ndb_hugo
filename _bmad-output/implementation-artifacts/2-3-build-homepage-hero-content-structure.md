@@ -1,6 +1,6 @@
 # Story 2.3: Build Homepage Hero & Content Structure
 
-Status: ready-for-dev
+Status: done
 
 ## Story
 
@@ -28,8 +28,8 @@ So that I immediately understand what this portfolio is about.
 
 ## Tasks / Subtasks
 
-- [ ] Task 1: Create content/_index.md with hero frontmatter (AC: #1)
-  - [ ] 1.1 Create `content/_index.md` with YAML frontmatter:
+- [x]Task 1: Create content/_index.md with hero frontmatter (AC: #1)
+  - [x]1.1 Create `content/_index.md` with YAML frontmatter:
     ```yaml
     title: "Nicolas de Barquin"
     description: "Portfolio & Skills Repository"
@@ -41,48 +41,48 @@ So that I immediately understand what this portfolio is about.
         projects: 0
         patterns: 0
     ```
-  - [ ] 1.2 Content can be placeholder — Nicolas will refine text later
+  - [x]1.2 Content can be placeholder — Nicolas will refine text later
 
-- [ ] Task 2: Create hero.html partial (AC: #2)
-  - [ ] 2.1 Create `layouts/partials/hero.html` matching DESIGN-SPEC §6 Hero:
+- [x]Task 2: Create hero.html partial (AC: #2)
+  - [x]2.1 Create `layouts/partials/hero.html` matching DESIGN-SPEC §6 Hero:
     - Name: `font-heading text-[40px] font-bold tracking-[-0.02em]` max 18ch
     - Description: `font-body text-[17px] leading-[1.7] text-[var(--text-secondary)]` max 54ch
     - Stats: `font-mono text-[12px] text-[var(--text-tertiary)]` with `·` separators
     - Freshness heartbeat: `font-mono text-[11px] text-[var(--frontier)]` — static placeholder for Phase 0
-  - [ ] 2.2 Read all content from `.Params.hero` — no hardcoded strings
-  - [ ] 2.3 Use `{{ with }}` guards for optional fields (stats, freshness)
-  - [ ] 2.4 Page max-width: 920px centered with 32px horizontal padding
+  - [x]2.2 Read all content from `.Params.hero` — no hardcoded strings
+  - [x]2.3 Use `{{ with }}` guards for optional fields (stats, freshness)
+  - [x]2.4 Page max-width: 920px centered with 32px horizontal padding
 
-- [ ] Task 3: Create section-heading.html partial (AC: #4)
-  - [ ] 3.1 Create `layouts/partials/section-heading.html`
-  - [ ] 3.2 Implement DESIGN-SPEC §6 Section Heading:
+- [x]Task 3: Create section-heading.html partial (AC: #4)
+  - [x]3.1 Create `layouts/partials/section-heading.html`
+  - [x]3.2 Implement DESIGN-SPEC §6 Section Heading:
     - `font-mono text-[12px] font-normal uppercase tracking-[0.08em] text-[var(--text-tertiary)]`
     - Optional right-aligned "All posts →" link (same style)
     - Flex row, space-between
-  - [ ] 3.3 Interface: `{{ partial "section-heading.html" (dict "label" "LATEST POSTS" "link" "/posts/" "linkText" "All posts →") }}`
-  - [ ] 3.4 `link` and `linkText` are optional — guard with `{{ with }}`
+  - [x]3.3 Interface: `{{ partial "section-heading.html" (dict "label" "LATEST POSTS" "link" "/posts/" "linkText" "All posts →") }}`
+  - [x]3.4 `link` and `linkText` are optional — guard with `{{ with }}`
 
-- [ ] Task 4: Rebuild layouts/index.html (AC: #3, #5, #6)
-  - [ ] 4.1 Remove all TailBliss P1/P2/P3 section content
-  - [ ] 4.2 Add hero partial call: `{{ partial "hero.html" . }}`
-  - [ ] 4.3 Add empty placeholder sections with section-heading partial:
+- [x]Task 4: Rebuild layouts/index.html (AC: #3, #5, #6)
+  - [x]4.1 Remove all TailBliss P1/P2/P3 section content
+  - [x]4.2 Add hero partial call: `{{ partial "hero.html" . }}`
+  - [x]4.3 Add empty placeholder sections with section-heading partial:
     - "LATEST POSTS" — `<!-- Wired in Story 4.4 -->`
     - "SKILL PATTERNS" — `<!-- Wired in Story 4.4 -->`
     - "MOMENTS OF RECOGNITION" — `<!-- Wired in Story 4.4 -->`
-  - [ ] 4.4 Each section: 920px max-width centered, semantic `<section>` element
-  - [ ] 4.5 Section padding-y: 44px per DESIGN-SPEC §4
-  - [ ] 4.6 Responsive: mobile-first, test at `sm`/`md`/`lg` breakpoints
+  - [x]4.4 Each section: 920px max-width centered, semantic `<section>` element
+  - [x]4.5 Section padding-y: 44px per DESIGN-SPEC §4
+  - [x]4.6 Responsive: mobile-first, test at `sm`/`md`/`lg` breakpoints
 
-- [ ] Task 5: Clean up hugo.yaml params (AC: #1)
-  - [ ] 5.1 Remove TailBliss `p1`, `p2`, `p3`, `p4`, `p5` param blocks from `hugo.yaml`
-  - [ ] 5.2 Remove `social_media` block if not used
-  - [ ] 5.3 Keep `author`, `authorimage`, `description`, `disable_theme_toggle`
+- [x]Task 5: Clean up hugo.yaml params (AC: #1)
+  - [x]5.1 Remove TailBliss `p1`, `p2`, `p3`, `p4`, `p5` param blocks from `hugo.yaml`
+  - [x]5.2 Remove `social_media` block if not used
+  - [x]5.3 Keep `author`, `authorimage`, `description`, `disable_theme_toggle`
 
-- [ ] Task 6: Verify build and rendering (AC: #7)
-  - [ ] 6.1 Run `pnpm run build` — must succeed
-  - [ ] 6.2 Run `pnpm run test` — Hugo build validation must pass
-  - [ ] 6.3 Verify hero renders with correct fonts and spacing
-  - [ ] 6.4 Verify placeholder sections show headings with no errors
+- [x]Task 6: Verify build and rendering (AC: #7)
+  - [x]6.1 Run `pnpm run build` — must succeed
+  - [x]6.2 Run `pnpm run test` — Hugo build validation must pass
+  - [x]6.3 Verify hero renders with correct fonts and spacing
+  - [x]6.4 Verify placeholder sections show headings with no errors
 
 ## Dev Notes
 
@@ -187,10 +187,71 @@ Per architecture D3.1: Create branch `phase0/2-3-build-homepage-hero-content-str
 
 ### Agent Model Used
 
-{{agent_model_name_version}}
+Claude Opus 4.6
 
 ### Debug Log References
 
+No issues encountered during implementation.
+
 ### Completion Notes List
 
+- Created `content/_index.md` with hero frontmatter (title, tagline, description, stats)
+- Created `layouts/partials/hero.html` reading all content from `.Params.hero` with `{{ with }}` guards
+- Created `layouts/partials/section-heading.html` with dict interface for label, optional link/linkText
+- Rebuilt `layouts/index.html` — removed all TailBliss P1/P2 sections, added hero partial and 3 placeholder sections (Latest Posts, Skill Patterns, Moments of Recognition) each with 920px max-width and 44px vertical padding
+- Removed TailBliss `p1`–`p5` and `social_media` param blocks from `hugo.yaml`
+- `pnpm run build` and `pnpm run test` both pass successfully
+- Hero renders with correct font classes, stats with `·` separators, freshness placeholder guarded
+
+### Post-Review Fixes (Follow-up Plan)
+
+**Nav alignment & styling:**
+- Changed nav `position: fixed` → `sticky top-0` (fixes overlap, nav takes space in normal flow)
+- Changed nav bg: `bg-transparent` → `bg-[var(--surface)]` (matches page bg, aligns with mockup)
+- Changed nav links font: `font-body` → `font-mono` (matches design spec Commit Mono)
+- Logo: replaced "ndb" text with SVG (debarquin.svg) at 28px height (width/height HTML attrs + inline style + Tailwind triple-layer sizing for browser compatibility)
+
+**Hero section refinements:**
+- Changed `<section>` → `<header>` (semantic HTML for hero)
+- Fixed padding: responsive `px-4 sm:px-6 md:px-8 py-8 md:py-11` → fixed `px-8 pt-[68px] pb-[52px]` (matches mockup spec)
+- Changed stats separator color: `text-[var(--text-tertiary)]` → `text-[var(--border)]` (lighter gray per mockup)
+- Added 1px divider after hero using `bg-[var(--border)]`
+
+**Homepage sections:**
+- Simplified padding: responsive `px-4 sm:px-6 md:px-8 py-8 md:py-11` → fixed `px-8 py-[44px]` per spec
+
+**404 page restyle:**
+- Removed TailBliss blue button styling
+- Rebuilt with design tokens (font-mono label, font-heading title, border button, proper focus states)
+- Centered layout with `min-height: calc(100vh - 54px)` (accounts for sticky nav height)
+
+**Single page template (about, posts):**
+- Removed TailBliss `bg-primary-600` purple banner from header
+- Replaced with clean minimal header: `pt-[68px]` padding, design-token typography
+
+**Additional files:**
+- Updated `head.html` preload: `/images/site-logo.svg` → `/images/debarquin.svg`
+- Added `static/images/debarquin.svg` (SVG logo file)
+
+**Build validation:**
+- All fixes tested; `pnpm run test` passes (Hugo 0.152.2)
+- Note: SVG sizing requires triple-layer approach (HTML width/height attrs + inline style + Tailwind classes) due to Inkscape export complexity; cleanup deferred to UI polishing epic
+
+### Change Log
+
+- 2026-02-18: Implemented homepage hero & content structure (Story 2.3)
+- 2026-02-18: Code review fixes — responsive breakpoints (px-4/sm:px-6/md:px-8, py-8/md:py-11), semantic h2 for section headings, focus states on links, aria-label on hero, hugo.yaml whitespace cleanup
+- 2026-02-18: Post-review fixes (follow-up plan) — nav sticky positioning, hero element/padding/divider, 404 restyle, about page banner removal, SVG logo integration
+
 ### File List
+
+- `content/_index.md` (new) — Homepage content with hero frontmatter
+- `layouts/partials/hero.html` (new) — Hero section partial
+- `layouts/partials/section-heading.html` (new) — Reusable section heading partial
+- `layouts/index.html` (modified) — Replaced TailBliss content with hero + placeholder sections
+- `hugo.yaml` (modified) — Removed TailBliss p1-p5 and social_media params
+- `layouts/partials/nav.html` (modified) — Fixed sticky positioning, nav styling, SVG logo
+- `layouts/partials/head.html` (modified) — Updated logo preload href
+- `layouts/_default/single.html` (modified) — Removed TailBliss banner, minimal header
+- `layouts/404.html` (modified) — Full restyle with design tokens, no blue colors
+- `static/images/debarquin.svg` (new) — SVG logo file

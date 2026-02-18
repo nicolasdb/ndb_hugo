@@ -1,97 +1,24 @@
 {{ define "main" }}
 <main>
-    {{/* Hero section — redesigned in Story 2.3 */}}
-    <div class="bg-gray-200">
-        <div class="px-4 py-8 mx-auto max-w-screen-xl">
-            <div class="text-center lg:text-left">
-                <h1 class="mb-2 text-4xl font-bold font-heading tracking-tight leading-none text-gray-900 md:text-5xl xl:text-6xl">
-                    {{ .Site.Title }}
-                </h1>
-                <h2 class="pb-2 text-3xl font-light text-gray-800 md:text-4xl">
-                    {{ .Site.Params.Moto }}
-                </h2>
-                <p class="mx-auto mb-6 max-w-xl font-normal text-gray-900 lg:mx-0 xl:mb-2 md:text-lg xl:text-xl">
-                    {{ .Site.Params.Description}}
-                </p>
-            </div>
-        </div>
+    {{ partial "hero.html" . }}
+
+    <div class="mx-auto max-w-[920px] px-8">
+      <div class="h-px bg-[var(--border)]"></div>
     </div>
 
-    {{/* P1 section — uses site params */}}
-    {{ with .Site.Params.P1 }}
-    <div class="relative my-4">
-        <div class="lg:mx-auto lg:grid lg:max-w-7xl lg:grid-cols-2 lg:items-start lg:gap-24 lg:px-8">
-            <div class="relative sm:py-8 lg:py-0">
-                <div class="relative px-4 py-6 mx-auto w-full h-auto sm:max-w-3xl sm:px-6 lg:px-0 lg:py-20">
-                    <div class="overflow-hidden rounded-2xl shadow-xl">
-                        {{ $p1image := resources.Get .Image }}
-                        {{ with $p1image }}
-                        {{ with .Resize "600x600 webp q85" }}
-                        <img src="{{ .RelPermalink }}" width="{{ .Width }}" height="{{ .Height }}" class="w-full h-auto" alt="P1" loading="lazy" />
-                        {{ end }}
-                        {{ end }}
-                    </div>
-                </div>
-            </div>
-            <div class="relative px-4 mx-auto max-w-md sm:max-w-3xl sm:px-6 lg:px-0">
-                <div class="md:pt-12 sm:pt-6 lg:pt-20">
-                    <h2 class="text-3xl font-bold font-heading tracking-tight text-gray-900 sm:text-4xl">
-                        {{ .Heading }}
-                    </h2>
-                    <div class="mt-6 text-gray-900">
-                        <div class="mt-6 space-y-6 text-gray-900">
-                            {{ range .Content }}
-                            <p class="text-lg text-gray-900">
-                                {{ .text }}
-                            </p>
-                            {{ end }}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    {{ end }}
+    <section class="mx-auto max-w-[920px] px-8 py-[44px]">
+        {{ partial "section-heading.html" (dict "label" "LATEST POSTS" "link" "/posts/" "linkText" "All posts →") }}
+        <!-- Wired in Story 4.4 -->
+    </section>
 
-    {{/* P2 section — uses site params */}}
-    {{ with .Site.Params.P2 }}
-    <div class="overflow-hidden sm:pt-6 lg:relative">
-        <div class="px-4 mx-auto max-w-md sm:max-w-3xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-2 lg:gap-12 lg:px-8">
-            <div>
-                <div class="md:mt-8">
-                    <div class="mt-6 sm:max-w-xl">
-                        <h2 class="text-3xl font-bold font-heading tracking-tight text-gray-900 sm:text-4xl md:mt-16">
-                            {{ .Heading }}
-                        </h2>
-                        {{ range .Content }}
-                        <p class="pb-12 mt-6 text-lg text-gray-900">
-                            {{ .text }}
-                        </p>
-                        {{ end }}
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="sm:mx-auto sm:max-w-3xl sm:px-6">
-            <div class="md:py-12 sm:relative sm:mt-12 lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
-                <div class="relative pl-4 -mr-40 sm:mx-auto sm:max-w-3xl sm:px-0 lg:h-full lg:max-w-none lg:pl-12">
-                    {{ $p2image := resources.Get .Image }}
-                    {{ with $p2image }}
-                    {{ with .Resize "800x600 webp q85" }}
-                    <img src="{{ .RelPermalink }}" width="{{ .Width }}" height="{{ .Height }}" alt="p2" class="w-full rounded-lg shadow-xl lg:h-full lg:w-auto lg:max-w-none" loading="lazy" />
-                    {{ end }}
-                    {{ end }}
-                </div>
-            </div>
-        </div>
-    </div>
-    {{ end }}
+    <section class="mx-auto max-w-[920px] px-8 py-[44px]">
+        {{ partial "section-heading.html" (dict "label" "SKILL PATTERNS" "link" "/patterns/" "linkText" "All patterns →") }}
+        <!-- Wired in Story 4.4 -->
+    </section>
 
-    {{/* Posts section — rebuilt in Epic 3 */}}
-
-    {{/* Sponsors section removed — TailBliss feature, not in DESIGN-SPEC */}}
-
-    {{/* Newsletter section removed — TailBliss feature, not in DESIGN-SPEC */}}
-
+    <section class="mx-auto max-w-[920px] px-8 py-[44px]">
+        {{ partial "section-heading.html" (dict "label" "MOMENTS OF RECOGNITION") }}
+        <!-- Wired in Story 4.4 -->
+    </section>
 </main>
 {{ end }}
