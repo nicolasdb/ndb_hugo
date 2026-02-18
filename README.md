@@ -257,11 +257,11 @@ It's portfolio as honest chronicle, not portfolio as highlight reel. The tempora
 
 ### Theme: Apache 2.0
 
-The TailBliss theme is licensed under [Apache License 2.0](LICENSE) by [Nusser Studios](https://github.com/nusserstudios).
+The theme is licensed under [Apache License 2.0](LICENSE) by [nicolas de Barquin](https://github.com/nicolasdb).
 
 ### Content: Creative Commons Attribution 4.0 (CC-BY 4.0)
 
-All original content (articles, projects, code examples, images) is licensed under [CC-BY 4.0](https://creativecommons.org/licenses/by/4.0/).
+All original content (articles, projects, code examples, images) is licensed under [CC-BY 4.0](https://creativecommons.org/licenses/by/4.0/) by [nicolas de Barquin](https://github.com/nicolasdb).
 
 You can share and adapt with attribution.
 
@@ -276,4 +276,3 @@ pnpm run dev:watch    # Start development at http://localhost:1313
 **Built with**: [Hugo](https://gohugo.io/) + [TailwindCSS 4.1](https://tailwindcss.com/) + [Alpine.js](https://alpinejs.dev/) + OKLCH color space
 **Design system**: "The Archivist" — Literata + Hanken Grotesk + Commit Mono
 **Deploys to**: [Netlify](https://netlify.com/) (git push → CDN rebuild)
-For full setup and technical documentation, see the [TailBliss theme repository](https://github.com/nusserstudios/tailbliss).
