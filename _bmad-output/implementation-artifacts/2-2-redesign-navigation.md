@@ -1,6 +1,6 @@
 # Story 2.2: Redesign Navigation
 
-Status: ready-for-dev
+Status: done
 
 ## Story
 
@@ -32,37 +32,37 @@ So that I can navigate between sections easily on any device.
 
 ## Tasks / Subtasks
 
-- [ ] Task 1: Update hugo.yaml menu configuration (AC: #8)
-  - [ ] 1.1 Replace current `menu.main` entries with: Home (`/`), Posts (`/posts/`), Patterns (`/patterns/`), Timeline (`/timeline/`), About (`/about/`)
-  - [ ] 1.2 Remove `categories` and `dropdown` menu sections (TailBliss leftovers)
-  - [ ] 1.3 Update `menu.footer` entries to match new site structure
+- [x] Task 1: Update hugo.yaml menu configuration (AC: #8)
+  - [x] 1.1 Replace current `menu.main` entries with: Home (`/`), Posts (`/posts/`), Patterns (`/patterns/`), Timeline (`/timeline/`), About (`/about/`)
+  - [x] 1.2 Remove `categories` and `dropdown` menu sections (TailBliss leftovers)
+  - [x] 1.3 Update `menu.footer` entries to match new site structure
 
-- [ ] Task 2: Rewrite nav.html partial (AC: #1, #2, #3, #4, #6, #7)
-  - [ ] 2.1 Read current `layouts/partials/nav.html` completely
-  - [ ] 2.2 Rewrite to DESIGN-SPEC §6.2 specifications:
+- [x] Task 2: Rewrite nav.html partial (AC: #1, #2, #3, #4, #6, #7)
+  - [x] 2.1 Read current `layouts/partials/nav.html` completely
+  - [x] 2.2 Rewrite to DESIGN-SPEC §6.2 specifications:
     - Sticky top, 54px height
     - Left: "ndb" logo text — `font-heading text-[18px] font-medium`
     - Right: nav links — `font-body text-[14px]`
     - Active link: text-primary, weight 600. Others: text-secondary, weight 400
     - Max-width: 920px centered
-  - [ ] 2.3 Add Alpine.js scroll detection for backdrop blur:
+  - [x] 2.3 Add Alpine.js scroll detection for backdrop blur:
     - `x-data="{ scrolled: false }"` on nav element
     - `@scroll.window="scrolled = window.scrollY > 10"`
     - Transparent at top, `backdrop-blur-[10px]` + semi-transparent bg + border on scroll
-  - [ ] 2.4 Ensure NO dark mode toggle button exists
-  - [ ] 2.5 Use design token colors via Tailwind utilities (not hardcoded hex/oklch)
+  - [x] 2.4 Ensure NO dark mode toggle button exists
+  - [x] 2.5 Use design token colors via Tailwind utilities (not hardcoded hex/oklch)
 
-- [ ] Task 3: Add responsive mobile menu (AC: #5)
-  - [ ] 3.1 Add Alpine.js `x-data="{ open: false }"` for mobile menu toggle
-  - [ ] 3.2 Add hamburger button visible only below `sm` breakpoint
-  - [ ] 3.3 Add mobile menu panel (full-width dropdown or slide-in)
-  - [ ] 3.4 Use `x-cloak` on mobile menu to prevent flash
-  - [ ] 3.5 Ensure desktop nav links hidden on mobile, shown on `sm:` and above
+- [x] Task 3: Add responsive mobile menu (AC: #5)
+  - [x] 3.1 Add Alpine.js `x-data="{ open: false }"` for mobile menu toggle
+  - [x] 3.2 Add hamburger button visible only below `sm` breakpoint
+  - [x] 3.3 Add mobile menu panel (full-width dropdown or slide-in)
+  - [x] 3.4 Use `x-cloak` on mobile menu to prevent flash
+  - [x] 3.5 Ensure desktop nav links hidden on mobile, shown on `sm:` and above
 
-- [ ] Task 4: Verify build and rendering (AC: #9)
-  - [ ] 4.1 Run `pnpm run build` — must succeed
-  - [ ] 4.2 Run `pnpm run test` — Hugo build validation must pass
-  - [ ] 4.3 Verify nav renders correctly at desktop and mobile widths
+- [x] Task 4: Verify build and rendering (AC: #9)
+  - [x] 4.1 Run `pnpm run build` — must succeed
+  - [x] 4.2 Run `pnpm run test` — Hugo build validation must pass
+  - [x] 4.3 Verify nav renders correctly at desktop and mobile widths
 
 ## Dev Notes
 
@@ -166,10 +166,48 @@ Per architecture D3.1: Create branch `phase0/2-2-redesign-navigation` from `main
 
 ### Agent Model Used
 
-{{agent_model_name_version}}
+Claude Opus 4.6
 
 ### Debug Log References
 
+None — clean implementation, no issues encountered.
+
 ### Completion Notes List
 
+- Replaced TailBliss nav entirely with DESIGN-SPEC §6.2 compliant navigation
+- hugo.yaml: Replaced menu.main with Home/Posts/Patterns/Timeline/About; removed categories and dropdown sections; updated footer menu
+- nav.html: Fixed 54px sticky nav with "ndb" logo (font-heading 18px medium), right-aligned links (font-body 14px), active link highlighting via `IsMenuCurrent`
+- Alpine.js scroll detection: transparent at top, backdrop-blur + semi-transparent bg + border on scroll (no CSS transitions per §9)
+- Mobile: hamburger below `sm` breakpoint, full-width dropdown with x-cloak, desktop links hidden on mobile
+- No dark mode toggle, no hardcoded colors — all design token CSS custom properties
+- Home link excluded from desktop nav (logo serves as home link) but included in mobile menu
+- `pnpm run test` and `pnpm run build` both pass
+
+### Senior Developer Review (AI)
+
+**Reviewer:** Nicolas (adversarial review) — 2026-02-18
+**Build:** ✅ PASSES (53ms)
+**All 9 ACs:** ✅ VALIDATED
+
+**Issues Found & Fixed (4 HIGH, 2 MEDIUM, 2 LOW):**
+
+1. ✅ FIXED [HIGH] Added `aria-controls="mobile-nav-menu"` on hamburger + `id="mobile-nav-menu"` on menu panel (WCAG 1.3.1)
+2. ✅ FIXED [HIGH] Added `@click="open = false"` on mobile menu links — menu now closes on navigation
+3. ✅ FIXED [HIGH] Added `@keydown.escape="open = false"` on nav element — Escape key closes mobile menu (WCAG 2.1.1)
+4. ✅ FIXED [HIGH] Added `focus-visible:outline-2 focus-visible:outline-offset-2` on all interactive elements (WCAG 2.4.7)
+5. NOTED [MEDIUM] Scroll threshold `window.scrollY > 10` is a magic number — not in DESIGN-SPEC
+6. NOTED [MEDIUM] Hamburger icon color doesn't adapt on scroll state
+7. ✅ FIXED [LOW] Mobile menu panel now has `id="mobile-nav-menu"` for aria association
+8. NOTED [LOW] Home link in mobile but not desktop is intentional (documented in story)
+
+**Verdict:** APPROVED after fixes applied. All HIGH issues resolved.
+
+### Change Log
+
+- 2026-02-18: Story 2.2 implemented — redesigned navigation to DESIGN-SPEC §6.2
+- 2026-02-18: Code review — fixed 4 accessibility issues (aria-controls, escape key, focus-visible, mobile menu close)
+
 ### File List
+
+- `hugo.yaml` — Updated menu.main and menu.footer, removed categories/dropdown sections
+- `layouts/partials/nav.html` — Complete rewrite: DESIGN-SPEC §6.2 nav with Alpine.js scroll detection and mobile menu; accessibility fixes applied

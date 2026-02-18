@@ -123,63 +123,39 @@ params:
 
 menu:
   main:
-    - identifier: about
-      name: About
-      url: /about/
+    - identifier: home
+      name: Home
+      url: /
+      weight: 10
+    - identifier: posts
+      name: Posts
+      url: /posts/
       weight: 20
-    - identifier: categories
-      pre: dropdown
-      name: Categories
+    - identifier: patterns
+      name: Patterns
+      url: /patterns/
       weight: 30
-    - identifier: dropdown
-      pre: complexdropdown
-      name: Dropdown
+    - identifier: timeline
+      name: Timeline
+      url: /timeline/
       weight: 40
-    - identifier: contact
-      name: Contact
-      url: /contact/
-      weight: 50
-  categories:
     - identifier: about
       name: About
       url: /about/
-      weight: 20
-  dropdown:
-    - identifier: appearance
-      pre: stars # can be stars, comments or piechart
-      name: Appearance
-      post: "Easy customization"
-      url: "#"
-      weight: 10
-    - identifier: comments
-      pre: comments # can be stars, comments or piechart
-      name: Comments
-      post: "Check your latest comments"
-      url: "#"
-      weight: 20
-    - identifier: analytics
-      pre: piechart # can be stars, comments or piechart
-      name: Analytics
-      post: "Take a look at your statistics"
-      url: "#"
-      weight: 30
+      weight: 50
   footer:
+    - identifier: posts
+      name: Posts
+      url: /posts/
+      weight: 10
+    - identifier: patterns
+      name: Patterns
+      url: /patterns/
+      weight: 20
     - identifier: about
       name: About
       url: /about/
-      weight: 10
-    - identifier: blog
-      name: Blog
-      url: /categories/blog/
-      weight: 20
-    - identifier: news
-      name: News
-      url: /categories/news/
       weight: 30
-    - identifier: contact
-      name: Contact
-      url: /contact/
-      weight: 50
 
 taxonomies:
   category: Categories
