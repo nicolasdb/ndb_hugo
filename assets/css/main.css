@@ -1,137 +1,21 @@
-/* 1. Design tokens FIRST — CSS custom properties must exist before Tailwind references them */
+/* 1. Design tokens — CSS custom properties (colors, spacing, typography) */
 @import "./design-tokens.css";
 
-/* 2. TailwindCSS */
+/* 2. TailwindCSS v4 */
 @import "tailwindcss";
 
-@utility prose-2xl {
-  max-width: 80ch !important;
-  font-size: 110%;
-}
+/* 3. Source paths — tell Tailwind where to scan for utility classes */
+@source "../../layouts";
+@source "../../content";
 
-/* Prevent layout shifts during image loading */
-img {
-  /* Ensure images maintain their aspect ratio during loading */
-  height: auto;
-  max-width: 100%;
-  /* Prevent layout shifts by ensuring dimensions are respected */
-  display: block;
-}
-
-/* Optimize image loading performance */
-img[loading="lazy"] {
-  /* Use content-visibility for better performance where supported */
-  content-visibility: auto;
-  /* Fallback for browsers that don't support content-visibility */
-  contain: layout style paint;
-}
-
-/* Hero container and image optimizations */
-.hero-container {
-  /* Reserve space immediately to prevent layout shifts */
-  width: 100%;
-  max-width: 576px;
-  /* Fixed aspect ratio to prevent any shifts */
-  aspect-ratio: 1 / 1;
-  /* Ensure proper containment */
-  contain: layout style;
-  /* Prevent any overflow issues */
-  overflow: hidden;
-}
-
-.hero-image {
-  /* Responsive width that respects container constraints */
-  width: 100%;
-  height: auto;
-  max-width: 576px;
-  /* Fixed aspect ratio */
-  aspect-ratio: 1 / 1;
-  /* Prevent any layout shifts during loading */
-  contain: layout style paint;
-  /* Ensure image fits within container */
-  object-fit: cover;
-  /* Prevent any size changes */
-  flex-shrink: 0;
-}
-
-/* Specific aspect ratio containers for common image sizes */
-.aspect-square {
-  aspect-ratio: 1 / 1;
-}
-
-.aspect-video {
-  aspect-ratio: 16 / 9;
-}
-
+/* 4. Theme extensions — only what design-tokens.css can't provide */
 @theme {
-  /* Content paths for Hugo */
-  --content: "layouts/**/*.html", "content/**/*.md", "assets/**/*.js";
-  
-  /* Efficient safelist using Tailwind patterns for development */
-  --safelist: 
-    /* Layout & Spacing patterns */
-    "container", "mx-auto",
-    "p-*", "px-*", "py-*", "pt-*", "pb-*", "pl-*", "pr-*",
-    "m-*", "mx-*", "my-*", "mt-*", "mb-*", "ml-*", "mr-*",
-    "space-x-*", "space-y-*",
-    
-    /* Flexbox & Grid patterns */
-    "flex", "flex-*", "items-*", "justify-*", "content-*",
-    "grid", "grid-cols-*", "col-span-*", "row-span-*",
-    "gap-*", "gap-x-*", "gap-y-*",
-    
-    /* Sizing patterns */
-    "w-*", "h-*", "max-w-*", "max-h-*", "min-w-*", "min-h-*",
-    
-    /* Color patterns */
-    "bg-*", "text-*", "border-*", "ring-*", "divide-*",
-    
-    /* Typography patterns */
-    "text-*", "font-*", "leading-*", "tracking-*",
-    
-    /* Border & Radius patterns */
-    "border", "border-*", "rounded", "rounded-*",
-    
-    /* Shadow patterns */
-    "shadow", "shadow-*",
-    
-    /* Display & Layout */
-    "block", "inline-block", "inline", "flex", "inline-flex", "grid", "inline-grid", "hidden",
-    "overflow-*", "object-*",
-    
-    /* Position patterns */
-    "static", "fixed", "absolute", "relative", "sticky",
-    "inset-*", "top-*", "right-*", "bottom-*", "left-*",
-    "z-*",
-    
-    /* Responsive patterns */
-    "sm:*", "md:*", "lg:*", "xl:*", "2xl:*",
-    
-    /* State patterns */
-    "hover:*", "focus:*", "active:*", "disabled:*", "visited:*",
-    "group-hover:*", "group-focus:*",
-    
-    /* Form & Interaction patterns */
-    "placeholder:*", "focus-within:*", "focus-visible:*",
-    
-    /* Animation & Transition patterns */
-    "transition", "transition-*", "duration-*", "delay-*", "ease-*",
-    "animate-*", "transform", "transform-*",
-    
-    /* Custom classes */
-    "prose-2xl";
-
-  /* ── Font family mappings (DESIGN-SPEC §2 "The Archivist") ─
-     Explicit stacks so Tailwind @theme owns the token values
-     instead of fragile self-referential var() lookups.        */
+  /* Font families (DESIGN-SPEC §2 "The Archivist") */
   --font-heading: 'Literata', Georgia, 'Times New Roman', serif;
   --font-body: 'Hanken Grotesk', system-ui, -apple-system, sans-serif;
   --font-mono: 'Commit Mono', 'JetBrains Mono', 'Fira Code', monospace;
 
-  /* ── Design token semantic colors ─────────────────────── */
-  /* Map design tokens (from assets/css/design-tokens.css)    */
-  /* to Tailwind-compatible utility names (bg-*, text-*, etc) */
-  /* Epic 2+ templates use these: bg-pattern, text-fresh, etc */
+  /* Semantic colors — mapped from design-tokens.css variables */
   --color-pattern: var(--pattern);
   --color-convergence: var(--convergence);
   --color-fresh: var(--fresh);
@@ -139,8 +23,7 @@ img[loading="lazy"] {
   --color-frontier: var(--frontier);
   --color-block: var(--block-color);
 
-  /* ── Surface & text tokens ────────────────────────────── */
-  /* Enables bg-surface, text-text-primary, border-border etc */
+  /* Surface & text tokens — enables bg-surface, text-text-primary, etc. */
   --color-surface: var(--surface);
   --color-surface-elevated: var(--surface-elevated);
   --color-text-primary: var(--text-primary);
@@ -149,133 +32,41 @@ img[loading="lazy"] {
   --color-border: var(--border);
   --color-border-subtle: var(--border-subtle);
 
-  /* ── TailBliss legacy colors (backward compatibility) ──── */
-  /* Retained intentionally: existing templates still use     */
-  /* text-indigo-600, bg-primary, etc. Gradual migration to   */
-  /* semantic tokens (text-pattern, bg-fresh) happens in      */
-  /* Epic 2 as templates are rebuilt. Do NOT remove until all  */
-  /* template references are migrated.                        */
-
-  /* Primary Colors - Indigo with OKLCH */
-  --color-primary: oklch(58.5% .233 277.117);
-  --color-primary-50: oklch(96.2% .018 272.314);
-  --color-primary-100: oklch(93% .034 272.788);
-  --color-primary-200: oklch(87% .065 274.039);
+  /* Primary alias — used by pagination.html (maps to indigo) */
   --color-primary-300: oklch(78.5% .115 274.713);
-  --color-primary-400: oklch(67.3% .182 276.935);
-  --color-primary-500: oklch(58.5% .233 277.117);
   --color-primary-600: oklch(51.1% .262 276.966);
-  --color-primary-700: oklch(45.7% .24 277.023);
-  --color-primary-800: oklch(39.8% .195 277.366);
-  --color-primary-900: oklch(35.9% .144 278.697);
-  --color-primary-950: oklch(25.7% .09 281.288);
 
-  /* Secondary Colors - Pink with OKLCH */
-  --color-secondary: oklch(65.6% .241 354.308);
-  --color-secondary-50: oklch(97.1% .014 343.198);
-  --color-secondary-100: oklch(94.8% .028 342.258);
-  --color-secondary-200: oklch(89.9% .061 343.231);
-  --color-secondary-300: oklch(82.3% .12 346.018);
-  --color-secondary-400: oklch(71.8% .202 349.761);
-  --color-secondary-500: oklch(65.6% .241 354.308);
-  --color-secondary-600: oklch(59.2% .249 .584);
-  --color-secondary-700: oklch(52.5% .223 3.958);
-  --color-secondary-800: oklch(45.9% .187 3.815);
-  --color-secondary-900: oklch(40.8% .153 2.432);
-  --color-secondary-950: oklch(28.4% .109 3.907);
-
-  /* Neutral Colors - Neutral with OKLCH */
-  --color-neutral: oklch(55.6% 0 0);
-  --color-neutral-50: oklch(98.5% 0 0);
-  --color-neutral-100: oklch(97% 0 0);
-  --color-neutral-200: oklch(92.2% 0 0);
-  --color-neutral-300: oklch(87% 0 0);
-  --color-neutral-400: oklch(70.8% 0 0);
-  --color-neutral-500: oklch(55.6% 0 0);
-  --color-neutral-600: oklch(43.9% 0 0);
-  --color-neutral-700: oklch(37.1% 0 0);
-  --color-neutral-800: oklch(26.9% 0 0);
-  --color-neutral-900: oklch(20.5% 0 0);
-  --color-neutral-950: oklch(14.5% 0 0);
-
-  /* Gray color scale with OKLCH */
-  --color-gray-50: oklch(98.5% .002 247.839);
-  --color-gray-100: oklch(96.7% .003 264.542);
-  --color-gray-200: oklch(92.8% .006 264.531);
-  --color-gray-300: oklch(87.2% .01 258.338);
-  --color-gray-400: oklch(70.7% .022 261.325);
-  --color-gray-500: oklch(55.1% .027 264.364);
-  --color-gray-600: oklch(44.6% .03 256.802);
-  --color-gray-700: oklch(37.3% .034 259.733);
-  --color-gray-800: oklch(27.8% .033 256.848);
-  --color-gray-900: oklch(21% .034 264.665);
-  --color-gray-950: oklch(13% .028 261.692);
-
-  /* Zinc color scale with OKLCH */
-  --color-zinc-50: oklch(98.5% 0 0);
-  --color-zinc-100: oklch(96.7% .001 286.375);
-  --color-zinc-200: oklch(92% .004 286.32);
-  --color-zinc-300: oklch(87.1% .006 286.286);
-  --color-zinc-400: oklch(70.5% .015 286.067);
-  --color-zinc-500: oklch(55.2% .016 285.938);
-  --color-zinc-600: oklch(44.2% .017 285.786);
-  --color-zinc-700: oklch(37% .013 285.805);
-  --color-zinc-800: oklch(27.4% .006 286.033);
-  --color-zinc-900: oklch(21% .006 285.885);
-  --color-zinc-950: oklch(14.1% .005 285.823);
-
-  /* Indigo color scale with OKLCH (alias for primary) */
-  --color-indigo-50: oklch(96.2% .018 272.314);
-  --color-indigo-100: oklch(93% .034 272.788);
-  --color-indigo-200: oklch(87% .065 274.039);
-  --color-indigo-300: oklch(78.5% .115 274.713);
-  --color-indigo-400: oklch(67.3% .182 276.935);
-  --color-indigo-500: oklch(58.5% .233 277.117);
-  --color-indigo-600: oklch(51.1% .262 276.966);
-  --color-indigo-700: oklch(45.7% .24 277.023);
-  --color-indigo-800: oklch(39.8% .195 277.366);
-  --color-indigo-900: oklch(35.9% .144 278.697);
-  --color-indigo-950: oklch(25.7% .09 281.288);
-
-  /* White and black */
-  --color-white: #fff;
-  --color-black: #000;
-
-  /* Custom line heights */
-  --line-height-extra-loose: 2.5;
-  --line-height-12: 3rem;
-
-
+  /* Custom spacing tokens (multiples of 4px base unit) */
+  --space-44: 44px;
+  --space-52: 52px;
+  --space-68: 68px;
 }
 
-/* Font family configuration */
-:root {
-  font-family: ui-sans-serif,
-  system-ui,
-  -apple-system,
-  BlinkMacSystemFont,
-  "Segoe UI",
-  Roboto,
-  "Helvetica Neue",
-  Arial,
-  "Noto Sans",
-  sans-serif,
-  "Apple Color Emoji",
-  "Segoe UI Emoji",
-  "Noto Color Emoji",
-  "Segoe UI Symbol",
-  "Android Emoji",
-  "EmojiSymbols";
+/* 5. Custom utility */
+@utility prose-2xl {
+  max-width: 80ch !important;
+  font-size: 110%;
 }
 
-/* Custom prose styles for markdown content */
+/* 6. Base image behavior */
+img {
+  height: auto;
+  max-width: 100%;
+  display: block;
+}
+
+img[loading="lazy"] {
+  content-visibility: auto;
+}
+
+/* 7. Prose styles for markdown content */
 .prose {
   max-width: 65ch;
-  color: var(--color-zinc-800);
+  color: var(--text-secondary);
 }
 
 .prose h1 {
-  color: var(--color-zinc-900);
+  color: var(--text-primary);
   font-weight: 800;
   font-size: 2.25rem;
   margin-top: 0;
@@ -284,7 +75,7 @@ img[loading="lazy"] {
 }
 
 .prose h2 {
-  color: var(--color-zinc-900);
+  color: var(--text-primary);
   font-weight: 700;
   font-size: 1.5rem;
   margin-top: 2rem;
@@ -293,7 +84,7 @@ img[loading="lazy"] {
 }
 
 .prose h3 {
-  color: var(--color-zinc-900);
+  color: var(--text-primary);
   font-weight: 600;
   font-size: 1.25rem;
   margin-top: 1.6rem;
@@ -302,7 +93,7 @@ img[loading="lazy"] {
 }
 
 .prose h4, .prose h5, .prose h6 {
-  color: var(--color-zinc-900);
+  color: var(--text-primary);
   font-weight: 600;
   margin-top: 1.5rem;
   margin-bottom: 0.5rem;
@@ -316,17 +107,17 @@ img[loading="lazy"] {
 }
 
 .prose a {
-  color: var(--color-indigo-600);
+  color: var(--convergence);
   text-decoration: underline;
   font-weight: 500;
 }
 
 .prose a:hover {
-  color: var(--color-indigo-500);
+  color: var(--text-primary);
 }
 
 .prose strong {
-  color: var(--color-zinc-900);
+  color: var(--text-primary);
   font-weight: 600;
 }
 
@@ -352,9 +143,9 @@ img[loading="lazy"] {
 .prose blockquote {
   font-weight: 500;
   font-style: italic;
-  color: var(--color-zinc-900);
+  color: var(--text-primary);
   border-left-width: 0.25rem;
-  border-left-color: var(--color-zinc-300);
+  border-left-color: var(--border);
   quotes: "\201C""\201D""\2018""\2019";
   margin-top: 1.6rem;
   margin-bottom: 1.6rem;
@@ -362,17 +153,17 @@ img[loading="lazy"] {
 }
 
 .prose code {
-  color: var(--color-indigo-600);
+  color: var(--convergence);
   font-weight: 600;
   font-size: 0.875rem;
-  background-color: var(--color-zinc-100);
+  background-color: var(--surface-elevated);
   padding: 0.25rem 0.375rem;
   border-radius: 0.375rem;
 }
 
 .prose pre {
-  color: var(--color-zinc-100);
-  background-color: var(--color-zinc-900);
+  color: var(--surface);
+  background-color: var(--text-primary);
   overflow-x: auto;
   font-weight: 400;
   font-size: 0.875rem;
@@ -389,7 +180,7 @@ img[loading="lazy"] {
   border-radius: 0;
   padding: 0;
   font-weight: inherit;
-  color: var(--color-indigo-400);
+  color: var(--convergence);
   font-size: inherit;
   font-family: inherit;
   line-height: inherit;
@@ -407,11 +198,11 @@ img[loading="lazy"] {
 }
 
 .prose thead {
-  border-bottom: 1px solid var(--color-zinc-300);
+  border-bottom: 1px solid var(--border);
 }
 
 .prose thead th {
-  color: var(--color-zinc-900);
+  color: var(--text-primary);
   font-weight: 600;
   vertical-align: bottom;
   padding-right: 0.5714286rem;
@@ -421,7 +212,7 @@ img[loading="lazy"] {
 }
 
 .prose tbody tr {
-  border-bottom: 1px solid var(--color-zinc-200);
+  border-bottom: 1px solid var(--border-subtle);
 }
 
 .prose tbody tr:last-child {
@@ -436,19 +227,3 @@ img[loading="lazy"] {
 .prose tbody td p {
   margin: 0;
 }
-
-
-/* Light mode placeholder text */
-input::placeholder,
-textarea::placeholder {
-  color: var(--color-gray-500);
-  opacity: 1;
-}
-
-/* CTA email placeholder - light mode */
-#cta-email::placeholder {
-  color: var(--color-gray-400);
-  opacity: 1;
-}
-
-/* Custom CSS end */

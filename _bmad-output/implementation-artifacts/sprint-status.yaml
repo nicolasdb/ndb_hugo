@@ -50,13 +50,13 @@ development_status:
   epic-1-retrospective: done
 
   # Epic 2: Portfolio Shell & Navigation
-  epic-2: in-progress
+  epic-2: done
   2-1-update-base-layout-typography: done
   2-2-redesign-navigation: done
   2-3-build-homepage-hero-content-structure: done
   2-4-redesign-footer: done
   2-5-rename-pearl-to-block: done
-  2-6-visual-polish-close-mockup-gap: ready-for-dev
+  2-6-visual-polish-close-mockup-gap: done
   epic-2-retrospective: done
 
   # Epic 3: Block-Backed Content Publishing (renamed from Pearl-Backed)

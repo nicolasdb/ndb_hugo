@@ -4,8 +4,8 @@
     {{/* Top row: Name + Location (left), Links (right) */}}
     <div class="flex flex-col sm:flex-row sm:justify-between sm:items-baseline gap-4">
       <div class="flex gap-2 items-baseline flex-wrap">
-        <span class="font-heading text-[15px] font-medium text-[var(--text-primary)]">Nicolas de Barquin</span>
-        <span class="font-body text-[13px] text-[var(--text-tertiary)]">Brussels, Belgium</span>
+        <a href="/about/" class="font-heading text-[15px] font-medium text-[var(--text-primary)] hover:text-[var(--text-secondary)]">Nicolas de Barquin</a>
+        <span class="font-body text-[13px] text-[var(--text-tertiary)]">Ixelles, Brussels</span>
       </div>
       <div class="flex gap-4 flex-wrap sm:justify-end">
         {{/* Footer links from hugo.yaml menu.footer */}}
@@ -17,16 +17,14 @@
       </div>
     </div>
 
-    {{/* Trust line — Commit Mono 11px, frontier color */}}
-    <p class="font-mono text-[11px] text-[var(--frontier)] mt-6 max-w-[65ch] leading-relaxed">
+    {{/* Trust line + license — compact single block */}}
+    <p class="font-mono text-[11px] text-[var(--frontier)] mt-4 leading-relaxed">
       Patterns are extracted from documented work, not self-assessment. Confidence reflects evidence density. Built with Hugo, powered by curiosity.
     </p>
-
-    {{/* License attribution */}}
-    <div class="mt-6 text-[11px] text-[var(--text-tertiary)] font-mono space-y-1">
-      <p>Theme: <a href="https://github.com/nusserstudios/tailbliss" target="_blank" rel="noopener noreferrer" class="hover:text-[var(--text-primary)]">TailBliss</a> (Apache 2.0)</p>
-      <p>Content: <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer" class="hover:text-[var(--text-primary)]">CC-BY 4.0</a></p>
-    </div>
+    <p class="font-mono text-[11px] text-[var(--text-tertiary)] mt-2 flex items-center gap-1 flex-wrap">
+      © 2026. <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer" class="hover:text-[var(--text-primary)] inline-flex items-center gap-0.5">CC BY 4.0
+      </a>
+    </p>
   </div>
 </footer>
 

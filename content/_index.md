@@ -2,10 +2,9 @@
 title: "Nicolas de Barquin"
 description: "Portfolio & Skills Repository"
 hero:
-  tagline: "Building a living knowledge graph from documented work"
-  description: "Capturing knowledge blocks, discovering skill patterns, and making the invisible visible — one evidence trail at a time."
+  description: "Fablab manager, maker community architect, electronics tinkerer. I build things, document what I learn, and let patterns emerge from the evidence."
   stats:
-    blocks: 0
-    projects: 0
-    patterns: 0
+    blocks: 847
+    projects: 12
+    patterns: 4
 ---

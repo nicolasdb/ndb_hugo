@@ -80,13 +80,13 @@ menu:
       name: GitHub
       url: https://github.com/nicolasdb
       weight: 10
-    - identifier: about
-      name: About
-      url: /about/
+    - identifier: openfab
+      name: OpenFab
+      url: https://openfab.be
       weight: 20
-    - identifier: contact
-      name: Contact
-      url: /contact/
+    - identifier: mapsofmaking
+      name: Maps of Making
+      url: https://mapsofmaking.com
       weight: 30
 
 taxonomies:

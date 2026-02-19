@@ -4,7 +4,10 @@
       "Bash(echo:*)",
       "Bash(python3:*)",
       "Bash(grep:*)",
-      "Bash(pnpm run test:*)"
+      "Bash(pnpm run test:*)",
+      "Bash(pnpm run build:*)",
+      "mcp__context7__resolve-library-id",
+      "mcp__context7__query-docs"
     ]
   }
 }

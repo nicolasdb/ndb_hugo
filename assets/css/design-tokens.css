@@ -338,24 +338,9 @@
   Each app adds its own theme class to <html>.
 */
 
-*, *::before, *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-html {
-  font-size: 16px;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-body {
-  background: var(--surface);
-  color: var(--text-primary);
-  font-family: var(--font-body);
-  line-height: var(--leading-body);
-}
+/* Base reset handled by Tailwind v4 preflight.
+   body styling handled by Tailwind classes on <body> element.
+   Only selection override kept as it's visual-only. */
 
 ::selection {
   background: var(--selection);
@@ -372,10 +357,9 @@ body {
   before abstracting. (Anti-over-engineering rule.)
 */
 
-/* Typography roles */
-.font-heading { font-family: var(--font-heading); }
-.font-body    { font-family: var(--font-body); }
-.font-mono    { font-family: var(--font-mono); }
+/* Typography utility classes — font-heading/font-body/font-mono
+   are handled by Tailwind @theme in main.css.
+   Only keep non-Tailwind helpers here. */
 
 /* Section labels (mono, uppercase, small) */
 .section-label {
