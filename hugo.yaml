@@ -49,7 +49,7 @@ params:
   authorimage: ../assets/images/global/author.webp
   og_image: ""
   moto: "Portfolio & Skills Repository"
-  description: "Personal portfolio showcasing projects, skills, and current growth journey."
+  description: "Personal portfolio showcasing projects, skills, and growth journey."
   disable_theme_toggle: true
   newsletter_signup: false
 
@@ -76,17 +76,17 @@ menu:
       url: /about/
       weight: 50
   footer:
-    - identifier: posts
-      name: Posts
-      url: /posts/
+    - identifier: github
+      name: GitHub
+      url: https://github.com/nicolasdb
       weight: 10
-    - identifier: patterns
-      name: Patterns
-      url: /patterns/
-      weight: 20
     - identifier: about
       name: About
       url: /about/
+      weight: 20
+    - identifier: contact
+      name: Contact
+      url: /contact/
       weight: 30
 
 taxonomies:

@@ -41,7 +41,7 @@ story_location: _bmad-output/implementation-artifacts
 
 development_status:
   # Epic 1: Design Foundation, Clean Slate & Deploy Pipeline
-  epic-1: in-progress
+  epic-1: done
   1-1-remove-tailbliss-defaults-sample-content: done
   1-2-implement-design-tokens-css-pipeline: done
   1-3-simplify-dark-mode-to-os-preference-only: done
@@ -54,10 +54,12 @@ development_status:
   2-1-update-base-layout-typography: done
   2-2-redesign-navigation: done
   2-3-build-homepage-hero-content-structure: done
-  2-4-redesign-footer: ready-for-dev
-  epic-2-retrospective: optional
+  2-4-redesign-footer: done
+  2-5-rename-pearl-to-block: ready-for-dev
+  2-6-visual-polish-close-mockup-gap: ready-for-dev
+  epic-2-retrospective: done
 
-  # Epic 3: Pearl-Backed Content Publishing
+  # Epic 3: Block-Backed Content Publishing (renamed from Pearl-Backed)
   epic-3: backlog
   3-1-create-post-archetypes-content-structure: backlog
   3-2-build-pearl-meta-confidence-partials: backlog

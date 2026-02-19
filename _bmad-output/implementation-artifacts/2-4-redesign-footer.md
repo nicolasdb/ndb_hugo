@@ -1,6 +1,6 @@
 # Story 2.4: Redesign Footer
 
-Status: ready-for-dev
+Status: done
 
 ## Story
 
@@ -26,28 +26,28 @@ So that I can find additional information and the site feels complete.
 
 ## Tasks / Subtasks
 
-- [ ] Task 1: Rewrite footer.html partial (AC: #1, #2, #3, #4, #5)
-  - [ ] 1.1 Read current `layouts/partials/footer.html` completely
-  - [ ] 1.2 Rewrite to DESIGN-SPEC §6.7:
+- [x] Task 1: Rewrite footer.html partial (AC: #1, #2, #3, #4, #5)
+  - [x] 1.1 Read current `layouts/partials/footer.html` completely
+  - [x] 1.2 Rewrite to DESIGN-SPEC §6.7:
     - **Top row:** Name (Literata 15px, 500) + Location (Hanken Grotesk 13px, text-tertiary) left, links (Commit Mono 12px, text-tertiary) right
     - **Trust line:** Commit Mono 11px, frontier color — "Patterns are extracted from documented work, not self-assessment. Confidence reflects evidence density. Built with Hugo, powered by curiosity."
-  - [ ] 1.3 Max-width: 920px centered (same as nav and page content)
-  - [ ] 1.4 Use design token colors via Tailwind arbitrary values or mapped utilities
-  - [ ] 1.5 Add license attribution: Apache 2.0 (theme) + CC-BY 4.0 (content)
-  - [ ] 1.6 Links: read from `hugo.yaml` `menu.footer` OR hardcode minimal set (GitHub, About, Contact)
-  - [ ] 1.7 Responsive: stack to single column on mobile, flex row on `sm:` and above
+  - [x] 1.3 Max-width: 920px centered (same as nav and page content)
+  - [x] 1.4 Use design token colors via Tailwind arbitrary values or mapped utilities
+  - [x] 1.5 Add license attribution: Apache 2.0 (theme) + CC-BY 4.0 (content)
+  - [x] 1.6 Links: read from `hugo.yaml` `menu.footer` OR hardcode minimal set (GitHub, About, Contact)
+  - [x] 1.7 Responsive: stack to single column on mobile, flex row on `sm:` and above
 
-- [ ] Task 2: Update hugo.yaml footer menu if needed (AC: #3)
-  - [ ] 2.1 If using menu-driven footer links, update `menu.footer` in hugo.yaml:
+- [x] Task 2: Update hugo.yaml footer menu if needed (AC: #3)
+  - [x] 2.1 If using menu-driven footer links, update `menu.footer` in hugo.yaml:
     - GitHub (external link)
     - About (`/about/`)
     - Contact (`/contact/`)
-  - [ ] 2.2 Remove TailBliss blog/news category links from footer menu
+  - [x] 2.2 Remove TailBliss blog/news category links from footer menu
 
-- [ ] Task 3: Verify build and rendering (AC: #6)
-  - [ ] 3.1 Run `pnpm run build` — must succeed
-  - [ ] 3.2 Run `pnpm run test` — Hugo build validation must pass
-  - [ ] 3.3 Verify footer renders correctly on desktop and mobile
+- [x] Task 3: Verify build and rendering (AC: #6)
+  - [x] 3.1 Run `pnpm run build` — must succeed
+  - [x] 3.2 Run `pnpm run test` — Hugo build validation must pass
+  - [x] 3.3 Verify footer renders correctly on desktop and mobile
 
 ## Dev Notes
 
@@ -142,10 +142,57 @@ Per architecture D3.1: Create branch `phase0/2-4-redesign-footer` from `main`.
 
 ### Agent Model Used
 
-{{agent_model_name_version}}
+Claude Haiku 4.5 (claude-haiku-4-5-20251001)
 
-### Debug Log References
+### Implementation Plan
 
-### Completion Notes List
+Implemented footer redesign following DESIGN-SPEC §6.7 with clean typography-forward layout:
+1. **Complete rewrite** of footer.html partial — removed TailBliss default template entirely
+2. **Typography-first layout** using design tokens: Literata (name), Hanken Grotesk (location), Commit Mono (links and trust line)
+3. **Responsive design** with flex-col/sm:flex-row for mobile-first stacking
+4. **Design tokens** via Tailwind arbitrary values: colors, spacing, font families
+5. **License attribution** as final section with proper links to Apache 2.0 and CC-BY 4.0
+6. **Menu-driven links** from hugo.yaml: GitHub (external), About, Contact
+
+### Completion Notes
+
+✅ **All acceptance criteria satisfied:**
+- AC #1: Footer uses design token colors via `var(--border)`, `var(--text-primary)`, `var(--text-tertiary)`, `var(--frontier)`
+- AC #2: Design tokens properly mapped (no hardcoded colors)
+- AC #3: Relevant links rendered from `hugo.yaml` `menu.footer` (GitHub, About, Contact)
+- AC #4: License attribution included (Apache 2.0 theme link + CC-BY 4.0 content link)
+- AC #5: Responsive layout with `flex-col sm:flex-row` for mobile/desktop adaptation
+- AC #6: `pnpm run build` and `pnpm run test` both pass (Hugo build validation successful)
+
+**Key Changes:**
+- Removed all TailBliss social media icons and newsletter signup
+- Removed complex multi-column grid layout
+- New simplified structure: Name + Location (left) | Links (right) | Trust line | Attribution
+- Font families and sizes match DESIGN-SPEC exactly
+- Verified rendering across multiple pages (index.html, about/index.html, etc.)
+
+**No regressions:** All 11 pages build successfully, static files processed correctly
 
 ### File List
+
+- `layouts/partials/footer.html` — Complete rewrite to DESIGN-SPEC §6.7
+- `hugo.yaml` — Updated `menu.footer` entries (GitHub, About, Contact)
+
+### Senior Developer Review (AI)
+
+**Reviewer:** Nicolas (via Claude Opus 4.6) — 2026-02-19
+
+**Issues Found:** 1 High, 4 Medium, 2 Low
+
+**Fixed (4):**
+- [x] [H1] Removed `transition-colors` from all footer links — violates DESIGN-SPEC §10 "No Animation"
+- [x] [M2] Added `target="_blank" rel="noopener noreferrer"` for external menu links (GitHub)
+- [x] [M3] Added `target="_blank"` to attribution links (TailBliss, CC-BY 4.0)
+- [x] [M4] Changed footer `px-8` to `px-4` to match nav horizontal padding
+
+**Noted (not fixed — out of scope):**
+- [M1] `content/_index.md` has staged change ("pearls" → "blocks") not documented in this story's File List. Likely from story 2.3 or separate edit — should be committed separately.
+
+**Low (not fixed):**
+- [L1] Alpine.js pinned to 3.14.9 vs CLAUDE.md's 3.15.8 — pre-existing, not introduced by this story
+- [L2] `absLangURL` with empty baseURL on external URLs — verify in production deploy
