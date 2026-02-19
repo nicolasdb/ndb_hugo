@@ -24,7 +24,7 @@ _This document builds collaboratively through step-by-step discovery. Sections a
 ### Requirements Overview
 
 **Functional Requirements:**
-7 FRs covering the full pearl lifecycle: multi-format capture (FR-1), pearl management with temporal metadata (FR-2), LLM-driven skill discovery via embed→cluster→label→validate pipeline (FR-3), Neo4j graph storage with temporal queries and negative space detection (FR-4), evidence-based XP calculation with decay and compound effects (FR-5), visualization APIs for graph/timeline/frontier export (FR-6), and historical idea indexing with convergence matching (FR-7).
+7 FRs covering the full block lifecycle: multi-format capture (FR-1), block management with temporal metadata (FR-2), LLM-driven skill discovery via embed→cluster→label→validate pipeline (FR-3), Neo4j graph storage with temporal queries and negative space detection (FR-4), evidence-based XP calculation with decay and compound effects (FR-5), visualization APIs for graph/timeline/frontier export (FR-6), and historical idea indexing with convergence matching (FR-7).
 
 Architecturally, these decompose into: an ingestion layer (FR-1, FR-2), a processing layer (FR-3, FR-7), a storage layer (FR-4), a computation layer (FR-5), and a presentation layer (FR-6). The processing layer is the most architecturally significant — it orchestrates Claude API, text-embedding-3, HDBSCAN clustering, and Graphiti ingestion as a pipeline.
 
@@ -49,7 +49,7 @@ Architecturally, these decompose into: an ingestion layer (FR-1, FR-2), a proces
 - Hugo templates restyled to DESIGN-SPEC (replace generic TailBliss)
 - TailwindCSS 4.1 with design tokens from `assets/css/main.css`
 - Netlify deployment (already configured in `netlify.toml`)
-- Content model: Hugo frontmatter schema supporting evidence trail, pearl counts, patterns, confidence, timespan
+- Content model: Hugo frontmatter schema supporting evidence trail, block counts, patterns, confidence, timespan
 - Manually-written posts that conform to the content contract (backoffice generates them later)
 - Responsive portfolio (mobile breakpoints — Open Question #5, must be addressed)
 
@@ -80,9 +80,9 @@ Architecturally, these decompose into: an ingestion layer (FR-1, FR-2), a proces
 
 ### Cross-Cutting Concerns Identified
 
-1. **Design token sharing** — Defined in Hugo first (`assets/css/main.css`), extracted to shared package when backoffice consumes them. OKLCH color space, semantic pearl system colors.
+1. **Design token sharing** — Defined in Hugo first (`assets/css/main.css`), extracted to shared package when backoffice consumes them. OKLCH color space, semantic block system colors.
 
-2. **Content contract (Hugo frontmatter schema)** — The portfolio needs structured frontmatter even before the backoffice generates it. Required fields: `title`, `date`, `description`, `tags`, `pearlCount`, `timespan` (e.g., "March 2024 → January 2025"), `patterns` (linked skill patterns), `confidence`, `evidenceTrail` (list of chronological pearls with timestamp, color, content). This contract is the data interface between apps — define it in Phase 0, backoffice conforms to it later.
+2. **Content contract (Hugo frontmatter schema)** — The portfolio needs structured frontmatter even before the backoffice generates it. Required fields: `title`, `date`, `description`, `tags`, `blockCount`, `timespan` (e.g., "March 2024 → January 2025"), `patterns` (linked skill patterns), `confidence`, `evidenceTrail` (list of chronological blocks with timestamp, color, content). This contract is the data interface between apps — define it in Phase 0, backoffice conforms to it later.
 
 3. **Git publishing bridge** — The only integration point between two otherwise independent systems. Needs a contract: valid frontmatter schema, image handling conventions, branch strategy (direct to main? PR?), error handling (malformed frontmatter, concurrent publishes). Load-bearing architecture — treat it as a first-class concern.
 
@@ -90,15 +90,15 @@ Architecturally, these decompose into: an ingestion layer (FR-1, FR-2), a proces
 
 5. **AI pipeline orchestration** — Embed → cluster → label → validate touches capture, storage, and presentation. Must be async/background ("nothing automatic, everything automated").
 
-6. **Evidence tracing** — Every public claim must link to documented work. Flows through: pearl → necklace → pattern → published post. Cross-cuts storage, API, and both frontends. Even in Phase 0 with manual posts, the evidence trail structure must exist in frontmatter/data.
+6. **Evidence tracing** — Every public claim must link to documented work. Flows through: block → necklace → pattern → published post. Cross-cuts storage, API, and both frontends. Even in Phase 0 with manual posts, the evidence trail structure must exist in frontmatter/data.
 
-7. **Privacy boundary** — Clear separation between private (backoffice, raw pearls, graph) and public (portfolio, published posts, curated patterns). Git commit is the publish gate.
+7. **Privacy boundary** — Clear separation between private (backoffice, raw blocks, graph) and public (portfolio, published posts, curated patterns). Git commit is the publish gate.
 
 8. **Validation-as-training** — User accept/reject/edit actions logged to PostgreSQL as immutable training signals. Affects capture UI, API design, and storage schema.
 
 9. **Single-user auth** — Session-based, local auth. No registration flow. Created via CLI/first-run. Minimal but required for backoffice access.
 
-10. **Freshness data source** — "Last pearl captured 3h ago" is static in Phase 0 (Hugo build-time value or hardcoded placeholder). Architecture should acknowledge this transitions to a live API endpoint when backoffice is operational. Design the Hugo partial to accept both static and dynamic sources.
+10. **Freshness data source** — "Last block captured 3h ago" is static in Phase 0 (Hugo build-time value or hardcoded placeholder). Architecture should acknowledge this transitions to a live API endpoint when backoffice is operational. Design the Hugo partial to accept both static and dynamic sources.
 
 11. **Responsive behavior** — Portfolio needs mobile breakpoints (visitors use phones). BackOffice is desktop-only. Breakpoints TBD (DESIGN-SPEC Open Question #5) but must be addressed in Phase 0 since the portfolio is public-facing.
 
@@ -177,9 +177,9 @@ categories: ["category"]
 draft: false
 ```
 
-Pearl-specific fields (optional, gracefully handled when absent):
+Block-specific fields (optional, gracefully handled when absent):
 ```yaml
-pearlCount: 15
+blockCount: 15
 timespan: "March 2024 → January 2025"
 patterns: ["container-orchestration", "teaching"]
 confidence: 87
@@ -188,13 +188,13 @@ confidence: 87
 Evidence trail as page bundle sidecar (not inline frontmatter):
 ```
 content/posts/my-docker-journey/
-├── index.md          ← post content + core/pearl frontmatter
-└── evidence.yaml     ← pearl trail as sidecar data file
+├── index.md          ← post content + core/block frontmatter
+└── evidence.yaml     ← block trail as sidecar data file
 ```
 
 `evidence.yaml` structure:
 ```yaml
-pearls:
+blocks:
   - date: 2024-03-15
     color: "fresh"
     content: "First Docker networking notes"
@@ -203,9 +203,9 @@ pearls:
     content: "Connected to teaching workflow"
 ```
 
-Template reads via `.Resources.GetMatch "evidence.yaml"`. Keeps frontmatter clean, makes backoffice git commits simpler (write two files instead of one massive frontmatter block), and scales to 50+ pearls without degrading readability.
+Template reads via `.Resources.GetMatch "evidence.yaml"`. Keeps frontmatter clean, makes backoffice git commits simpler (write two files instead of one massive frontmatter block), and scales to 50+ blocks without degrading readability.
 
-Templates use graceful degradation via a shared `partials/pearl-meta.html` partial that handles all optional pearl field rendering with `{{ with }}` / `{{ isset }}` guards. Called from post-list, post-single, and pattern cards — DRY from the start.
+Templates use graceful degradation via a shared `partials/block-meta.html` partial that handles all optional block field rendering with `{{ with }}` / `{{ isset }}` guards. Called from post-list, post-single, and pattern cards — DRY from the start.
 
 Hugo archetypes (`archetypes/posts.md`) pre-fill required frontmatter fields with sensible defaults.
 
@@ -214,7 +214,7 @@ Hugo archetypes (`archetypes/posts.md`) pre-fill required frontmatter fields wit
 
 **D1.2: Pattern and Timeline Data — Hugo Content Sections**
 
-- `content/patterns/` — Each pattern is a content file with frontmatter (title, confidence, pearlCount, timespan, trajectory, description, miniGraph data). Gets its own `/patterns/{slug}` page.
+- `content/patterns/` — Each pattern is a content file with frontmatter (title, confidence, blockCount, timespan, trajectory, description, miniGraph data). Gets its own `/patterns/{slug}` page.
 - `content/timeline/` — Each moment is a content file with frontmatter (date, year, color, quote, linkedPost, featuredOnHomepage). Enables `/timeline/` page.
 - Homepage queries: `where .Params.featuredOnHomepage true` or sort by date, limited to 4 patterns and 10 moments. Exact filtering TBD during implementation.
 
@@ -330,7 +330,7 @@ Netlify runs `pnpm run build` on push to main. No separate GitHub Actions CI (Co
 1. CSS integration (D2.1) — copy tokens to `assets/css/`, set up import chain, verify build
 2. Responsive breakpoints (D2.2) — configure in templates from the start
 3. Content types (D1.2) — create `content/patterns/` and `content/timeline/` with archetypes
-4. Post schema (D1.1) — define frontmatter, create `pearl-meta.html` partial, build templates
+4. Post schema (D1.1) — define frontmatter, create `block-meta.html` partial, build templates
 5. Alpine.js interactions (D2.3) — add as components are built
 6. Branch strategy (D3.1) — adopt when first story starts
 7. Netlify deploy (D3.2) — push to GitHub, configure Netlify
@@ -364,7 +364,7 @@ Do NOT use `resources.PostCSS` or `resources.Get "css/main.css" | resources.Post
 
 **Hugo Partials:** Flat, kebab-case.
 - `partials/nav.html`, `partials/hero.html`, `partials/post-list-item.html`
-- `partials/pearl-meta.html`, `partials/pattern-card.html`, `partials/timeline-moment.html`
+- `partials/block-meta.html`, `partials/pattern-card.html`, `partials/timeline-moment.html`
 - No subdirectories unless partial count exceeds ~15 files
 - Name describes the component, not the page it's used on
 
@@ -372,7 +372,7 @@ Do NOT use `resources.PostCSS` or `resources.Get "css/main.css" | resources.Post
 - Layout, spacing, sizing: Tailwind utilities (`flex`, `gap-4`, `max-w-[920px]`)
 - Semantic design roles: custom classes from tokens (`.section-label`, `.meta`, `.font-heading`, `.meta-sep`)
 - Never create custom classes for things Tailwind handles
-- Custom classes only for *design concepts* (e.g., `.confidence-bar`, `.pearl-dot`)
+- Custom classes only for *design concepts* (e.g., `.confidence-bar`, `.block-dot`)
 
 **Content Files:**
 - Posts: page bundles — `content/posts/{slug}/index.md` (supports evidence sidecar)
@@ -386,8 +386,8 @@ Do NOT use `resources.PostCSS` or `resources.Get "css/main.css" | resources.Post
 - **Promotion path:** To promote a leaf file to a page bundle, create a directory with the slug name and move the file to `index.md`. Example: `content/patterns/container-orchestration.md` → `content/patterns/container-orchestration/index.md`
 - Note: `.Resources.GetMatch` only works in page bundles, not leaf files
 
-**Template Variables:** camelCase (`$pearlCount`, `$isActive`).
-**Frontmatter Fields:** camelCase for custom fields (`pearlCount`, `featuredOnHomepage`). Hugo built-ins stay as-is (`title`, `date`, `tags`).
+**Template Variables:** camelCase (`$blockCount`, `$isActive`).
+**Frontmatter Fields:** camelCase for custom fields (`blockCount`, `featuredOnHomepage`). Hugo built-ins stay as-is (`title`, `date`, `tags`).
 
 ### Structure Patterns
 
@@ -413,7 +413,7 @@ layouts/
 │   ├── post-list-item.html
 │   ├── pattern-card.html
 │   ├── timeline-moment.html
-│   ├── pearl-meta.html
+│   ├── block-meta.html
 │   ├── confidence-bar.html
 │   ├── section-heading.html
 │   └── evidence-trail.html
@@ -425,7 +425,7 @@ layouts/
 ```
 archetypes/
 ├── posts/
-│   ├── index.md          ← frontmatter template with all core + pearl fields
+│   ├── index.md          ← frontmatter template with all core + block fields
 │   └── evidence.yaml     ← empty evidence sidecar template
 ├── patterns.md           ← frontmatter template for pattern content
 └── timeline.md           ← frontmatter template for timeline moments
@@ -450,16 +450,16 @@ archetypes/
 
 **Frontmatter Convention:**
 - Hugo built-in fields: lowercase (`title`, `date`, `draft`, `tags`)
-- Custom pearl fields: camelCase (`pearlCount`, `timespan`, `confidence`, `featuredOnHomepage`)
+- Custom block fields: camelCase (`blockCount`, `timespan`, `confidence`, `featuredOnHomepage`)
 - This visual distinction makes it immediately clear which fields are "ours"
 
 ### Process Patterns
 
 **Template Guards (Graceful Degradation):**
 ```go-html-template
-{{/* ✅ CORRECT: guard optional pearl fields with "with" */}}
-{{ with .Params.pearlCount }}
-  <span class="meta">{{ . }} pearls</span>
+{{/* ✅ CORRECT: guard optional block fields with "with" */}}
+{{ with .Params.blockCount }}
+  <span class="meta">{{ . }} blocks</span>
 {{ end }}
 
 {{/* ✅ CORRECT: guard boolean/numeric with "if" */}}
@@ -475,8 +475,8 @@ archetypes/
   {{ partial "evidence-trail.html" (dict "data" $data "page" $) }}
 {{ end }}
 
-{{/* ❌ WRONG: no guard — breaks on posts without pearl fields */}}
-<span>{{ .Params.pearlCount }} pearls</span>
+{{/* ❌ WRONG: no guard — breaks on posts without block fields */}}
+<span>{{ .Params.blockCount }} blocks</span>
 ```
 
 **Partial Interface Pattern:**
@@ -486,7 +486,7 @@ archetypes/
   ```
 - Partials that only need the current page context receive `.`:
   ```go-html-template
-  {{ partial "pearl-meta.html" . }}
+  {{ partial "block-meta.html" . }}
   ```
 - Use `"page"` as dict key for the page context (not `"context"` — loaded term in Go templates)
 
@@ -500,18 +500,18 @@ archetypes/
 ### Enforcement Guidelines
 
 **All AI Agents MUST:**
-1. Use template guards (`with`/`if`) for ALL optional pearl frontmatter fields
+1. Use template guards (`with`/`if`) for ALL optional block frontmatter fields
 2. Use Tailwind utilities for layout/spacing; custom classes only for design token semantics
 3. Follow page bundle pattern for posts, leaf files for patterns/timeline
 4. Store dates as ISO, format in templates
 5. Use camelCase for custom frontmatter fields
 6. Comment the "why" with design-spec references, not the "what"
-7. Use the `pearl-meta.html` partial for rendering optional pearl data — don't inline guards in every template
+7. Use the `block-meta.html` partial for rendering optional block data — don't inline guards in every template
 8. Never use Hugo Pipes for CSS — Vite handles the CSS pipeline
 9. Use `"page"` (not `"context"`) as dict key when passing page context to partials
 
 **Pattern Verification Checklist (apply to every story before marking complete):**
-- [ ] All optional pearl fields use `{{ with }}` or `{{ if }}` guards
+- [ ] All optional block fields use `{{ with }}` or `{{ if }}` guards
 - [ ] No custom CSS classes for layout/spacing (Tailwind utilities only)
 - [ ] All new partials follow kebab-case naming
 - [ ] Post content uses page bundle structure (not leaf file)
@@ -521,7 +521,7 @@ archetypes/
 **Anti-Patterns:**
 - ❌ Creating `.post-title { font-size: 20px; }` when `text-[20px] font-heading font-bold` works
 - ❌ Putting evidence trail data in frontmatter instead of `evidence.yaml` sidecar
-- ❌ Rendering `{{ .Params.pearlCount }}` without a `with` or `if` guard
+- ❌ Rendering `{{ .Params.blockCount }}` without a `with` or `if` guard
 - ❌ Creating `partials/components/cards/pattern/pattern-card.html` (over-nesting)
 - ❌ Adding JavaScript files for one-off Alpine interactions
 - ❌ Using `resources.PostCSS` or Hugo Pipes for CSS (Vite handles this)
@@ -553,7 +553,7 @@ ndb_hugo-tailbliss/
 ├── archetypes/
 │   ├── default.md                         [existing, keep as fallback]
 │   ├── posts/                             [new — directory archetype]
-│   │   ├── index.md                       [new — core + pearl frontmatter template]
+│   │   ├── index.md                       [new — core + block frontmatter template]
 │   │   └── evidence.yaml                  [new — empty evidence sidecar template]
 │   ├── patterns.md                        [new — pattern frontmatter template]
 │   └── timeline.md                        [new — timeline moment template]
@@ -579,8 +579,8 @@ ndb_hugo-tailbliss/
 │   ├── posts/
 │   │   ├── _index.md                      [new — posts list page config]
 │   │   └── {slug}/                        [new structure — page bundles]
-│   │       ├── index.md                   [post content + core/pearl frontmatter]
-│   │       └── evidence.yaml              [optional pearl trail sidecar]
+│   │       ├── index.md                   [post content + core/block frontmatter]
+│   │       └── evidence.yaml              [optional block trail sidecar]
 │   ├── patterns/                          [new — skill pattern content section]
 │   │   ├── _index.md                      [new — patterns list page config]
 │   │   └── {slug}.md                      [leaf files for each pattern]
@@ -612,7 +612,7 @@ ndb_hugo-tailbliss/
 │   │   ├── post-list-item.html            [new — replaces post-tile.html]
 │   │   ├── pattern-card.html              [new — pattern card with mini-graph]
 │   │   ├── timeline-moment.html           [new — timeline moment partial]
-│   │   ├── pearl-meta.html                [new — shared pearl field renderer]
+│   │   ├── block-meta.html                [new — shared block field renderer]
 │   │   ├── confidence-bar.html            [new — confidence bar component]
 │   │   ├── section-heading.html           [new — mono uppercase section label]
 │   │   ├── evidence-trail.html            [new — collapsible evidence trail]
@@ -661,7 +661,7 @@ ndb_hugo-tailbliss/
 title: "Nicolas de Barquin"
 description: "Portfolio & Skills Repository"
 hero:
-  tagline: "Capture knowledge pearls first..."
+  tagline: "Capture knowledge blocks first..."
   description: "Building a living knowledge graph..."
 ---
 ```
@@ -674,7 +674,7 @@ hero:
 |--------------------------|-----------------|---------------|
 | Hero section (DESIGN-SPEC §6.1) | `layouts/index.html` | `partials/hero.html`, `content/_index.md` |
 | Navigation (DESIGN-SPEC §6.2) | `partials/nav.html` | `assets/js/darkmode.js` |
-| Post list (DESIGN-SPEC §6.3) | `layouts/posts/list.html` | `partials/post-list-item.html`, `partials/pearl-meta.html` |
+| Post list (DESIGN-SPEC §6.3) | `layouts/posts/list.html` | `partials/post-list-item.html`, `partials/block-meta.html` |
 | Timeline (DESIGN-SPEC §6.4) | `layouts/timeline/list.html` | `partials/timeline-moment.html`, `content/timeline/` |
 | Pattern gallery (DESIGN-SPEC §6.5) | `layouts/patterns/list.html` | `partials/pattern-card.html`, `content/patterns/` |
 | Post detail (DESIGN-SPEC §6.6) | `layouts/posts/single.html` | `partials/evidence-trail.html`, `partials/confidence-bar.html` |
@@ -719,7 +719,7 @@ Subsequent stories build on the clean base: design tokens → nav → hero → p
 
 ### Pattern Verification Checklist (updated)
 
-- [ ] All optional pearl fields use `{{ with }}` or `{{ if }}` guards
+- [ ] All optional block fields use `{{ with }}` or `{{ if }}` guards
 - [ ] No custom CSS classes for layout/spacing (Tailwind utilities only)
 - [ ] All new partials follow kebab-case naming
 - [ ] Post content uses page bundle structure (not leaf file)
@@ -740,7 +740,7 @@ Subsequent stories build on the clean base: design tokens → nav → hero → p
 
 ### Requirements Coverage ✅
 
-All Phase 0 requirements covered. FR-2 (pearl management) structurally supported via frontmatter schema and evidence sidecar. FR-5 and FR-6 supported via display-only components (confidence bar, pattern cards, timeline). FR-1, FR-3, FR-4, FR-7 explicitly deferred to BackOffice repo. NFR-3 (evidence-based) structurally supported via evidence trail. Content contract bridges both apps.
+All Phase 0 requirements covered. FR-2 (block management) structurally supported via frontmatter schema and evidence sidecar. FR-5 and FR-6 supported via display-only components (confidence bar, pattern cards, timeline). FR-1, FR-3, FR-4, FR-7 explicitly deferred to BackOffice repo. NFR-3 (evidence-based) structurally supported via evidence trail. Content contract bridges both apps.
 
 ### Implementation Readiness ✅
 

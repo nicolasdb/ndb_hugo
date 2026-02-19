@@ -23,7 +23,7 @@ This document provides the complete epic and story breakdown for ndb_hugo-tailbl
 ### Functional Requirements
 
 FR-1: The system must capture and store work outcomes with minimum friction — multi-format input (CLI, markdown, API), validation (date, skills, success metrics), proof-of-work linking (git commit, URL), automatic timestamping, versioning
-FR-2: The system must allow creation and retrieval of memory pearls — timestamp + content + optional tags + source, persist without requiring completion, search & browse, surface relevant pearls by current work context, track activation timing (written vs. became relevant)
+FR-2: The system must allow creation and retrieval of memory blocks — timestamp + content + optional tags + source, persist without requiring completion, search & browse, surface relevant blocks by current work context, track activation timing (written vs. became relevant)
 FR-3: The system must discover skill patterns from outcomes — batch process outcomes to extract skill signals, identify skill clusters through pattern analysis, generate confidence scores, suggest relationships between skills, handle manual validation/refinement
 FR-4: The system must store and query a knowledge graph efficiently — nodes (skills, projects, outcomes, ideas), edges (depends on, compounds with, related to), timeline queries, efficient negative space identification
 FR-5: The system must calculate and track skill proficiency levels — XP algorithm (frequency x recency x success_metrics), proficiency levels (Novice/Intermediate/Advanced/Expert), compound XP, decay weighting, calculation transparency
@@ -35,14 +35,14 @@ FR-7: The system must connect old ideas to current work — index historical ide
 NFR-1: Emergence Design — use graph DB (not relational), LLM-driven categorization (not fixed taxonomies), allow new skill categories without schema changes, support serendipitous surfacing
 NFR-2: Continuous Operation — minimal friction in outcome logging, background processing (don't block on LLM analysis), real-time visualization updates, data consistency guarantees
 NFR-3: Evidence-Based — every skill claim links to documented outcomes, proof-of-work linking (commits, URLs, dates), transparency (users see evidence), no self-assessment without supporting work
-NFR-4: Scalability — sub-500ms graph queries, support 1000+ skills / 10000+ outcomes, memory-efficient pearl storage, efficient negative space identification
+NFR-4: Scalability — sub-500ms graph queries, support 1000+ skills / 10000+ outcomes, memory-efficient block storage, efficient negative space identification
 NFR-5: Privacy & Control — fine-grained visibility controls (public/private/shared), exclude sensitive outcomes, control public visualization, full export/backup of all data
 
 ### Additional Requirements
 
 **From Architecture:**
 - Starter template: Hugo + TailBliss (already running, Phase 0 active); betterCallSaul MVP (backoffice, deferred to ndb_backoffice repo)
-- D1.1: Post frontmatter schema with core + optional pearl fields; evidence trail as page bundle sidecar (evidence.yaml); graceful degradation via shared pearl-meta.html partial; archetypes for page bundles
+- D1.1: Post frontmatter schema with core + optional block fields; evidence trail as page bundle sidecar (evidence.yaml); graceful degradation via shared block-meta.html partial; archetypes for page bundles
 - D1.2: Pattern and Timeline as Hugo content sections (content/patterns/, content/timeline/) with dedicated archetypes and list/single layouts
 - D1.3: Image handling via existing imgc shortcode for WebP optimization with lazy loading
 - D2.1: CSS integration — design tokens in assets/css/design-tokens.css imported before Tailwind in main.css; Vite pipeline (NOT Hugo Pipes); spec reference stays in _bmad-output
@@ -52,7 +52,7 @@ NFR-5: Privacy & Control — fine-grained visibility controls (public/private/sh
 - D3.2: CI/CD — Netlify only, pnpm run build on push to main; CodeQL for security scanning
 - File removal list: 14 sample posts, unused partials (newsletter, posts-template, post-tile), TailBliss branding images (5 files + sample-logo), TailBliss sample images, unused platform configs (Dockerfile, nginx.conf, nixpacks.toml, cloudflare.md, theme.toml); audit style.css
 - Build pipeline: Vite processes assets/css/main.css with TailwindCSS 4.1 plugin -> outputs to static/css/ -> Hugo reads; never use Hugo Pipes for CSS
-- Implementation patterns: template guards (with/if) for optional pearl fields, partial interfaces (dict vs .), naming conventions (kebab-case partials, camelCase frontmatter), comment conventions (reference DESIGN-SPEC sections), verification checklist per story
+- Implementation patterns: template guards (with/if) for optional block fields, partial interfaces (dict vs .), naming conventions (kebab-case partials, camelCase frontmatter), comment conventions (reference DESIGN-SPEC sections), verification checklist per story
 - Homepage content pattern: content/_index.md provides hero content via frontmatter, template reads .Params (no hardcoded strings)
 - Content file conventions: posts as page bundles, patterns/timeline as leaf files, kebab-case slugs
 
@@ -60,7 +60,7 @@ NFR-5: Privacy & Control — fine-grained visibility controls (public/private/sh
 - Two-app visual identity: dark office (BackOffice) / light gallery (Portfolio) — distinct visual languages connected by content flow
 - Progressive disclosure: mode-aware UI, show only what's needed for current context
 - Upload-first capture model: BackOffice receives content, doesn't create it; AI pre-processing with user validation
-- Pearl/Necklace/Pattern: three narrative scales (moment/project/skill)
+- Block/Necklace/Pattern: three narrative scales (moment/project/skill)
 - %Confidence as social contract: trust mechanism + user incentive + transparent scoring
 - "Nothing automatic, everything automated": system prepares silently, user initiates all workflows
 - Responsive portfolio: must work on mobile (visitors use phones); BackOffice is desktop-only
@@ -81,7 +81,7 @@ NFR-5: Privacy & Control — fine-grained visibility controls (public/private/sh
 | FR | Epic | Coverage |
 |----|------|----------|
 | FR-1 | Epic 5 | Structural — content seeding validates capture contract; full implementation deferred to backoffice |
-| FR-2 | Epic 3 | Structural — pearl metadata display, evidence trail rendering; pearl creation deferred to backoffice |
+| FR-2 | Epic 3 | Structural — block metadata display, evidence trail rendering; block creation deferred to backoffice |
 | FR-3 | Epic 4 | Structural — pattern content type supports discovered skills; LLM pipeline deferred to backoffice |
 | FR-4 | Epic 4 | Structural — content sections model graph data; graph DB deferred to backoffice |
 | FR-5 | Epic 3 | Display-only — confidence bar renders from frontmatter; XP calculation deferred to backoffice |
@@ -97,7 +97,7 @@ NFR-5: Privacy & Control — fine-grained visibility controls (public/private/sh
 
 - Remove TailBliss sample content, branding images, unused partials, unused platform configs
 - Audit and merge/remove `style.css`
-- Implement design tokens (`assets/css/design-tokens.css`) with OKLCH pearl system colors
+- Implement design tokens (`assets/css/design-tokens.css`) with OKLCH block system colors
 - Establish CSS import chain (tokens → Tailwind → theme → utilities), verify Vite build
 - Simplify dark mode: remove toggle button, keep OS preference only (`prefers-color-scheme`)
 - Connect repo to Netlify, verify `pnpm run build` deploys successfully
@@ -119,11 +119,11 @@ NFR-5: Privacy & Control — fine-grained visibility controls (public/private/sh
 **FRs covered:** FR-6 (structural — homepage sections for future pattern/timeline queries)
 **NFRs covered:** NFR-2 (real-time dark mode via OS preference)
 
-### Epic 3: Pearl-Backed Content Publishing
-**User outcome:** Nicolas can publish blog posts backed by pearl evidence trails. Visitors see posts with optional pearl metadata, collapsible evidence trail, and confidence indicators. The content contract is live.
+### Epic 3: Block-Backed Content Publishing
+**User outcome:** Nicolas can publish blog posts backed by block evidence trails. Visitors see posts with optional block metadata, collapsible evidence trail, and confidence indicators. The content contract is live.
 
 - Create post archetypes (directory archetype: `index.md` + `evidence.yaml` sidecar)
-- Build `pearl-meta.html` partial (shared renderer with template guards)
+- Build `block-meta.html` partial (shared renderer with template guards)
 - Build `confidence-bar.html` partial
 - Build `evidence-trail.html` partial (collapsible, reads from sidecar)
 - Build `post-list-item.html` partial
@@ -137,7 +137,7 @@ NFR-5: Privacy & Control — fine-grained visibility controls (public/private/sh
 **User outcome:** Visitors can explore emerging skill patterns as visual cards and browse a chronological timeline of growth moments. The knowledge-first narrative is visible.
 
 - Create `content/patterns/` section with `_index.md` and archetype
-- Build `pattern-card.html` partial (title, confidence, pearl count, timespan)
+- Build `pattern-card.html` partial (title, confidence, block count, timespan)
 - Build `layouts/patterns/list.html` and `layouts/patterns/single.html`
 - Create `content/timeline/` section with `_index.md` and archetype
 - Build `timeline-moment.html` partial
@@ -165,7 +165,7 @@ NFR-5: Privacy & Control — fine-grained visibility controls (public/private/sh
 - [ ] Mobile responsive verified (Tailwind mobile-first)
 - [ ] Semantic HTML used (`nav`, `main`, `article`, `section`, `footer`)
 - [ ] Alt text on all images
-- [ ] All optional pearl fields use `{{ with }}` / `{{ if }}` guards
+- [ ] All optional block fields use `{{ with }}` / `{{ if }}` guards
 - [ ] No custom CSS for layout/spacing (Tailwind utilities only)
 - [ ] New partials follow kebab-case naming
 - [ ] Posts use page bundle structure
@@ -214,7 +214,7 @@ So that I have a clean slate to build my own visual identity.
 ### Story 1.2: Implement Design Tokens & CSS Pipeline
 
 As a **portfolio owner**,
-I want design tokens with OKLCH pearl system colors integrated into the Vite/Tailwind pipeline,
+I want design tokens with OKLCH block system colors integrated into the Vite/Tailwind pipeline,
 So that all subsequent templates use a consistent, branded color system.
 
 **Acceptance Criteria:**
@@ -343,9 +343,9 @@ So that I can find additional information and the site feels complete.
 
 ---
 
-## Epic 3: Pearl-Backed Content Publishing
+## Epic 3: Block-Backed Content Publishing
 
-Nicolas can publish blog posts backed by pearl evidence trails. Visitors see posts with optional pearl metadata, collapsible evidence trail, and confidence indicators. The content contract is live.
+Nicolas can publish blog posts backed by block evidence trails. Visitors see posts with optional block metadata, collapsible evidence trail, and confidence indicators. The content contract is live.
 
 ### Story 3.1: Create Post Archetypes & Content Structure
 
@@ -358,25 +358,25 @@ So that every new post is created with the correct structure from the start.
 **Given** no post archetype exists for page bundles
 **When** the archetype is created
 **Then** `archetypes/posts/index.md` exists with all core frontmatter fields (`title`, `date`, `description`, `tags`, `categories`, `draft`)
-**And** the archetype includes optional pearl fields (`pearlCount`, `timespan`, `patterns`, `confidence`)
+**And** the archetype includes optional block fields (`blockCount`, `timespan`, `patterns`, `confidence`)
 **And** `archetypes/posts/evidence.yaml` exists as an empty sidecar template with example structure commented out
 **And** running `hugo new content posts/test-post` creates a page bundle directory with both files
 **And** `content/posts/_index.md` exists as the posts list page config
 **And** `pnpm run test` passes
 
-### Story 3.2: Build Pearl Meta & Confidence Partials
+### Story 3.2: Build Block Meta & Confidence Partials
 
 As a **portfolio visitor**,
-I want to see pearl metadata (pearl count, timespan, patterns, confidence) on posts that have it,
+I want to see block metadata (block count, timespan, patterns, confidence) on posts that have it,
 So that I understand the evidence backing each post.
 
 **Acceptance Criteria:**
 
-**Given** posts may or may not have optional pearl frontmatter fields
-**When** the pearl meta partial is built
-**Then** `layouts/partials/pearl-meta.html` renders optional pearl fields using `{{ with }}` / `{{ if }}` guards
-**And** the partial displays pearl count, timespan, linked patterns, and confidence when present
-**And** the partial renders nothing when pearl fields are absent (graceful degradation)
+**Given** posts may or may not have optional block frontmatter fields
+**When** the block meta partial is built
+**Then** `layouts/partials/block-meta.html` renders optional block fields using `{{ with }}` / `{{ if }}` guards
+**And** the partial displays block count, timespan, linked patterns, and confidence when present
+**And** the partial renders nothing when block fields are absent (graceful degradation)
 **And** `layouts/partials/confidence-bar.html` renders a visual confidence indicator from `.Params.confidence`
 **And** the confidence bar renders nothing when confidence is absent
 **And** both partials use design token colors and Tailwind utilities (no custom CSS for layout)
@@ -386,7 +386,7 @@ So that I understand the evidence backing each post.
 
 As a **portfolio visitor**,
 I want to expand a collapsible evidence trail on posts that have one,
-So that I can see the chronological pearl journey behind the post.
+So that I can see the chronological block journey behind the post.
 
 **Acceptance Criteria:**
 
@@ -394,27 +394,27 @@ So that I can see the chronological pearl journey behind the post.
 **When** the evidence trail partial is built
 **Then** `layouts/partials/evidence-trail.html` reads from `.Resources.GetMatch "evidence.yaml"` and unmarshals the data
 **And** the evidence trail renders as a collapsible section (Alpine.js `x-data` for expand/collapse)
-**And** each pearl in the trail displays date, color indicator, and content text
+**And** each block in the trail displays date, color indicator, and content text
 **And** the trail is collapsed by default, expandable on click
 **And** the partial renders nothing when no `evidence.yaml` sidecar exists (graceful degradation)
-**And** pearl colors use design token semantic colors (`fresh`, `convergence`, etc.)
+**And** block colors use design token semantic colors (`fresh`, `convergence`, etc.)
 **And** `pnpm run test` passes
 
 ### Story 3.4: Build Post List & Post Detail Pages
 
 As a **portfolio visitor**,
-I want to browse a list of posts and read individual posts with their full pearl context,
+I want to browse a list of posts and read individual posts with their full block context,
 So that I can explore Nicolas's knowledge-backed content.
 
 **Acceptance Criteria:**
 
-**Given** post archetypes, pearl-meta, confidence-bar, and evidence-trail partials exist
+**Given** post archetypes, block-meta, confidence-bar, and evidence-trail partials exist
 **When** the post layouts are built
-**Then** `layouts/partials/post-list-item.html` renders a post card with title, date, description, and pearl-meta (if present)
+**Then** `layouts/partials/post-list-item.html` renders a post card with title, date, description, and block-meta (if present)
 **And** `layouts/posts/list.html` displays paginated post list using `post-list-item.html` partial
-**And** `layouts/posts/single.html` renders full post content with pearl-meta, confidence-bar, and evidence-trail
-**And** the post detail page uses the `pearl-meta.html` partial (not inline guards)
-**And** posts without pearl fields render cleanly as standard blog posts
+**And** `layouts/posts/single.html` renders full post content with block-meta, confidence-bar, and evidence-trail
+**And** the post detail page uses the `block-meta.html` partial (not inline guards)
+**And** posts without block fields render cleanly as standard blog posts
 **And** all layouts are responsive across `sm`/`md`/`lg` breakpoints
 **And** `pnpm run test` passes
 
@@ -428,9 +428,9 @@ So that the content pipeline is proven end-to-end and visitors see a working exa
 
 **Given** all post templates and partials are built
 **When** the first real post is created
-**Then** a post exists at `content/posts/{slug}/index.md` with all core and pearl frontmatter fields populated
-**And** an `evidence.yaml` sidecar exists with at least 3 pearl entries (real content)
-**And** the post renders correctly on the post list page with pearl metadata visible
+**Then** a post exists at `content/posts/{slug}/index.md` with all core and block frontmatter fields populated
+**And** an `evidence.yaml` sidecar exists with at least 3 block entries (real content)
+**And** the post renders correctly on the post list page with block metadata visible
 **And** the post detail page shows the confidence bar and collapsible evidence trail
 **And** the evidence trail expands/collapses correctly
 **And** `pnpm run test` passes
@@ -452,7 +452,7 @@ So that I can create skill pattern pages with consistent frontmatter structure.
 **Given** no patterns content section exists
 **When** the pattern structure is created
 **Then** `content/patterns/_index.md` exists as the patterns list page config
-**And** `archetypes/patterns.md` exists with all pattern frontmatter fields (`title`, `description`, `confidence`, `pearlCount`, `timespan`, `trajectory`, `tags`)
+**And** `archetypes/patterns.md` exists with all pattern frontmatter fields (`title`, `description`, `confidence`, `blockCount`, `timespan`, `trajectory`, `tags`)
 **And** pattern files are leaf files at `content/patterns/{slug}.md` (not page bundles)
 **And** running `hugo new content patterns/test-pattern` creates a correctly structured file
 **And** `hugo.yaml` is updated with patterns section in site menu if needed
@@ -468,10 +468,10 @@ So that I can understand Nicolas's emerging capabilities and their evidence.
 
 **Given** the patterns content section and archetype exist
 **When** pattern layouts are built
-**Then** `layouts/partials/pattern-card.html` renders a card with title, confidence, pearl count, timespan, and short description
+**Then** `layouts/partials/pattern-card.html` renders a card with title, confidence, block count, timespan, and short description
 **And** the partial receives context via `dict` (`{{ partial "pattern-card.html" (dict "pattern" . "index" $i) }}`)
 **And** `layouts/patterns/list.html` displays pattern cards in a responsive grid
-**And** `layouts/patterns/single.html` renders full pattern detail (description, confidence bar, pearl count, timespan, trajectory, linked tags)
+**And** `layouts/patterns/single.html` renders full pattern detail (description, confidence bar, block count, timespan, trajectory, linked tags)
 **And** the confidence-bar partial (from Epic 3) is reused on pattern detail pages
 **And** pattern cards use design token colors and Tailwind utilities
 **And** `pnpm run test` passes
@@ -523,7 +523,7 @@ So that templates can be visually verified before real content is added in Epic 
 
 **Given** all pattern and timeline templates and partials are built
 **When** sample content is seeded
-**Then** at least 2 pattern files exist in `content/patterns/` with placeholder skill descriptions and pearl counts
+**Then** at least 2 pattern files exist in `content/patterns/` with placeholder skill descriptions and block counts
 **And** at least 3 timeline moment files exist in `content/timeline/` with placeholder dates and quotes
 **And** at least 1 pattern has `featuredOnHomepage: true` and appears on the homepage
 **And** at least 1 timeline moment has `featuredOnHomepage: true` and appears on the homepage
@@ -581,11 +581,11 @@ So that the portfolio demonstrates the knowledge-first approach with authentic c
 **Given** all post templates, partials, and archetypes are functional
 **When** real posts are seeded
 **Then** at least 2 additional posts exist as page bundles in `content/posts/` (beyond the one from Epic 3)
-**And** each post has populated core and pearl frontmatter fields with real data
-**And** at least 2 posts have `evidence.yaml` sidecars with real pearl entries
+**And** each post has populated core and block frontmatter fields with real data
+**And** at least 2 posts have `evidence.yaml` sidecars with real block entries
 **And** posts appear on the post list page and homepage "Latest Posts" section
 **And** evidence trails expand/collapse correctly on each post
-**And** the content demonstrates variety (different pearl counts, timespans, confidence levels)
+**And** the content demonstrates variety (different block counts, timespans, confidence levels)
 **And** `pnpm run test` passes
 
 ### Story 5.4: Seed Real Patterns & Timeline Content
@@ -598,7 +598,7 @@ So that the patterns gallery and timeline showcase authentic growth narrative.
 
 **Given** minimal sample content exists from Epic 4
 **When** real content replaces samples
-**Then** at least 3 pattern files exist in `content/patterns/` with real skill descriptions, confidence scores, and pearl counts
+**Then** at least 3 pattern files exist in `content/patterns/` with real skill descriptions, confidence scores, and block counts
 **And** at least 5 timeline moment files exist in `content/timeline/` with real dates, quotes, and color indicators
 **And** at least 2 patterns have `featuredOnHomepage: true` and appear on the homepage
 **And** at least 3 timeline moments have `featuredOnHomepage: true` and appear on the homepage

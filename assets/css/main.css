@@ -137,7 +137,7 @@ img[loading="lazy"] {
   --color-fresh: var(--fresh);
   --color-temporal: var(--temporal);
   --color-frontier: var(--frontier);
-  --color-pearl: var(--pearl);
+  --color-block: var(--block-color);
 
   /* ── Surface & text tokens ────────────────────────────── */
   /* Enables bg-surface, text-text-primary, border-border etc */

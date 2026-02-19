@@ -81,7 +81,7 @@ Two rooms in the same building. Same vocabulary (tokens), different density (sca
 | Shared tokens | CSS custom properties (OKLCH) | Defined in Hugo first, extracted to shared package when backoffice starts |
 | Graph viz | D3.js (Phase 0 static) → temporal force-directed | Custom SVG/Canvas, full style control |
 | Graph DB | Neo4j + Graphiti | Temporal knowledge graph, convergence detection |
-| Pearl storage | PostgreSQL | Structured metadata + training log (append-only) |
+| Block storage | PostgreSQL | Structured metadata + training log (append-only) |
 | Diagrams | Mermaid | Text-based, renders in both Hugo and Svelte |
 
 ---
@@ -151,7 +151,7 @@ Two rooms in the same building. Same vocabulary (tokens), different density (sca
 | `--text-h3` | 16px (1rem) | 1.25 | Card titles |
 | `--text-h4` | 14px (0.875rem) | 1.4 | Sub-headers |
 | `--text-body` | 14px (0.875rem) | 1.5 | Primary UI text |
-| `--text-small` | 13px (0.8125rem) | 1.4 | Pearl titles, list items |
+| `--text-small` | 13px (0.8125rem) | 1.4 | Block titles, list items |
 | `--text-meta` | 12px | 1.5 | Mono metadata |
 | `--text-micro` | 11px | 1.5 | Labels, timestamps |
 | `--text-nano` | 10px | — | Uppercase micro-labels |
@@ -169,13 +169,13 @@ Two rooms in the same building. Same vocabulary (tokens), different density (sca
 
 ## 3. Color System (OKLCH)
 
-### Semantic Colors — The Pearl System
+### Semantic Colors — The Block System
 
 Colors have *meaning*. They represent the knowledge system, not generic UI.
 
 | Token | Dark value | Light value | Meaning |
 |---|---|---|---|
-| `--pearl` | `oklch(0.95 0.02 90)` | `oklch(0.35 0.04 90)` | Knowledge pearl — raw data, neutral |
+| `--block` | `oklch(0.95 0.02 90)` | `oklch(0.35 0.04 90)` | Knowledge block — raw data, neutral |
 | `--convergence` | `oklch(0.75 0.15 75)` | `oklch(0.52 0.14 75)` | Convergence — old idea meets new work (amber) |
 | `--pattern` | `oklch(0.65 0.25 25)` | `oklch(0.48 0.18 25)` | Skill pattern — highlighted subgraph (coral) |
 | `--temporal` | `oklch(0.70 0.12 240)` | `oklch(0.48 0.10 240)` | Time markers — timeline, dates (blue) |
@@ -253,7 +253,7 @@ Colors have *meaning*. They represent the knowledge system, not generic UI.
 | `--radius-lg` | 4px | Max for rectangular elements |
 | `--radius-full` | 9999px | Dots, nodes, circles only |
 
-**Rule:** Maximum 4px radius on any rectangular element. No bubbly aesthetics. `radius-full` reserved for pearl dots (6px ⌀), timeline nodes (11px ⌀), mode indicator circles (10px ⌀), and status dots.
+**Rule:** Maximum 4px radius on any rectangular element. No bubbly aesthetics. `radius-full` reserved for block dots (6px ⌀), timeline nodes (11px ⌀), mode indicator circles (10px ⌀), and status dots.
 
 ---
 
@@ -300,7 +300,7 @@ Colors have *meaning*. They represent the knowledge system, not generic UI.
 - Description: Hanken Grotesk 17px, line-height 1.7, text-secondary, max 54ch
 - Stats: Commit Mono 12px, text-tertiary, flex with `·` separators
 - Freshness heartbeat: Commit Mono 11px, frontier color, 8px below stats
-  - Format: `last pearl captured {time} ago`
+  - Format: `last block captured {time} ago`
   - Source: Hugo build-time from API, or client-side fetch for live value
 
 ### Component: Post List Item
@@ -308,8 +308,8 @@ Colors have *meaning*. They represent the knowledge system, not generic UI.
 - Title: Literata 20px, weight 700, letter-spacing -0.01em
 - Date: Commit Mono 12px, text-tertiary, right-aligned, flex-shrink 0
 - Excerpt: Hanken Grotesk 15px, line-height 1.7, text-secondary, max 65ch
-- Meta row: Commit Mono 12px, text-tertiary — `{readTime} · {pearlCount} pearls · {tags}`
-  - Pearl count in `--convergence` color
+- Meta row: Commit Mono 12px, text-tertiary — `{readTime} · {blockCount} blocks · {tags}`
+  - Block count in `--convergence` color
 - Separator: 1px `--border-subtle` between items. None after last.
 - Each item is a link (cursor pointer)
 
@@ -318,7 +318,7 @@ Colors have *meaning*. They represent the knowledge system, not generic UI.
 - Border: 1px `--border`, radius 3px, background `--surface-elevated`
 - Top row: Mini constellation SVG (72×44px) left + title/meta right
   - Title: Literata 16px, weight 700
-  - Meta: Commit Mono 11px, text-tertiary — `{pearls} pearls · {span} · {trajectory}`
+  - Meta: Commit Mono 11px, text-tertiary — `{blocks} blocks · {span} · {trajectory}`
   - Trajectory in `--convergence` color
 - Description: Hanken Grotesk 13px, line-height 1.6, text-secondary
 - Confidence bar: label "CONFIDENCE" (Commit Mono 10px uppercase), 3px bar, percentage
@@ -355,7 +355,7 @@ Colors have *meaning*. They represent the knowledge system, not generic UI.
 | `/posts/` | Full post archive, tags, search | Structure defined, not prototyped |
 | `/posts/{slug}` | Single post with evidence trail | **Prototyped** |
 | `/patterns/` | Full patterns gallery | Not prototyped |
-| `/patterns/{slug}` | Single pattern detail, pearl list | Not prototyped |
+| `/patterns/{slug}` | Single pattern detail, block list | Not prototyped |
 | `/timeline/` | Full interactive timeline | Not prototyped |
 | `/about/` | Profile + link to patterns | Not prototyped |
 
@@ -370,7 +370,7 @@ Colors have *meaning*. They represent the knowledge system, not generic UI.
 │ ← Posts                       │ 700px   │
 │                               │         │
 │ Title (Literata 34px)         │         │
-│ date · read time · pearls ·   │         │
+│ date · read time · blocks ·   │         │
 │ timespan                      │         │
 │ [tag] [tag] [tag]             │         │
 │                               │         │
@@ -397,8 +397,8 @@ Colors have *meaning*. They represent the knowledge system, not generic UI.
 - Back link: "← Posts" — Commit Mono 12px, text-tertiary
 - Title: Literata 34px, weight 700, letter-spacing -0.02em, max 22ch
 - Meta row: Commit Mono 12px, text-tertiary, flex wrap
-  - Format: `{date} · {readTime} · {pearlCount} pearls · {timespan}`
-  - Pearl count in `--convergence` color
+  - Format: `{date} · {readTime} · {blockCount} blocks · {timespan}`
+  - Block count in `--convergence` color
   - Timespan: "March 2024 → January 2025" — shows duration of learning, not just publication date
 - Tags: pills — Commit Mono 11px, text-secondary, elevated bg, border, radius 2px
 
@@ -424,15 +424,15 @@ Colors have *meaning*. They represent the knowledge system, not generic UI.
 #### Component: Evidence Trail (collapsible)
 
 - **Collapsed by default.** Progressive disclosure: article stands alone. Curious visitors expand.
-- Toggle: "EVIDENCE TRAIL" label + `{pearlCount} pearls · {timespan}` (convergence) + chevron ▾
-- Intro text (expanded): Hanken Grotesk 13px, text-tertiary — "The pearls that built this post, in chronological order. Each is a timestamped note captured during the learning process — raw, unedited, as it happened."
+- Toggle: "EVIDENCE TRAIL" label + `{blockCount} blocks · {timespan}` (convergence) + chevron ▾
+- Intro text (expanded): Hanken Grotesk 13px, text-tertiary — "The blocks that built this post, in chronological order. Each is a timestamped note captured during the learning process — raw, unedited, as it happened."
 - Container: `--timeline-bg` background, border, radius 3px, 20px padding
 - Spine: same visual language as homepage timeline (1px, colored dots)
-- Per pearl:
-  - Dot (5px): `--fresh` (new insight), `--convergence` (connection made), `--pearl` (raw capture)
+- Per block:
+  - Dot (5px): `--fresh` (new insight), `--convergence` (connection made), `--block` (raw capture)
   - Date: Commit Mono 11px, `--temporal`
   - Content: Hanken Grotesk 13px, text-secondary, line-height 1.55
-- Spacing: 14px between pearls
+- Spacing: 14px between blocks
 - Order: **chronological (oldest first)** — opposite of homepage timeline. Here the narrative builds forward.
 
 #### Component: Connected Patterns
@@ -486,7 +486,7 @@ LOBBY (auto-save snapshot, return to menu)
 
 - Fixed top, full width, 38px height
 - Background: `--surface-recessed`
-- Left: stats in Commit Mono 12px, text-secondary — `847 pearls · 12 projects · 4 patterns`
+- Left: stats in Commit Mono 12px, text-secondary — `847 blocks · 12 projects · 4 patterns`
 - Right: freshness + end session
   - `+4 today (3 yesterday)` — today count in `--fresh`, yesterday in text-tertiary
   - `· last capture 2m ago` — text-tertiary
@@ -498,7 +498,7 @@ LOBBY (auto-save snapshot, return to menu)
 - Horizontal, below context bar, surface background
 - Border-bottom: 1px `--border`
 - Each tab: Commit Mono 12px, uppercase, letter-spacing 0.06em
-- Active: `--pearl` color, 2px solid bottom border, filled circle (●)
+- Active: `--block` color, 2px solid bottom border, filled circle (●)
 - Inactive: text-tertiary, transparent bottom border, empty circle (○)
 - Notification state: inactive tab with subtle dot inside circle (◉) — indicates "something ready" (e.g., composition readiness, new pattern detected). This is a state indicator, not a notification.
 
@@ -506,7 +506,7 @@ LOBBY (auto-save snapshot, return to menu)
 
 | State | Visual | Meaning |
 |---|---|---|
-| Active | ● 4px filled circle, pearl color | Currently in this mode |
+| Active | ● 4px filled circle, block color | Currently in this mode |
 | Inactive | ○ 3.5px radius ring, 1px stroke, text-tertiary | Available mode |
 | Inactive + signal | ○ ring + 1.5px filled dot inside, convergence color | Something ready to review in this mode |
 
@@ -516,7 +516,7 @@ LOBBY (auto-save snapshot, return to menu)
 - Background: `--surface-recessed`
 - Left label: "QUICK" in Commit Mono 10px, uppercase, text-tertiary
 - Input: textarea 1 row, Hanken Grotesk 13px, elevated background, border
-  - Placeholder: "Drop a pearl from anywhere... (Enter to capture)"
+  - Placeholder: "Drop a block from anywhere... (Enter to capture)"
   - Enter = capture + clear. Shift+Enter = newline.
 - Right: 🎤 📷 📎 buttons, 30×30px, elevated bg, border, radius 3px
 - This bar is **always visible** regardless of mode. Capture is sacred.
@@ -532,19 +532,19 @@ LOBBY (auto-save snapshot, return to menu)
   - Placeholder: "Type, paste, drag a file, or just start talking..."
 - Attachment buttons: 🎤 Voice, 📷 Photo, 📎 File, 🔗 URL — Commit Mono 11px, elevated bg, border
 - Capture button: right-aligned, Commit Mono 12px bold
-  - Active (text present): pearl background, recessed text
+  - Active (text present): block background, recessed text
   - Inactive (empty): border background, text-tertiary text
-- Recent pearls list:
-  - Label: "RECENT PEARLS" (standard section label)
-  - Items: colored dot (6px, fresh/pearl/convergence) + title (Hanken Grotesk 13px) + time (Commit Mono 11px, text-tertiary right)
+- Recent blocks list:
+  - Label: "RECENT BLOCKS" (standard section label)
+  - Items: colored dot (6px, fresh/block/convergence) + title (Hanken Grotesk 13px) + time (Commit Mono 11px, text-tertiary right)
   - Separator: 1px border-subtle between items
 
 **Right column (Validation Queue):**
 - Panel: elevated bg, border, radius 3px, 16px padding
 - Label: "VALIDATION QUEUE"
 - Description: Hanken Grotesk 12px, text-tertiary — "AI-proposed labels. Accept, edit, or reject."
-- Per pearl:
-  - Header: "Pearl #{id}" left (Mono 11px, text-tertiary), confidence % right (colored by threshold)
+- Per block:
+  - Header: "Block #{id}" left (Mono 11px, text-tertiary), confidence % right (colored by threshold)
   - Content preview: Hanken Grotesk 13px, text-secondary, line-height 1.5
   - AI labels: tag pills — Commit Mono 11px, convergence color, surface bg, border, radius 2px
   - Actions: Accept (fresh border), Edit (convergence border), Reject (pattern border) — Commit Mono 11px, outline buttons
@@ -560,14 +560,14 @@ LOBBY (auto-save snapshot, return to menu)
   - Future: temporal force-directed graph from Neo4j query results
   - Manipulation tools: top-right corner — zoom in, zoom out, fit, reset (28×28px buttons)
   - Phase label: bottom-right, Commit Mono 11px, text-tertiary
-- Info bar: Commit Mono 11px — cluster name (convergence color) + pearl count left, graph stats right
+- Info bar: Commit Mono 11px — cluster name (convergence color) + block count left, graph stats right
 
 ### Mode: Compose (skeleton prototyped)
 
-**Layout:** Two columns — pearl source (240px) left, editor (flex 1) right.
+**Layout:** Two columns — block source (240px) left, editor (flex 1) right.
 
-- Left: pearl cluster list with draggable items, colored dots, "Add from graph" button (dashed border)
-- Right: title (Literata 22px), draft meta (Mono 11px — pearl count, date range), timeline-narrative editor with temporal date markers, Export 7z + Preview buttons bottom
+- Left: block cluster list with draggable items, colored dots, "Add from graph" button (dashed border)
+- Right: title (Literata 22px), draft meta (Mono 11px — block count, date range), timeline-narrative editor with temporal date markers, Export 7z + Preview buttons bottom
 
 ### Mode: Publish (skeleton prototyped)
 
@@ -577,7 +577,7 @@ LOBBY (auto-save snapshot, return to menu)
 - Preview box: elevated bg, shows post as it will appear on portfolio
 - Checklist: Frontmatter, Images, Patterns linked, Preview reviewed — checkboxes with fresh/text-tertiary colors
 - Pipeline label: Commit Mono 11px, text-tertiary — `git commit → hugo rebuild → live`
-- Publish button: pearl bg, recessed text, Commit Mono 13px bold — "Publish to Portfolio"
+- Publish button: block bg, recessed text, Commit Mono 13px bold — "Publish to Portfolio"
 
 ---
 
@@ -585,7 +585,7 @@ LOBBY (auto-save snapshot, return to menu)
 
 ### Concept
 
-The Lobby is the entry screen. Like a video game main menu: you see it on login and when you End Session. The workshop is always entered *through* the lobby. One workspace, always — no session files, no save/load. Pearls, drafts, and validation queue persist in their own storage (PostgreSQL/Neo4j).
+The Lobby is the entry screen. Like a video game main menu: you see it on login and when you End Session. The workshop is always entered *through* the lobby. One workspace, always — no session files, no save/load. Blocks, drafts, and validation queue persist in their own storage (PostgreSQL/Neo4j).
 
 ### Layout
 
@@ -596,15 +596,15 @@ The Lobby is the entry screen. Like a video game main menu: you see it on login 
 │         backoffice                  │  Commit Mono 11px, text-tertiary
 │                                     │
 │  ┌─────────────────────────────┐    │
-│  │ Continue              2h ago│    │  DOMINANT — pearl title, elevated bg
+│  │ Continue              2h ago│    │  DOMINANT — block title, elevated bg
 │  │ Last in Capture mode        │    │  workspace state summary
-│  │ +4 pearls · 3 validation ·  │    │  colored indicators
+│  │ +4 blocks · 3 validation ·  │    │  colored indicators
 │  │ 1 draft                     │    │
 │  └─────────────────────────────┘    │
 │                                     │
 │  [Options]  [Account]  [Logout]     │  3 equal secondary buttons
 │                                     │
-│  847 pearls · 12 projects · 4 pat  │  quiet stats, centered
+│  847 blocks · 12 projects · 4 pat  │  quiet stats, centered
 │  last capture 2h ago                │  freshness heartbeat
 │                                     │
 │  ndb backoffice v0.1.0 · phase 0   │  version stamp
@@ -615,12 +615,12 @@ The Lobby is the entry screen. Like a video game main menu: you see it on login 
 ### Component: Continue Card (dominant)
 
 - Max-width: 420px, centered
-- Background: `--surface`, border `--border`. On hover: `--surface-elevated`, border `--pearl`
-- Title: "Continue" in Literata 18px, weight 700, pearl color
+- Background: `--surface`, border `--border`. On hover: `--surface-elevated`, border `--block`
+- Title: "Continue" in Literata 18px, weight 700, block color
 - Timestamp: Commit Mono 11px, text-tertiary, right-aligned — "2 hours ago"
 - Subtitle: "Last in {mode} mode" — Hanken Grotesk 13px, text-secondary
 - Status indicators (Commit Mono 11px):
-  - `+4 pearls today` — `--fresh` (green)
+  - `+4 blocks today` — `--fresh` (green)
   - `3 awaiting validation` — `--convergence` (amber)
   - `1 draft in progress` — `--temporal` (blue)
 - When not authenticated: subtitle becomes "Sign in to enter the workspace"
@@ -639,7 +639,7 @@ The Lobby is the entry screen. Like a video game main menu: you see it on login 
 ### Login Flow
 
 - When not authenticated, clicking Continue opens an inline login form (not a separate page)
-- Form: username + password inputs, pearl-colored "Sign in" button
+- Form: username + password inputs, block-colored "Sign in" button
 - Note: "Single-user system · local auth" — honest about the architecture
 - After login: Continue card restores workspace state indicators
 - No registration flow in UI (single-user, created via CLI or first-run setup)
@@ -656,7 +656,7 @@ The Lobby is the entry screen. Like a video game main menu: you see it on login 
 
 - User profile (name, avatar if any)
 - Password change
-- Data export (full pearl dump)
+- Data export (full block dump)
 
 ### Design Notes
 
@@ -670,7 +670,7 @@ The Lobby is the entry screen. Like a video game main menu: you see it on login 
 
 ### Why No "Load"
 
-One workspace. No session files. Pearls persist in the database, drafts persist in their store, validation queue persists in its queue. The workspace is always the same room — you walk back in. There's no added value to saving/loading different workspace states. Removed to avoid premature complexity.
+One workspace. No session files. Blocks persist in the database, drafts persist in their store, validation queue persists in its queue. The workspace is always the same room — you walk back in. There's no added value to saving/loading different workspace states. Removed to avoid premature complexity.
 
 ---
 
@@ -714,12 +714,12 @@ No CSS transitions on layout changes. No fade-ins. No slide animations. Snappy, 
 
 ### Validation Flow (Capture Mode)
 
-- AI proposes labels and confidence per pearl
+- AI proposes labels and confidence per block
 - User sees: content preview, proposed labels (pills), confidence %
 - User acts: Accept / Edit / Reject
-- Accept = pearl ingested to graph with AI labels
-- Edit = user modifies labels, pearl ingested with user corrections (training signal)
-- Reject = pearl discarded or re-queued
+- Accept = block ingested to graph with AI labels
+- Edit = user modifies labels, block ingested with user corrections (training signal)
+- Reject = block discarded or re-queued
 - Every action is a training data point (logged to PostgreSQL)
 
 ---
@@ -735,7 +735,7 @@ Summarized from UX specification. These constrain all future decisions.
 5. **Progressive disclosure.** Show what's needed, when it's needed.
 6. **No gamification.** Narrative momentum through reflection, not badges.
 7. **Confidence as social contract.** Always show evidence density, not self-assessment.
-8. **Freshness as trust signal.** "last pearl captured 3h ago" — heartbeat, not badge.
+8. **Freshness as trust signal.** "last block captured 3h ago" — heartbeat, not badge.
 9. **Anti-over-engineering.** Build components as needed. Three similar implementations before abstracting.
 10. **Two rooms, one building.** Same tokens, different density, different mood.
 11. **Nothing pushes, everything pulls.** State indicators, not notifications.
@@ -754,14 +754,14 @@ Summarized from UX specification. These constrain all future decisions.
 | 2026-02-10 | Timeline = anagnorisis moments, not events | Recognition quotes trigger more curiosity than accomplishment lists. |
 | 2026-02-10 | Timeline visual: v1 style (spine + dots + bare quotes) | Light, tight, progression-focused. No cards, no categories on dots. |
 | 2026-02-10 | Timeline order: recent first, grouped by year (not quarter) | Simpler grouping, most interesting content first. |
-| 2026-02-10 | Freshness heartbeat | Single line: "last pearl captured 3h ago". Trust + self-incentive. |
+| 2026-02-10 | Freshness heartbeat | Single line: "last block captured 3h ago". Trust + self-incentive. |
 | 2026-02-10 | No hover tooltips for meta | Invisible by default breaks progressive disclosure. Always inline. |
 | 2026-02-10 | BackOffice: `featured_on_homepage` flag | User curates which 10 moments appear. Editorial choice. |
 | 2026-02-10 | No left nav panel | Expandable sidebar was disruptive on mouseover. Top tabs only. |
 | 2026-02-10 | Mode indicators: ●/○/◉ circles | Filled = active, empty = inactive, dot-in-circle = signal ready. |
 | 2026-02-10 | End Session → top-right context bar | Not a mode, not in nav. Quiet exit, always available. |
 | 2026-02-10 | Lobby/Workshop two-layer architecture | Settings, load, account live in Lobby. Workshop is pure workflow. Like a game session menu. |
-| 2026-02-10 | No Load/Save sessions | One workspace, always. Pearls/drafts persist in DB, not session files. Removed premature complexity. |
+| 2026-02-10 | No Load/Save sessions | One workspace, always. Blocks/drafts persist in DB, not session files. Removed premature complexity. |
 | 2026-02-10 | Logout as direct button | No submenu. Options / Account / Logout as three equal buttons. One click to exit. |
 | 2026-02-10 | "Continue" as universal entry label | Works for first connection (proceed to workspace) and return visits (resume). No overthinking. |
 | 2026-02-10 | Login = inline form on Continue click | Not a separate page. Single-user local auth. Registration via CLI/first-run. |
@@ -769,7 +769,7 @@ Summarized from UX specification. These constrain all future decisions.
 | 2026-02-10 | Post body: Literata 17px, line-height 1.8 | Reading font at optimal size. Optical sizing activates. Generous leading for sustained reading. |
 | 2026-02-10 | Post H2: Hanken Grotesk (sans) within Literata (serif) body | Serif = narrative, sans = structure. Creates typographic rhythm within article. |
 | 2026-02-10 | Post content max-width: 700px | Narrower than homepage (920px). Long-form reading needs tighter measure. Nav/footer stay at 920px. |
-| 2026-02-10 | Evidence trail: collapsed by default | Progressive disclosure. Article stands alone. Curious visitors expand to see raw pearls. |
+| 2026-02-10 | Evidence trail: collapsed by default | Progressive disclosure. Article stands alone. Curious visitors expand to see raw blocks. |
 | 2026-02-10 | Evidence trail order: chronological (oldest first) | Opposite of homepage timeline (recent first). Post evidence builds forward as narrative. |
 | 2026-02-10 | Post meta includes timespan | "March 2024 → January 2025" shows duration of learning, not just publication date. Unique differentiator. |
 | 2026-02-10 | Blockquote: convergence left border | 3px amber accent, Literata italic. Visually distinct from body without heavy decoration. |
@@ -794,6 +794,6 @@ Summarized from UX specification. These constrain all future decisions.
 | 6 | Post page: code block styling | Full code blocks not yet prototyped. Syntax highlighting? Language label? Copy button? | Phase 0 |
 | 7 | Post page: image handling | Full-width images, captions, lightbox? Or keep simple (img + caption)? | Phase 0 |
 | 8 | Graph manipulation tools | Pan, zoom, select, highlight. D3 built-ins or custom controls? | Phase 1 |
-| 9 | Mermaid rendering in Compose mode | Mermaid pearls should render visually in compose editor. Integration approach? | Phase 1 |
+| 9 | Mermaid rendering in Compose mode | Mermaid blocks should render visually in compose editor. Integration approach? | Phase 1 |
 | 10 | Training gauge location | Spec says "quiet, in context bar". Does it go in context bar or Options? | Phase 1 |
-| 11 | Fog of war timing | When to introduce frontier mapping. Spec says 500+ pearls. Verify threshold. | Phase 2 |
+| 11 | Fog of war timing | When to introduce frontier mapping. Spec says 500+ blocks. Verify threshold. | Phase 2 |

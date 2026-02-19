@@ -1,6 +1,6 @@
 # Nicolas's Portfolio & Skills Repository
 
-**Tagline**: Capture knowledge pearls first. Organize into narratives. Watch skills emerge from the pattern of your documented work.
+**Tagline**: Capture knowledge blocks first. Organize into narratives. Watch skills emerge from the pattern of your documented work.
 
 ---
 
@@ -25,7 +25,7 @@
 ### Problem Identified
 
 - Portfolio workflow is backwards: pick skills first, then write content to showcase them
-- Knowledge pearls scatter across tools and formats (notes, sketches, audio, ideas) and get lost
+- Knowledge blocks scatter across tools and formats (notes, sketches, audio, ideas) and get lost
 - Documentation happens *after* work is done, losing raw learning moments
 - No system captures *when* ideas emerged or *how* they evolved into convergence
 - Growth patterns remain invisible; you don't see what you've unconsciously been building toward
@@ -34,15 +34,15 @@
 
 **Invert the portfolio workflow:** Capture knowledge first → Organize into narratives → Recognize skills as emergent patterns
 
-1. **Capture pearls continuously** (multi-format: notes, images, audio, sketches, code snippets)
-2. **Organize into projects** (turn related pearls into coherent posts and documentation)
+1. **Capture blocks continuously** (multi-format: notes, images, audio, sketches, code snippets)
+2. **Organize into projects** (turn related blocks into coherent posts and documentation)
 3. **Track time dimension** (when was this learned? when did it become relevant?)
 4. **Recognize skill emergence** (patterns clustering from accumulated evidence and repetition)
 5. **Revive convergence** (surface when old ideas connect to current work)
 6. **Build honest chronicle** (document the real learning journey, not curated highlights)
 
 Build a **living knowledge graph** (with temporal tracking) that:
-- **Captures** knowledge pearls in any format, without requiring completion
+- **Captures** knowledge blocks in any format, without requiring completion
 - **Organizes** into projects and narratives through related clustering
 - **Tracks time** (temporal dimension for convergence detection and evolution)
 - **Reveals patterns** through the shape of documented work (skills emerge naturally)
@@ -53,7 +53,7 @@ Build a **living knowledge graph** (with temporal tracking) that:
 
 📚 **Portfolio as Chronicle** - Honest documentation of learning, not curated showcase
 ⏱️ **Temporal Tracking** - When things happened matters as much as what happened
-💎 **Memory Pearls First** - Capture learning moments before organizing them
+💎 **Memory Blocks First** - Capture learning moments before organizing them
 🔗 **Convergence Recognition** - Detect when old ideas find new relevance
 📊 **Emergence Over Extraction** - Skills recognized from documented patterns, not pre-defined
 🗺️ **Safe Exploration** - Map what you know, identify adjacent learning frontiers
@@ -74,11 +74,11 @@ Build a **living knowledge graph** (with temporal tracking) that:
 
 | # | Objective | Outcome |
 |---|-----------|---------|
-| O1 | Multi-format knowledge pearl capture | Ideas, notes, audio, sketches, code captured without friction; no format discrimination |
-| O2 | Project organization from pearls | Related pearls clustered and organized into coherent projects and posts |
+| O1 | Multi-format knowledge block capture | Ideas, notes, audio, sketches, code captured without friction; no format discrimination |
+| O2 | Project organization from blocks | Related blocks clustered and organized into coherent projects and posts |
 | O3 | Temporal tracking & sequencing | Timeline of how ideas emerged, evolved, and converged over time |
 | O4 | Skill pattern recognition | LLM analysis reveals skill clusters from accumulated documented work (not predefined) |
-| O5 | Convergence detection | Surface when old ideas/pearls become relevant to current work (time-to-traction visibility) |
+| O5 | Convergence detection | Surface when old ideas/blocks become relevant to current work (time-to-traction visibility) |
 | O6 | Safe exploration mapping | Visualize what's been practiced heavily vs. untouched areas (learning frontiers) |
 | O7 | Honest narrative visibility | Growth story visible as knowledge graph—real trajectory, not curated highlights |
 | **Meta** | **Restitution & Openness** | **Architecture open-sourced; methodology shareable for other learners and documentarians** |
@@ -93,7 +93,7 @@ Build a **living knowledge graph** (with temporal tracking) that:
 |----------|--------|-------|
 | Graph Database | ✅ Neo4j + Graphiti | Temporal knowledge graph, convergence detection |
 | LLM Integration (Claude API) | ✅ Available | Existing account; cost-effective |
-| Data Schema Design | ✅ Locked | Pearl/necklace/pattern model, two-layer storage (Neo4j + PostgreSQL) |
+| Data Schema Design | ✅ Locked | Block/chain/pattern model, two-layer storage (Neo4j + PostgreSQL) |
 | Visualization Library | ✅ D3.js | Custom SVG/Canvas, full style control |
 | Backend | ✅ FastAPI (Python) | Config-driven, layered architecture, proven in betterCallSaul MVP |
 | BackOffice Frontend | ✅ Svelte + Vite | Reactive UI, TailwindCSS 4.1, containerized |
@@ -124,7 +124,7 @@ Build a **living knowledge graph** (with temporal tracking) that:
 
 - [ ] Outcomes logged: 10-15/month consistently
 - [ ] Skill clusters discovered: 15-25 initial, growing with evidence
-- [ ] Memory pearls activated: 10-20% per month (serendipity effectiveness)
+- [ ] Memory blocks activated: 10-20% per month (serendipity effectiveness)
 - [ ] Graph query response: <500ms (system usability)
 - [ ] Visitor engagement: 3-5 min avg time on graph pages
 
@@ -139,7 +139,7 @@ Build a **living knowledge graph** (with temporal tracking) that:
 ### Phase Gates
 
 - **Phase 1 ✅**: Core data capture + graph working (Weeks 1-4)
-- **Phase 2 ✅**: LLM discovery + memory pearls functional (Weeks 5-8)
+- **Phase 2 ✅**: LLM discovery + memory blocks functional (Weeks 5-8)
 - **Phase 3 ✅**: Visualization compelling + public-ready (Weeks 9-12)
 - **Phase 4 ✅**: Integrated into portfolio; users engaging naturally (Weeks 13+)
 
@@ -221,12 +221,12 @@ Documentation will be:
 
 **BackOffice (separate repo, parallel track):**
 - [ ] Set up repo from betterCallSaul baseline (FastAPI + Svelte)
-- [ ] Minimal pearl capture: upload → AI processing → validation queue
+- [ ] Minimal block capture: upload → AI processing → validation queue
 - [ ] Basic graph view (D3.js static force-directed)
-- [ ] One compose/publish flow: pearls → draft → git commit → Hugo rebuilds
+- [ ] One compose/publish flow: blocks → draft → git commit → Hugo rebuilds
 
 ### Phase 1: Emergence
-- [ ] Full pearl capture pipeline (multi-format: text, images, code)
+- [ ] Full block capture pipeline (multi-format: text, images, code)
 - [ ] Pattern recognition pipeline (embed → cluster → label → validate)
 - [ ] Natural language graph queries
 - [ ] %Confidence display and training gauge
@@ -236,7 +236,7 @@ Documentation will be:
 - [ ] Interactive graph visualization (temporal force-directed)
 - [ ] Pattern gallery on portfolio (skill subgraph cards)
 - [ ] Timeline view (anagnorisis moments)
-- [ ] Fog of war / frontier mapping (500+ pearls threshold)
+- [ ] Fog of war / frontier mapping (500+ blocks threshold)
 - [ ] Edge devices (Rust + ESP32-S3, parallel track)
 
 ---
@@ -245,7 +245,7 @@ Documentation will be:
 
 What if your portfolio wasn't a curated showcase, but a living chronicle of what you're actually building and learning?
 
-Instead of asking "What skills should I highlight?", start with knowledge pearls—quick captures of ideas, learning moments, half-formed thoughts in whatever format fits (photos, notes, audio, sketches). Then organize them: turn related pearls into posts, document your progress, share the real journey.
+Instead of asking "What skills should I highlight?", start with knowledge blocks—quick captures of ideas, learning moments, half-formed thoughts in whatever format fits (photos, notes, audio, sketches). Then organize them: turn related blocks into posts, document your progress, share the real journey.
 
 The genius part? As you accumulate documented projects and outcomes, patterns emerge naturally. The system helps you recognize what you've been practicing repeatedly, where success clusters form, how old ideas suddenly become relevant to new work. Skills don't need to be discovered—they become visible through the shape of your work over time.
 
