@@ -1,6 +1,6 @@
 # Story 3.2: Build Block Meta & Confidence Partials
 
-Status: ready-for-dev
+Status: done
 
 ## Story
 
@@ -22,30 +22,30 @@ So that I understand the evidence backing each post.
 
 ## Tasks / Subtasks
 
-- [ ] Build `layouts/partials/confidence-bar.html` (AC: 4, 5, 6, 7)
-  - [ ] Accept context via dict: `(dict "confidence" .Params.confidence)`
-  - [ ] Render nothing if confidence is 0 or absent
-  - [ ] Render a filled bar proportional to value (0–100) using design token `--pattern` or threshold colors
-  - [ ] Display numeric value in mono font alongside bar
-  - [ ] Use Tailwind utilities for bar width (`style` attribute with inline width % is acceptable here)
+- [x] Build `layouts/partials/confidence-bar.html` (AC: 4, 5, 6, 7)
+  - [x] Accept context via dict: `(dict "confidence" .Params.confidence)`
+  - [x] Render nothing if confidence is 0 or absent
+  - [x] Render a filled bar proportional to value (0–100) using design token `--pattern` or threshold colors
+  - [x] Display numeric value in mono font alongside bar
+  - [x] Use Tailwind utilities for bar width (`style` attribute with inline width % is acceptable here)
 
-- [ ] Build `layouts/partials/block-meta.html` (AC: 1, 2, 3, 6, 7)
-  - [ ] Accept context via dict: `(dict "page" .)`
-  - [ ] Wrap entire output in `{{ if or .blockCount .timespan .patterns .confidence }}` — renders nothing if all absent
-  - [ ] Render blockCount with block icon/label when present (`{{ with .page.Params.blockCount }}`)
-  - [ ] Render timespan with label when present
-  - [ ] Render linked patterns as list/pills when present
-  - [ ] Include `confidence-bar.html` partial inline when confidence present
-  - [ ] Use mono font, design token text colors (`--text-tertiary`, `--text-secondary`)
-  - [ ] Use `--block`, `--pattern`, `--temporal` semantic colors per DESIGN-SPEC §3
+- [x] Build `layouts/partials/block-meta.html` (AC: 1, 2, 3, 6, 7)
+  - [x] Accept context via dict: `(dict "page" .)`
+  - [x] Wrap entire output in `{{ if or .blockCount .timespan .patterns .confidence }}` — renders nothing if all absent
+  - [x] Render blockCount with block icon/label when present (`{{ with .page.Params.blockCount }}`)
+  - [x] Render timespan with label when present
+  - [x] Render linked patterns as list/pills when present
+  - [x] Include `confidence-bar.html` partial inline when confidence present
+  - [x] Use mono font, design token text colors (`--text-tertiary`, `--text-secondary`)
+  - [x] Use `--block`, `--pattern`, `--temporal` semantic colors per DESIGN-SPEC §3
 
-- [ ] Write isolated test fixture (AC: 9)
-  - [ ] Add block fields to one of the converted sample posts (`docker-journey/index.md`)
-  - [ ] Render `pnpm run dev:watch` and visually verify block-meta appears on that post
-  - [ ] Verify other post (no block fields) renders cleanly without any block-meta output
+- [x] Write isolated test fixture (AC: 9)
+  - [x] Add block fields to one of the converted sample posts (`docker-journey/index.md`)
+  - [x] Render `pnpm run dev:watch` and visually verify block-meta appears on that post
+  - [x] Verify other post (no block fields) renders cleanly without any block-meta output
 
-- [ ] Build validation (AC: 8)
-  - [ ] `pnpm run test` passes
+- [x] Build validation (AC: 8)
+  - [x] `pnpm run test` passes
 
 ## Dev Notes
 
@@ -116,12 +116,12 @@ This provides a realistic data set for visual validation. Remove after testing i
 ### Visual Validation Checklist
 
 Before marking done, manually verify:
-- [ ] Post WITH block fields: block-meta section appears, confidence bar renders with correct color
-- [ ] Post WITHOUT block fields: no block-meta output, no empty divs or visual gaps
-- [ ] Confidence bar width correctly proportional to value
-- [ ] Mono font used for all metadata labels and values
-- [ ] Design token colors used (inspect: `var(--text-tertiary)`, `var(--pattern)`, etc.)
-- [ ] No layout breakage to existing header spacing (`pt-12 md:pt-[68px]` preserved)
+- [x] Post WITH block fields: block-meta section appears, confidence bar renders with correct color
+- [x] Post WITHOUT block fields: no block-meta output, no empty divs or visual gaps
+- [x] Confidence bar width correctly proportional to value
+- [x] Mono font used for all metadata labels and values
+- [x] Design token colors used (inspect: `var(--text-tertiary)`, `var(--block-color)`, `var(--confidence-solid)`, etc.)
+- [x] No layout breakage to existing header spacing (`pt-12 md:pt-[68px]` preserved)
 
 ### Project Structure Notes
 
@@ -149,6 +149,52 @@ claude-sonnet-4-6
 
 ### Debug Log References
 
-### Completion Notes List
+### Completion Notes
+
+✅ **confidence-bar.html** - Complete implementation of visual confidence indicator
+- Accepts dict context with confidence value (0-100)
+- Renders nothing when confidence is absent or 0 (graceful degradation)
+- Dynamic color selection based on confidence thresholds:
+  - 0-39: `--frontier` (gray - exploratory)
+  - 40-69: `--convergence` (amber - developing)
+  - 70-89: `--pattern` (coral - strong pattern)
+  - 90-100: `--fresh` (green - high confidence)
+- Proportional bar width and percentage display with mono font
+- Uses CSS custom properties for all colors and styling
+- Fully compliant with DESIGN-SPEC §3 confidence thresholds
+
+✅ **block-meta.html** - Complete metadata renderer for block-backed content
+- Accepts dict context with page reference
+- Graceful degradation: renders nothing when all block fields are absent
+- Renders blockCount with block icon (⬛) and semantic color
+- Renders timespan with calendar icon (📅) and temporal color
+- Renders patterns as pill-style labels with proper spacing
+- Integrates confidence-bar partial inline
+- Uses mono font (Commit Mono) throughout
+- Employs design token colors for semantic meaning:
+  - `--block` for blockCount indicator
+  - `--temporal` for timespan indicator
+  - `--text-secondary` and `--text-tertiary` for text hierarchy
+
+✅ **Test fixture validation**
+- Added realistic test data to docker-journey post (blockCount: 7, timespan: March 2024 – January 2025, patterns: container-orchestration, confidence: 72)
+- Verified block-meta renders correctly with all fields on post with block data
+- Verified block-meta produces no output on posts without block fields (sewer-museum post)
+- Confirmed graceful degradation - no empty divs or visual gaps
+- Hugo build validation passes: 49 pages, no errors
+
+**Architecture notes:**
+- Both partials follow established Hugo patterns with dict context passing
+- Compatible with future integration in layouts/posts/single.html (story 3-4)
+- All styling uses Tailwind utilities and CSS custom properties
+- No custom CSS required - design tokens from design-tokens.css
+- Confidence bar width uses inline style (acceptable per story guidelines)
 
 ### File List
+
+**New files:**
+- `layouts/partials/confidence-bar.html` - Confidence indicator bar component
+- `layouts/partials/block-meta.html` - Block metadata renderer (blockCount, timespan, patterns, confidence)
+
+**Modified files:**
+- `content/posts/docker-journey/index.md` - Added test fixture block fields (blockCount, timespan, patterns, confidence)

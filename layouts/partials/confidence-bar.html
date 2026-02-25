@@ -1,0 +1,45 @@
+{{/*
+  confidence-bar.html
+
+  Renders a visual confidence indicator from a confidence value (0-100).
+
+  Usage: {{ partial "confidence-bar.html" (dict "confidence" 72) }}
+
+  Outputs: Nothing if confidence is 0 or absent (graceful degradation)
+           Bar + percentage if confidence is present
+
+  Confidence thresholds (per DESIGN-SPEC §3):
+    85+:    --confidence-strong / --fresh (strong, well-evidenced)
+    70-84:  --confidence-solid  / --convergence (solid, growing)
+    <70:    --confidence-emerging / --temporal (emerging, needs more evidence)
+*/}}
+
+{{ $confidence := .confidence }}
+
+{{ if and $confidence (gt $confidence 0) }}
+
+  {{/* Render bar with proportional width and numeric value */}}
+  <div class="flex items-center gap-2">
+    <div class="flex-1 h-1 rounded-[1px] overflow-hidden bg-[var(--border-subtle)]">
+      {{/* Choose color based on DESIGN-SPEC §3 confidence thresholds */}}
+      {{ if ge $confidence 85 }}
+        <div
+          class="h-full rounded-[1px]"
+          style="width: {{ $confidence }}%; background-color: var(--confidence-strong);"
+        ></div>
+      {{ else if ge $confidence 70 }}
+        <div
+          class="h-full rounded-[1px]"
+          style="width: {{ $confidence }}%; background-color: var(--confidence-solid);"
+        ></div>
+      {{ else }}
+        <div
+          class="h-full rounded-[1px]"
+          style="width: {{ $confidence }}%; background-color: var(--confidence-emerging);"
+        ></div>
+      {{ end }}
+    </div>
+    <span class="font-mono text-[12px] text-[var(--text-tertiary)] whitespace-nowrap">{{ $confidence }}%</span>
+  </div>
+
+{{ end }}
