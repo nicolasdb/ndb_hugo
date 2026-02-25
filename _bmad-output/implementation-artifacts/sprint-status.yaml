@@ -60,12 +60,12 @@ development_status:
   epic-2-retrospective: done
 
   # Epic 3: Block-Backed Content Publishing (renamed from Pearl-Backed)
-  epic-3: backlog
-  3-1-create-post-archetypes-content-structure: backlog
-  3-2-build-pearl-meta-confidence-partials: backlog
-  3-3-build-evidence-trail-partial: backlog
-  3-4-build-post-list-post-detail-pages: backlog
-  3-5-create-first-real-post-with-evidence-trail: backlog
+  epic-3: in-progress
+  3-1-create-post-archetypes-content-structure: ready-for-dev
+  3-2-build-block-meta-confidence-partials: ready-for-dev
+  3-3-build-evidence-trail-partial: ready-for-dev
+  3-4-build-post-list-post-detail-pages: ready-for-dev
+  3-5-create-first-real-post-with-evidence-trail: ready-for-dev
   epic-3-retrospective: optional
 
   # Epic 4: Patterns Gallery & Growth Timeline
