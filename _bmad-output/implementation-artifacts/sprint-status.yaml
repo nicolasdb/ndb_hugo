@@ -61,7 +61,7 @@ development_status:
 
   # Epic 3: Block-Backed Content Publishing (renamed from Pearl-Backed)
   epic-3: in-progress
-  3-1-create-post-archetypes-content-structure: ready-for-dev
+  3-1-create-post-archetypes-content-structure: done
   3-2-build-block-meta-confidence-partials: ready-for-dev
   3-3-build-evidence-trail-partial: ready-for-dev
   3-4-build-post-list-post-detail-pages: ready-for-dev

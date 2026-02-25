@@ -1,6 +1,6 @@
 # Story 3.1: Create Post Archetypes & Content Structure
 
-Status: ready-for-dev
+Status: done
 
 ## Story
 
@@ -20,26 +20,26 @@ So that every new post is created with the correct structure from the start.
 
 ## Tasks / Subtasks
 
-- [ ] Create archetype directory structure (AC: 1, 2, 3, 4)
-  - [ ] Create `archetypes/posts/` directory
-  - [ ] Write `archetypes/posts/index.md` with core + optional block frontmatter
-  - [ ] Write `archetypes/posts/evidence.yaml` with commented example structure
-  - [ ] Verify `hugo new content posts/test-post` creates correct page bundle
+- [x] Create archetype directory structure (AC: 1, 2, 3, 4)
+  - [x] Create `archetypes/posts/` directory
+  - [x] Write `archetypes/posts/index.md` with core + optional block frontmatter
+  - [x] Write `archetypes/posts/evidence.yaml` with commented example structure
+  - [x] Verify `hugo new content posts/test-post` creates correct page bundle
 
-- [ ] Verify `content/posts/_index.md` (AC: 5)
-  - [ ] Check existing `_index.md` has correct frontmatter (title, description)
-  - [ ] Update if needed
+- [x] Verify `content/posts/_index.md` (AC: 5)
+  - [x] Check existing `_index.md` has correct frontmatter (title, description)
+  - [x] Update if needed
 
-- [ ] Convert existing flat posts to page bundles (AC: 6)
-  - [ ] Convert `content/posts/docker-journey.md` → `content/posts/docker-journey/index.md`
-  - [ ] Add placeholder `content/posts/docker-journey/evidence.yaml`
-  - [ ] Convert `content/posts/sewer-museum-valve-controller.md` → `content/posts/sewer-museum-valve-controller/index.md`
-  - [ ] Add placeholder `content/posts/sewer-museum-valve-controller/evidence.yaml`
-  - [ ] Verify Hugo still resolves posts correctly after conversion
+- [x] Convert existing flat posts to page bundles (AC: 6)
+  - [x] Convert `content/posts/docker-journey.md` → `content/posts/docker-journey/index.md`
+  - [x] Add placeholder `content/posts/docker-journey/evidence.yaml`
+  - [x] Convert `content/posts/sewer-museum-valve-controller.md` → `content/posts/sewer-museum-valve-controller/index.md`
+  - [x] Add placeholder `content/posts/sewer-museum-valve-controller/evidence.yaml`
+  - [x] Verify Hugo still resolves posts correctly after conversion
 
-- [ ] Build validation (AC: 7)
-  - [ ] Run `pnpm run test` — confirm all pages still render (should be 49+ pages)
-  - [ ] Verify post list page still displays both sample posts
+- [x] Build validation (AC: 7)
+  - [x] Run `pnpm run test` — confirm all pages still render (should be 49+ pages)
+  - [x] Verify post list page still displays both sample posts
 
 ## Dev Notes
 
@@ -178,6 +178,61 @@ claude-sonnet-4-6
 
 ### Debug Log References
 
-### Completion Notes List
+None — all tasks completed successfully on first try.
+
+### Completion Notes
+
+✅ **Story 3.1 Complete: All Acceptance Criteria Satisfied**
+
+**Implementation Summary:**
+1. Created post archetype directory structure with Hugo-compatible templates
+   - `archetypes/posts/index.md` scaffolds new posts with core frontmatter fields (title, date, description, tags, categories, draft) plus optional block fields (blockCount, timespan, patterns, confidence)
+   - `archetypes/posts/evidence.yaml` provides evidence sidecar template with commented example structure
+   - Tested with `hugo new` — correctly creates page bundles with both files
+
+2. Verified `content/posts/_index.md` has proper frontmatter (title: "Posts", description: clear context)
+
+3. Converted existing flat posts to page bundles (required by architecture D1.1):
+   - `docker-journey.md` → `docker-journey/index.md` + `evidence.yaml` placeholder
+   - `sewer-museum-valve-controller.md` → `sewer-museum-valve-controller/index.md` + `evidence.yaml` placeholder
+   - Hugo correctly resolves both posts in post list (no URL/routing changes needed)
+
+4. Validation: `pnpm run test` confirms 49 pages render with no errors
+
+**Technical Decisions:**
+- Kept evidence.yaml as YAML (not Markdown) per architecture specification
+- Used commented example structure to guide future evidence entries
+- Maintained exact frontmatter from original posts during conversion
+
+**All Acceptance Criteria Satisfied:**
+- AC1: archetype frontmatter ✅
+- AC2: optional block fields ✅
+- AC3: evidence sidecar template ✅
+- AC4: hugo new verification ✅
+- AC5: _index.md verified ✅
+- AC6: flat posts converted ✅
+- AC7: build validation ✅
 
 ### File List
+
+**Created:**
+- `archetypes/posts/index.md` — Post archetype with core and optional block frontmatter
+- `archetypes/posts/evidence.yaml` — Evidence sidecar template with commented structure
+- `content/posts/docker-journey/index.md` — Converted from flat file
+- `content/posts/docker-journey/evidence.yaml` — Empty placeholder evidence sidecar
+- `content/posts/sewer-museum-valve-controller/index.md` — Converted from flat file
+- `content/posts/sewer-museum-valve-controller/evidence.yaml` — Empty placeholder evidence sidecar
+
+**Deleted:**
+- `content/posts/docker-journey.md` — Converted to page bundle
+- `content/posts/sewer-museum-valve-controller.md` — Converted to page bundle
+
+### Code Review Fixes (claude-sonnet-4-6)
+
+**M1/M2 Fixed:** Replaced Docker-specific example comments in `archetypes/posts/evidence.yaml` and `content/posts/sewer-museum-valve-controller/evidence.yaml` with generic, topic-neutral placeholder text.
+
+**L2 Fixed:** Added `draft: false` to `content/posts/_index.md` for explicit consistency with archetype convention.
+
+**L3 Fixed:** Added guidance comment to `archetypes/posts/index.md` body so content creators know to write post content there and link to `evidence.yaml`.
+
+Build confirmed: 49 pages, 0 errors.

@@ -1,0 +1,11 @@
+# Evidence trail for this post.
+# Each entry is a knowledge block that contributed to this insight.
+# Uncomment and fill in when publishing with evidence backing.
+
+# blocks:
+#   - date: "2024-01-15"
+#     color: fresh          # fresh | convergence | pattern | temporal | frontier | block
+#     content: "First key insight or discovery that shaped this post..."
+#   - date: "2024-02-03"
+#     color: convergence
+#     content: "Older idea that became relevant — how it connected to this work..."

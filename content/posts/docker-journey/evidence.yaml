@@ -1,0 +1,11 @@
+# Evidence trail for this post.
+# Each entry is a knowledge block that contributed to this insight.
+# Uncomment and fill in when publishing with evidence backing.
+
+# blocks:
+#   - date: "2024-01-15"
+#     color: fresh          # fresh | convergence | pattern | temporal | frontier | block
+#     content: "Discovered that Docker overlay networks isolate by default..."
+#   - date: "2024-02-03"
+#     color: convergence
+#     content: "Old insight from 2022 became relevant: subnets matter for container DNS..."
