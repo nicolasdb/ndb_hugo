@@ -65,7 +65,7 @@ development_status:
   3-2-build-block-meta-confidence-partials: done
   3-3-build-evidence-trail-partial: done
   3-4-build-post-list-post-detail-pages: done
-  3-5-create-first-real-post-with-evidence-trail: review
+  3-5-create-first-real-post-with-evidence-trail: done
   epic-3-retrospective: optional
 
   # Epic 4: Patterns Gallery & Growth Timeline

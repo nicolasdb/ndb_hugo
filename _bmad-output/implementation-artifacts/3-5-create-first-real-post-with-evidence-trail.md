@@ -1,6 +1,6 @@
 # Story 3.5: Create First Real Post with Evidence Trail
 
-Status: review
+Status: done
 
 ## Story
 
