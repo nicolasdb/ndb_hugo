@@ -27,5 +27,8 @@
   <div class="pb-10 md:pb-[52px] prose font-body text-[17px] leading-[1.7] text-[var(--text-secondary)]">
     {{ .Content }}
   </div>
+
+  {{/* Evidence trail — shows chronological block journey when available */}}
+  {{ partial "evidence-trail.html" (dict "page" .) }}
 </article>
 {{end}}

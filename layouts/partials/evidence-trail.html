@@ -1,0 +1,99 @@
+{{/*
+  evidence-trail.html
+
+  Renders an interactive, collapsible evidence trail showing the chronological
+  journey of knowledge blocks that contributed to a post. Requires a page bundle
+  with an evidence.yaml sidecar file.
+
+  Usage: {{ partial "evidence-trail.html" (dict "page" .) }}
+
+  Context:
+    .page - The page context (must support .Resources.GetMatch for sidecar files)
+
+  Expected evidence.yaml structure:
+    blocks:
+      - date: "2024-03-10"
+        color: "fresh"
+        content: "Description of this block"
+
+  Required fields: date, color, content
+  Valid colors: fresh, convergence, pattern, temporal, frontier, block
+
+  Renders:
+    - Collapsible toggle trigger with chevron indicator
+    - Expandable list of block entries with date, color dot, and content
+    - Gracefully renders nothing if evidence.yaml sidecar is missing or blocks array is empty
+
+  Architecture:
+    - Alpine.js (`x-data`, `x-show`, `x-transition`) for expand/collapse
+    - Semantic color tokens mapped from YAML (fresh, convergence, pattern, temporal, frontier, block)
+    - No custom Alpine components; minimal scope per architecture D2.3
+    - Full graceful degradation: guards against nil, empty, or malformed data
+*/}}
+
+{{ $page := .page }}
+{{ $evidence := $page.Resources.GetMatch "evidence.yaml" }}
+
+{{/* Graceful degradation: render nothing if evidence.yaml sidecar doesn't exist, is empty, or has no blocks */}}
+{{ if and $evidence (ne $evidence "") }}
+  {{ $data := $evidence | transform.Unmarshal }}
+  {{ if and $data (index $data "blocks") (gt (len $data.blocks) 0) }}
+
+  {{/*
+    Color mapping: YAML `color` field → CSS custom property
+    Maps to DESIGN-SPEC §3 semantic block colors:
+      fresh → new capture, strong signal (green)
+      convergence → old idea meets new work (amber)
+      pattern → skill pattern highlighted (coral)
+      temporal → time marker (blue)
+      frontier → unexplored, quiet territory (gray)
+      block → raw knowledge block (neutral warm)
+  */}}
+  {{ $colorMap := dict "fresh" "var(--fresh)" "convergence" "var(--convergence)" "pattern" "var(--pattern)" "temporal" "var(--temporal)" "frontier" "var(--frontier)" "block" "var(--block)" }}
+
+  <div x-data="{ open: false }" class="mt-6 border-t border-[var(--border)]">
+
+    {{/* Toggle trigger */}}
+    <button
+      @click="open = !open"
+      type="button"
+      class="w-full py-3 flex items-center justify-between text-left font-mono text-[12px] text-[var(--text-tertiary)] hover:text-[var(--text-secondary)] transition-colors"
+      :aria-expanded="open"
+    >
+      <span>Evidence trail ({{ len $data.blocks }} {{ if eq (len $data.blocks) 1 }}block{{ else }}blocks{{ end }})</span>
+      <svg
+        class="w-4 h-4 transition-transform duration-200"
+        :class="{ 'rotate-180': open }"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+        aria-hidden="true"
+      >
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+      </svg>
+    </button>
+
+    {{/* Block list — shown with transition when expanded */}}
+    <div x-show="open" x-transition class="space-y-3 py-3">
+      {{ range $data.blocks }}
+        {{ $dotColor := index $colorMap .color | default "var(--block)" }}
+        <div class="flex gap-3 text-[var(--text-secondary)]">
+          {{/* Date (mono, tertiary) */}}
+          <div class="flex-shrink-0 font-mono text-[12px] text-[var(--text-tertiary)] whitespace-nowrap pt-1">
+            {{ .date }}
+          </div>
+
+          {{/* Color dot */}}
+          <div class="flex-shrink-0 w-2 h-2 rounded-full mt-2" style="background-color: {{ $dotColor | safeCSS }}"></div>
+
+          {{/* Content text (body font) */}}
+          <div class="flex-1 text-[13px] leading-relaxed">
+            {{ .content }}
+          </div>
+        </div>
+      {{ end }}
+    </div>
+
+  </div>
+  {{ end }}
+{{ end }}

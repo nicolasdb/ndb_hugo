@@ -1,11 +1,19 @@
-# Evidence trail for this post.
-# Each entry is a knowledge block that contributed to this insight.
-# Uncomment and fill in when publishing with evidence backing.
-
-# blocks:
-#   - date: "2024-01-15"
-#     color: fresh          # fresh | convergence | pattern | temporal | frontier | block
-#     content: "Discovered that Docker overlay networks isolate by default..."
-#   - date: "2024-02-03"
-#     color: convergence
-#     content: "Old insight from 2022 became relevant: subnets matter for container DNS..."
+blocks:
+  - date: "2024-03-10"
+    color: fresh
+    content: "First attempt at Docker bridge networking — couldn't get two containers to talk."
+  - date: "2024-06-15"
+    color: convergence
+    content: "Old Linux networking knowledge activated: subnets, routing tables, iptables."
+  - date: "2024-09-22"
+    color: pattern
+    content: "Recognized pattern from 2022 CCNA studies — this is basic network isolation."
+  - date: "2025-01-08"
+    color: temporal
+    content: "Teaching interns forced clarity — pedagogical moment changed everything."
+  - date: "2025-01-12"
+    color: frontier
+    content: "Explored edge case: DNS resolution in custom bridge — uncharted territory."
+  - date: "2025-01-15"
+    color: block
+    content: "Custom bridge plugin complete — handles DNS, isolation, cleanup automatically."

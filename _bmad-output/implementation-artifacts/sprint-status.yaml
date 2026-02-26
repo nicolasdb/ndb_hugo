@@ -63,7 +63,7 @@ development_status:
   epic-3: in-progress
   3-1-create-post-archetypes-content-structure: done
   3-2-build-block-meta-confidence-partials: done
-  3-3-build-evidence-trail-partial: ready-for-dev
+  3-3-build-evidence-trail-partial: done
   3-4-build-post-list-post-detail-pages: ready-for-dev
   3-5-create-first-real-post-with-evidence-trail: ready-for-dev
   epic-3-retrospective: optional
