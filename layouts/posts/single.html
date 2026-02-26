@@ -1,0 +1,36 @@
+{{/*
+  layouts/posts/single.html
+
+  Section-specific override for individual post pages.
+  Extends _default/single.html structure with block-meta insertion and prose width constraint.
+*/}}
+
+{{define "main"}}
+<article class="mx-auto max-w-[920px] px-8">
+  <header class="pt-12 md:pt-[68px] pb-10 md:pb-[52px]">
+    <h1 class="font-heading text-[40px] font-bold tracking-[-0.02em] max-w-[18ch] leading-[1.2] text-[var(--text-primary)]">
+      {{ .Title }}
+    </h1>
+    <div class="font-mono text-[12px] text-[var(--text-tertiary)] flex items-center gap-2 mt-4 flex-wrap">
+      {{ with .Date }}<span>{{ .Format "January 2, 2006" }}</span>{{ end }}
+      {{ with .ReadingTime }}<span>·</span><span>{{ . }} min read</span>{{ end }}
+    </div>
+    {{ with .Params.tags }}
+    <div class="flex items-center gap-2 mt-3 flex-wrap">
+      {{ range . }}
+      <span class="font-mono text-[11px] text-[var(--text-tertiary)] border border-[var(--border)] px-2 py-0.5 rounded-[2px]">{{ . }}</span>
+      {{ end }}
+    </div>
+    {{ end }}
+    {{/* Block-meta partial — shows block metadata when present */}}
+    {{ partial "block-meta.html" (dict "page" .) }}
+  </header>
+
+  <div class="pb-10 md:pb-[52px] prose font-body text-[17px] leading-[1.7] text-[var(--text-secondary)] max-w-[65ch]">
+    {{ .Content }}
+  </div>
+
+  {{/* Evidence trail — shows chronological block journey when available */}}
+  {{ partial "evidence-trail.html" (dict "page" .) }}
+</article>
+{{end}}
