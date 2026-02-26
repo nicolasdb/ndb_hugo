@@ -4,7 +4,7 @@ date: 2025-01-15
 draft: false
 description: "What started as networking confusion became a custom bridge plugin. Somewhere in between, I taught it to interns — and teaching is where the real understanding happened."
 tags: ["docker", "networking", "teaching"]
-blockCount: 7
+blockCount: 6
 timespan: "March 2024 – January 2025"
 patterns: ["container-orchestration"]
 confidence: 72
