@@ -5,6 +5,6 @@ draft: false
 year: 2023
 color: convergence
 quote: "Reading Ostrom for the third time, I finally understood why her principles felt familiar — I'd been reinventing half of them through trial and error at the fablab."
-featuredOnHomepage: false
+featuredOnHomepage: true
 description: "Reading Ostrom for the third time, I finally understood why her principles felt familiar — I'd been reinventing half of them through trial and error at the fablab."
 ---

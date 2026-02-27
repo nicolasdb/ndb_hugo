@@ -5,13 +5,22 @@ Context: page object with Params.{date, color, quote, linkedPost}
 <div class="relative pl-12 pb-6">
   {{- /* Color dot on spine */ -}}
   <div
-    class="absolute left-[13px] top-1 w-2.5 h-2.5 rounded-full"
+    class="absolute left-[7px] top-1 w-[5px] h-[5px] rounded-full"
     style="{{ printf "background-color: var(--%s)" (.Params.color | default "block") | safeCSS }}"
   ></div>
 
-  {{- /* Quote text (italic, secondary color) */ -}}
+  {{- /* Quote text (italic, secondary color) — clickable if linkedPost exists */ -}}
   {{ with .Params.quote }}
-    <p class="font-[Literata] italic text-[var(--text-secondary)] mb-2">{{ . }}</p>
+    {{ if $.Params.linkedPost }}
+      <a
+        href="{{ $.Params.linkedPost }}"
+        class="font-[Literata] italic text-[var(--text-secondary)] mb-2 hover:text-[var(--text-primary)] transition-colors inline-block"
+      >
+        <p class="mb-2">{{ . }}</p>
+      </a>
+    {{ else }}
+      <p class="font-[Literata] italic text-[var(--text-secondary)] mb-2">{{ . }}</p>
+    {{ end }}
   {{ end }}
 
   {{- /* Date and optional link */ -}}

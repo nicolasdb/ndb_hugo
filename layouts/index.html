@@ -17,8 +17,21 @@
     </section>
 
     <section class="mx-auto max-w-[920px] px-8 py-8 md:py-[44px]">
-        {{ partial "section-heading.html" (dict "label" "MOMENTS OF RECOGNITION") }}
-        <!-- Wired in Story 4.4 -->
+        {{ partial "section-heading.html" (dict "label" "MOMENTS OF RECOGNITION" "link" "/timeline/" "linkText" "Full timeline →") }}
+
+        {{ $timeline := .Site.GetPage "/timeline" }}
+        {{ if $timeline }}
+          {{ $featured := (where $timeline.Pages "Params.featuredOnHomepage" true) }}
+          {{ if $featured }}
+            <div class="relative pb-12 md:pb-[44px] mt-8">
+              {{- /* Vertical spine */ -}}
+              <div class="absolute left-4 top-0 bottom-0 w-px bg-[var(--timeline-line)]"></div>
+              {{ range (sort $featured "Date" "desc") | first 10 }}
+                {{ partial "timeline-moment.html" . }}
+              {{ end }}
+            </div>
+          {{ end }}
+        {{ end }}
     </section>
 </main>
 {{ end }}

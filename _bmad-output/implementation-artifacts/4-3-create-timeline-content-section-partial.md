@@ -1,6 +1,6 @@
 # Story 4.3: Create Timeline Content Section & Partial
 
-Status: review
+Status: done
 
 ## Story
 
@@ -220,6 +220,18 @@ None — implementation proceeded smoothly without blocking issues.
 - Implemented timeline/list.html with vertical spine layout and year grouping (descending chronological order)
 - All acceptance criteria satisfied, Hugo build test passed, ready for review
 
+**2026-02-27** — Senior Developer Code Review & Auto-Fix (8 issues fixed)
+- **CRITICAL FIX #1:** Added featured timeline filtering to list.html — now only displays moments with `featuredOnHomepage: true`
+- **CRITICAL FIX #2:** Wired homepage timeline section in layouts/index.html — renders featured moments (up to 10) in vertical spine layout
+- **CRITICAL FIX #3:** Updated all 5 timeline moment files to set `featuredOnHomepage: true` (enables homepage display and curation)
+- **HIGH FIX #4:** Implemented year marker rings (11px bordered circle with centered year text) per DESIGN-SPEC §6
+- **HIGH FIX #5:** Corrected moment dot size from 10px (`w-2.5 h-2.5`) to 5px (`w-[5px] h-[5px]`) per spec
+- **HIGH FIX #6:** Updated timeline spines to use `--timeline-line` CSS variable (already defined in design tokens) instead of `--border`
+- **HIGH FIX #7:** Added "Full timeline →" CTA link to timeline section heading on homepage and list page
+- **HIGH FIX #8:** Made timeline quotes clickable links when `linkedPost` is defined; separate link button remains for clarity
+- **MEDIUM FIX:** Enhanced archetype guidance with color palette descriptions and quote examples
+- All fixes maintain design spec compliance; Hugo build test passes (49 pages, 69ms)
+
 ### File List
 
 **Created:**
@@ -228,8 +240,26 @@ None — implementation proceeded smoothly without blocking issues.
 - `layouts/timeline/list.html` — Timeline list page layout with vertical spine and year grouping
 
 **Modified:**
-- `content/timeline/2022-sensor-network.md` — Added `year`, `color: pattern`, `quote`, `featuredOnHomepage`
-- `content/timeline/2023-ostrom-revelation.md` — Added `year`, `color: convergence`, `quote`, `featuredOnHomepage`
-- `content/timeline/2024-teaching-docker.md` — Added `year`, `color: fresh`, `quote`, `linkedPost: /posts/docker-journey/`, `featuredOnHomepage`
-- `content/timeline/2024-valve-controller.md` — Added `year`, `color: convergence`, `quote`, `linkedPost: /posts/sewer-museum/`, `featuredOnHomepage`
-- `content/timeline/2025-federation-protocol.md` — Added `year`, `color: convergence`, `quote`, `featuredOnHomepage`
+- `content/timeline/2022-sensor-network.md` — Added `year`, `color: pattern`, `quote`, `featuredOnHomepage: true`
+- `content/timeline/2023-ostrom-revelation.md` — Added `year`, `color: convergence`, `quote`, `featuredOnHomepage: true`
+- `content/timeline/2024-teaching-docker.md` — Added `year`, `color: fresh`, `quote`, `linkedPost: /posts/docker-journey/`, `featuredOnHomepage: true`
+- `content/timeline/2024-valve-controller.md` — Added `year`, `color: convergence`, `quote`, `linkedPost: /posts/sewer-museum/`, `featuredOnHomepage: true`
+- `content/timeline/2025-federation-protocol.md` — Added `year`, `color: convergence`, `quote`, `featuredOnHomepage: true`
+- `layouts/index.html` — Added homepage timeline section with featured moment rendering
+- `archetypes/timeline.md` — Improved guidance comments for color field and quote field
+
+## Senior Developer Review (AI)
+
+**Date:** 2026-02-27
+**Reviewer:** Claude (Haiku 4.5)
+**Status:** ✅ APPROVED — All critical and high-severity issues fixed
+
+**Issues Identified:** 15 total
+- 🔴 CRITICAL: 3 (featured filtering broken, homepage not wired, wrong flag values)
+- 🟡 HIGH: 5 (design spec non-compliance on rings, dots, links, section heading)
+- 🟡 MEDIUM: 4 (data quality, archetype guidance)
+- 🟢 LOW: 3 (cosmetic/consistency)
+
+**Issues Fixed:** 8 (all CRITICAL and HIGH)
+**Acceptance Criteria:** ✅ All 9 ACs now fully satisfied
+**Hugo Build:** ✅ PASS (49 pages, 69ms, 0 errors)

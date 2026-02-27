@@ -9,7 +9,7 @@
 {{ define "main" }}
 <main class="mx-auto max-w-[920px] px-8">
   <header class="pt-12 md:pt-[68px] pb-8 md:pb-[44px]">
-    {{ partial "section-heading.html" (dict "label" "MOMENTS OF RECOGNITION") }}
+    {{ partial "section-heading.html" (dict "label" "MOMENTS OF RECOGNITION" "link" "/timeline/" "linkText" "Full timeline →") }}
     {{ with .Content }}
     <div class="font-body text-[17px] leading-[1.7] text-[var(--text-secondary)] max-w-[54ch] mt-3">
       {{ . }}
@@ -20,7 +20,7 @@
   {{ if .Pages }}
     <div class="relative pb-12 md:pb-[44px]">
       {{- /* Vertical spine */ -}}
-      <div class="absolute left-4 top-0 bottom-0 w-px bg-[var(--border)]"></div>
+      <div class="absolute left-4 top-0 bottom-0 w-px bg-[var(--timeline-line)]"></div>
 
       {{- /* Sort pages by date descending (newest first) */ -}}
       {{ $prev_year := "" }}
@@ -28,8 +28,11 @@
         {{- /* Show year marker when year changes */ -}}
         {{ if ne (.Date.Year | string) $prev_year }}
           <div class="relative pl-12 mb-6 mt-8 first:mt-0">
-            <div class="font-mono text-sm font-bold text-[var(--temporal)]">
-              {{ .Date.Year }}
+            {{- /* Year marker ring (11px with 2px stroke, temporal color) */ -}}
+            <div class="absolute left-[7px] top-0 flex items-center justify-center">
+              <div class="w-[11px] h-[11px] rounded-full border-2 border-[var(--temporal)] bg-white flex items-center justify-center">
+                <span class="font-mono text-xs font-bold text-[var(--temporal)] absolute">{{ .Date.Year }}</span>
+              </div>
             </div>
           </div>
           {{ $prev_year = (.Date.Year | string) }}
