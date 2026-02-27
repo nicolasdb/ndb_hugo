@@ -1,0 +1,33 @@
+{{/*
+  layouts/patterns/list.html
+
+  Section list page for /patterns/.
+  Displays all pattern pages as cards in a responsive 2-column grid.
+*/}}
+
+{{ define "main" }}
+<main class="mx-auto max-w-[920px] px-8">
+  <header class="pt-12 md:pt-[68px] pb-8 md:pb-[44px]">
+    {{ partial "section-heading.html" (dict "label" "SKILL PATTERNS") }}
+    {{ with .Content }}
+    <div class="font-body text-[17px] leading-[1.7] text-[var(--text-secondary)] max-w-[54ch] mt-3">
+      {{ . }}
+    </div>
+    {{ end }}
+  </header>
+
+  {{ if .Pages }}
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pb-12 md:pb-[44px]">
+      {{ range $i, $pattern := .Pages }}
+        {{ partial "pattern-card.html" (dict "pattern" $pattern "index" $i) }}
+      {{ end }}
+    </div>
+  {{ else }}
+    <div class="text-center py-12 md:py-[44px]">
+      <p class="font-body text-[15px] text-[var(--text-tertiary)] italic">
+        No patterns yet. Check back soon.
+      </p>
+    </div>
+  {{ end }}
+</main>
+{{ end }}

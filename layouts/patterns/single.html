@@ -1,0 +1,64 @@
+{{/*
+  layouts/patterns/single.html
+
+  Detail page for an individual pattern.
+  Renders full pattern metadata, confidence bar, tags, and body content.
+*/}}
+
+{{ define "main" }}
+<article class="mx-auto max-w-[920px] px-8">
+
+  {{/* Back link */}}
+  <div class="pt-8 md:pt-[44px] pb-6">
+    <a href="{{ "/patterns/" | relURL }}" class="font-mono text-[12px] text-[var(--text-tertiary)] hover:text-[var(--text-primary)] transition-colors">
+      ← Patterns
+    </a>
+  </div>
+
+  <header class="pb-8 md:pb-[44px]">
+    <h1 class="font-heading text-[40px] font-bold tracking-[-0.02em] leading-[1.2] text-[var(--text-primary)]">
+      {{ .Title }}
+    </h1>
+
+    {{/* Confidence bar */}}
+    {{- with .Params.confidence -}}
+      <div class="mt-5 max-w-[280px]">
+        <span class="font-mono text-[10px] uppercase tracking-[0.08em] text-[var(--text-tertiary)] block mb-1.5">Confidence</span>
+        {{ partial "confidence-bar.html" (dict "confidence" .) }}
+      </div>
+    {{- end -}}
+
+    {{/* Meta: blockCount, timespan, trajectory */}}
+    <div class="font-mono text-[12px] text-[var(--text-tertiary)] flex flex-wrap items-center gap-x-3 gap-y-1 mt-4">
+      {{- with .Params.blockCount -}}
+        <span>{{ . }} blocks</span>
+      {{- end -}}
+      {{- with .Params.timespan -}}
+        {{- if $.Params.blockCount -}}<span>·</span>{{- end -}}
+        <span>{{ . }}</span>
+      {{- end -}}
+      {{- with .Params.trajectory -}}
+        {{- if or $.Params.blockCount $.Params.timespan -}}<span>·</span>{{- end -}}
+        <span style="color: var(--convergence);">{{ . }}</span>
+      {{- end -}}
+    </div>
+
+    {{/* Tags */}}
+    {{ with .Params.tags }}
+    <div class="flex flex-wrap items-center gap-2 mt-4">
+      {{ range . }}
+      <a href="{{ "/tags/" | relURL }}{{ . | urlize }}/" class="font-mono text-[11px] text-[var(--text-tertiary)] border border-[var(--border)] px-2 py-0.5 rounded-[2px] hover:border-[var(--text-tertiary)] hover:text-[var(--text-primary)] transition-colors">
+        {{ . }}
+      </a>
+      {{ end }}
+    </div>
+    {{ end }}
+  </header>
+
+  {{/* Body content */}}
+  <div class="pb-10 md:pb-[52px] prose font-body text-[17px] leading-[1.7] text-[var(--text-secondary)] max-w-[65ch]">
+    {{ .Content }}
+  </div>
+
+</article>
+{{ end }}

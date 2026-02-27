@@ -20,7 +20,7 @@
 
   {{/* Render bar with proportional width and numeric value */}}
   <div class="flex items-center gap-2">
-    <div class="flex-1 h-1 rounded-[1px] overflow-hidden bg-[var(--border-subtle)]">
+    <div class="flex-1 rounded-[1px] overflow-hidden bg-[var(--border-subtle)]" style="height: 3px;">
       {{/* Choose color based on DESIGN-SPEC §3 confidence thresholds */}}
       {{ if ge $confidence 85 }}
         <div

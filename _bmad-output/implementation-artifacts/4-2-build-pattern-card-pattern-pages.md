@@ -1,6 +1,6 @@
 # Story 4.2: Build Pattern Card & Pattern Pages
 
-Status: ready-for-dev
+Status: done
 
 ## Story
 
@@ -20,30 +20,30 @@ So that I can understand Nicolas's emerging capabilities and their evidence.
 
 ## Tasks / Subtasks
 
-- [ ] Create `layouts/partials/pattern-card.html` (AC: 1, 2, 6)
-  - [ ] Accept `dict` context with `"pattern"` and `"index"` keys
-  - [ ] Render: title (Literata 16px heading), confidence bar snippet, blockCount + timespan meta (Commit Mono), description excerpt
-  - [ ] Use `{{ with .pattern.Params.confidence }}` guards for optional fields
-  - [ ] Card border: 1px `--border`, radius 3px, background `--surface-elevated`
-  - [ ] Use semantic color tokens from DESIGN-SPEC §3
+- [x] Create `layouts/partials/pattern-card.html` (AC: 1, 2, 6)
+  - [x] Accept `dict` context with `"pattern"` and `"index"` keys
+  - [x] Render: title (Literata 16px heading), confidence bar snippet, blockCount + timespan meta (Commit Mono), description excerpt
+  - [x] Use `{{ with .pattern.Params.confidence }}` guards for optional fields
+  - [x] Card border: 1px `--border`, radius 3px, background `--surface-elevated`
+  - [x] Use semantic color tokens from DESIGN-SPEC §3
 
-- [ ] Create `layouts/patterns/` directory and `list.html` (AC: 3)
-  - [ ] Extend `_default/baseof.html` with `{{ define "main" }}`
-  - [ ] Query `.Pages` for all patterns, display in responsive grid (2-col on md+)
-  - [ ] Use `pattern-card.html` partial with dict context
-  - [ ] Include `section-heading.html` partial for page title
-  - [ ] Graceful empty state (no patterns → message, no error)
+- [x] Create `layouts/patterns/` directory and `list.html` (AC: 3)
+  - [x] Extend `_default/baseof.html` with `{{ define "main" }}`
+  - [x] Query `.Pages` for all patterns, display in responsive grid (2-col on md+)
+  - [x] Use `pattern-card.html` partial with dict context
+  - [x] Include `section-heading.html` partial for page title
+  - [x] Graceful empty state (no patterns → message, no error)
 
-- [ ] Create `layouts/patterns/single.html` (AC: 4, 5)
-  - [ ] Extend `_default/baseof.html`
-  - [ ] Render full pattern: title (h1), description, confidence bar (`confidence-bar.html` partial)
-  - [ ] Meta section: blockCount, timespan, trajectory — Commit Mono, design token colors
-  - [ ] Tags section: tag pills linking to tag pages
-  - [ ] Body content (markdown)
-  - [ ] Back link: "← Patterns" (Commit Mono 12px, text-tertiary)
-  - [ ] Use `{{ with }}` / `{{ if }}` guards for all optional fields
+- [x] Create `layouts/patterns/single.html` (AC: 4, 5)
+  - [x] Extend `_default/baseof.html`
+  - [x] Render full pattern: title (h1), description, confidence bar (`confidence-bar.html` partial)
+  - [x] Meta section: blockCount, timespan, trajectory — Commit Mono, design token colors
+  - [x] Tags section: tag pills linking to tag pages
+  - [x] Body content (markdown)
+  - [x] Back link: "← Patterns" (Commit Mono 12px, text-tertiary)
+  - [x] Use `{{ with }}` / `{{ if }}` guards for all optional fields
 
-- [ ] Run `pnpm run test` (AC: 7)
+- [x] Run `pnpm run test` (AC: 7)
 
 ## Dev Notes
 
@@ -158,10 +158,38 @@ Max-width 920px, page padding-x 32px per DESIGN-SPEC §4.
 
 ### Agent Model Used
 
-*Recommended: claude-sonnet-4-6 — visual card design + layout architecture*
+claude-sonnet-4-6
 
 ### Debug Log References
 
+None — clean implementation, no issues.
+
 ### Completion Notes List
 
+- Implemented `pattern-card.html` with full dict context pattern, all optional field guards, DESIGN-SPEC color tokens, and confidence bar reuse from Story 3.2.
+- Note: Mini constellation SVG deferred (Phase 0 simplification per story Dev Notes). Confidence bar covers the essential visual.
+- `list.html` uses responsive 2-col grid (md:grid-cols-2), graceful empty state, and h1 page title in header.
+- `single.html` renders confidence bar, meta row (blockCount · timespan · trajectory in --convergence), linked tag pills, body content, and "← Patterns" back link.
+- All optional fields wrapped with `{{ with }}` guards throughout.
+- `pnpm run test` passes: 49 pages built in 144ms, no errors.
+
 ### File List
+
+- layouts/partials/pattern-card.html (new)
+- layouts/patterns/list.html (new)
+- layouts/patterns/single.html (new)
+
+### Code Review Fixes Applied (2026-02-27)
+
+1. **Confidence bar height correction (CRITICAL)** — Changed `h-1` (4px) to `height: 3px` inline style to match DESIGN-SPEC §6.5 spec
+2. **Section heading consistency (MEDIUM)** — Replaced `<h1>` in patterns/list.html with `section-heading.html` partial to match patterns established in Story 3.4 (posts list)
+3. **Separator logic consistency (MEDIUM)** — Fixed pattern card meta separators to check all three fields (blockCount, timespan, trajectory) consistently before rendering `·` dividers
+4. **Description truncation (MEDIUM)** — Added `line-clamp-3` to pattern card description to prevent text overflow in 2-column grid layout
+5. **Empty state styling (LOW)** — Improved empty patterns list message with centered layout and lighter styling (`text-tertiary`, italic) to differentiate from content instructions
+
+**Status:** All fixes applied and tested. `pnpm run test` passes: 49 pages, 72ms, 0 errors.
+
+### Change Log
+
+- 2026-02-27: Code review complete—5 issues fixed, all ACs validated ✅
+- 2026-02-27: Implemented pattern-card partial and patterns list/single layouts (Story 4.2)
