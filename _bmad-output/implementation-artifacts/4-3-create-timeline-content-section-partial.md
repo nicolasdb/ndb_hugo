@@ -1,6 +1,6 @@
 # Story 4.3: Create Timeline Content Section & Partial
 
-Status: ready-for-dev
+Status: review
 
 ## Story
 
@@ -22,40 +22,40 @@ So that I can understand Nicolas's learning trajectory over time.
 
 ## Tasks / Subtasks
 
-- [ ] Verify `content/timeline/_index.md` (AC: 1)
-  - [ ] Check existing content — confirm appropriate list page config frontmatter
+- [x] Verify `content/timeline/_index.md` (AC: 1)
+  - [x] Check existing content — confirm appropriate list page config frontmatter
 
-- [ ] Create `archetypes/timeline.md` (AC: 2)
-  - [ ] Include all fields: `title`, `date`, `year`, `color`, `quote`, `linkedPost`, `featuredOnHomepage`
-  - [ ] Add commented guidance for `color` field (valid values: fresh, convergence, pattern, temporal, frontier, block)
-  - [ ] Set `draft: true` and `featuredOnHomepage: false` as defaults
+- [x] Create `archetypes/timeline.md` (AC: 2)
+  - [x] Include all fields: `title`, `date`, `year`, `color`, `quote`, `linkedPost`, `featuredOnHomepage`
+  - [x] Add commented guidance for `color` field (valid values: fresh, convergence, pattern, temporal, frontier, block)
+  - [x] Set `draft: true` and `featuredOnHomepage: false` as defaults
 
-- [ ] Upgrade existing timeline files with new frontmatter (AC: 8)
-  - [ ] `2022-sensor-network.md` — add `year`, `color`, `quote`, `linkedPost`, `featuredOnHomepage`
-  - [ ] `2023-ostrom-revelation.md` — same
-  - [ ] `2024-teaching-docker.md` — same (this moment relates to docker-journey post)
-  - [ ] `2024-valve-controller.md` — same (relates to sewer-museum post)
-  - [ ] `2025-federation-protocol.md` — same
-  - [ ] Use honest, meaningful values — `quote` should be a 1–2 sentence italic Literata moment
+- [x] Upgrade existing timeline files with new frontmatter (AC: 8)
+  - [x] `2022-sensor-network.md` — add `year`, `color`, `quote`, `linkedPost`, `featuredOnHomepage`
+  - [x] `2023-ostrom-revelation.md` — same
+  - [x] `2024-teaching-docker.md` — same (this moment relates to docker-journey post)
+  - [x] `2024-valve-controller.md` — same (relates to sewer-museum post)
+  - [x] `2025-federation-protocol.md` — same
+  - [x] Use honest, meaningful values — `quote` should be a 1–2 sentence italic Literata moment
 
-- [ ] Create `layouts/partials/timeline-moment.html` (AC: 4, 6)
-  - [ ] Accept `.` context (page) or dict context — follow same pattern as other partials
-  - [ ] Render: date (year group), color dot (semantic token), quote (Literata italic), optional link
-  - [ ] Color dot uses CSS variable: `style="background-color: var(--{{ .Params.color }})"`
-  - [ ] Use `{{ with .Params.quote }}` guard
-  - [ ] Use `{{ with .Params.linkedPost }}` guard for optional link
+- [x] Create `layouts/partials/timeline-moment.html` (AC: 4, 6)
+  - [x] Accept `.` context (page) or dict context — follow same pattern as other partials
+  - [x] Render: date (year group), color dot (semantic token), quote (Literata italic), optional link
+  - [x] Color dot uses CSS variable: `style="background-color: var(--{{ .Params.color }})"`
+  - [x] Use `{{ with .Params.quote }}` guard
+  - [x] Use `{{ with .Params.linkedPost }}` guard for optional link
 
-- [ ] Create `layouts/timeline/` directory and `list.html` (AC: 5)
-  - [ ] Extend `_default/baseof.html` with `{{ define "main" }}`
-  - [ ] Sort moments by date descending (recent first per DESIGN-SPEC)
-  - [ ] Group by year for year markers
-  - [ ] Vertical spine layout using border-left utility
-  - [ ] Include `section-heading.html` for page title
-  - [ ] Graceful empty state
+- [x] Create `layouts/timeline/` directory and `list.html` (AC: 5)
+  - [x] Extend `_default/baseof.html` with `{{ define "main" }}`
+  - [x] Sort moments by date descending (recent first per DESIGN-SPEC)
+  - [x] Group by year for year markers
+  - [x] Vertical spine layout using border-left utility
+  - [x] Include `section-heading.html` for page title
+  - [x] Graceful empty state
 
-- [ ] Update `hugo.yaml` if Timeline not in menu (AC: 7)
+- [x] Update `hugo.yaml` if Timeline not in menu (AC: 7)
 
-- [ ] Run `pnpm run test` (AC: 9)
+- [x] Run `pnpm run test` (AC: 9)
 
 ## Dev Notes
 
@@ -177,6 +177,59 @@ For Phase 0, the simple approach is sufficient — just render moments sorted by
 
 ### Debug Log References
 
+None — implementation proceeded smoothly without blocking issues.
+
 ### Completion Notes List
 
+✅ **All Acceptance Criteria Satisfied:**
+1. `content/timeline/_index.md` verified with appropriate list page config (title: "Moments of Recognition")
+2. `archetypes/timeline.md` created with all required fields: title, date, year, color, quote, linkedPost, featuredOnHomepage
+3. Timeline archetype includes color field guidance with valid semantic values
+4. Default values set: `draft: true`, `featuredOnHomepage: false`
+5. All 5 existing timeline files upgraded with complete frontmatter:
+   - 2022 (pattern): Sensor network metaphors across decades
+   - 2023 (convergence): Ostrom principles in community systems
+   - 2024 (fresh): Teaching Docker to interns at OpenFab
+   - 2024 (convergence): Sewer Museum valve controller success
+   - 2025 (convergence): Federation protocol patterns across domains
+6. `layouts/partials/timeline-moment.html` renders color dot (semantic CSS variable), quote (Literata italic), date, and optional post link
+7. `layouts/timeline/list.html` displays timeline in vertical spine layout, sorted descending (2025→2022), grouped by year
+8. Timeline already configured in `hugo.yaml` menu (weight: 40, between patterns and about)
+9. Hugo build test passed: 49 pages, 0 errors, 99ms build time
+
+**Implementation Approach:**
+- Used simple year grouping (showing year on each moment group) per dev notes recommendation for Phase 0
+- Applied safeCSS pattern for dynamic CSS color variables: `printf "background-color: var(--%s)" ...`
+- Timeline moments sorted by date descending (newest first, 2025→2022)
+- Graceful empty state message for when no moments exist
+- All design tokens applied: border colors, text secondary/tertiary colors, temporal color for year markers
+
+**Technical Decisions:**
+- Color assignments based on semantic meaning: "pattern" for architectural patterns, "convergence" for moments of understanding, "fresh" for learning/teaching moments
+- Quote text extracted from existing descriptions — all moments represent genuine learning trajectory points
+- Optional linkedPost fields populated for moments with related posts (Docker journey, Sewer museum)
+- No Alpine.js required — simple static timeline display
+- CSS uses Tailwind utilities and semantic CSS variables from design tokens
+
+## Change Log
+
+**2026-02-27** — Story 4.3 implementation complete
+- Created timeline archetype with semantic color palette and linking support
+- Upgraded all 5 existing timeline moments with new frontmatter schema
+- Implemented timeline-moment.html partial with color indicators and optional post linking
+- Implemented timeline/list.html with vertical spine layout and year grouping (descending chronological order)
+- All acceptance criteria satisfied, Hugo build test passed, ready for review
+
 ### File List
+
+**Created:**
+- `archetypes/timeline.md` — Timeline archetype with all required frontmatter fields
+- `layouts/partials/timeline-moment.html` — Timeline moment rendering partial with color indicator and quote display
+- `layouts/timeline/list.html` — Timeline list page layout with vertical spine and year grouping
+
+**Modified:**
+- `content/timeline/2022-sensor-network.md` — Added `year`, `color: pattern`, `quote`, `featuredOnHomepage`
+- `content/timeline/2023-ostrom-revelation.md` — Added `year`, `color: convergence`, `quote`, `featuredOnHomepage`
+- `content/timeline/2024-teaching-docker.md` — Added `year`, `color: fresh`, `quote`, `linkedPost: /posts/docker-journey/`, `featuredOnHomepage`
+- `content/timeline/2024-valve-controller.md` — Added `year`, `color: convergence`, `quote`, `linkedPost: /posts/sewer-museum/`, `featuredOnHomepage`
+- `content/timeline/2025-federation-protocol.md` — Added `year`, `color: convergence`, `quote`, `featuredOnHomepage`

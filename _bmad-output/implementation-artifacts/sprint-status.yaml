@@ -72,7 +72,7 @@ development_status:
   epic-4: in-progress
   4-1-create-pattern-content-section-archetype: done
   4-2-build-pattern-card-pattern-pages: done
-  4-3-create-timeline-content-section-partial: ready-for-dev
+  4-3-create-timeline-content-section-partial: review
   4-4-wire-all-homepage-content-sections: ready-for-dev
   4-5-seed-meta-content-for-template-verification: ready-for-dev
   epic-4-retrospective: optional
