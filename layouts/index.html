@@ -8,29 +8,43 @@
 
     <section class="mx-auto max-w-[920px] px-8 py-8 md:py-[44px]">
         {{ partial "section-heading.html" (dict "label" "LATEST POSTS" "link" "/posts/" "linkText" "All posts →") }}
-        <!-- Wired in Story 4.4 -->
+        {{ $posts := where site.RegularPages "Section" "posts" }}
+        {{ $posts = sort $posts "Date" "desc" }}
+        {{ range $posts | first 3 }}
+          {{ partial "post-list-item.html" (dict "post" .) }}
+        {{ end }}
     </section>
 
     <section class="mx-auto max-w-[920px] px-8 py-8 md:py-[44px]">
         {{ partial "section-heading.html" (dict "label" "SKILL PATTERNS" "link" "/patterns/" "linkText" "All patterns →") }}
-        <!-- Wired in Story 4.4 -->
+        {{ $patterns := where site.RegularPages "Section" "patterns" }}
+        {{ $featured := where $patterns "Params.featuredOnHomepage" true }}
+        {{ if eq (len $featured) 0 }}
+          {{ $featured = $patterns }}
+        {{ end }}
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+          {{ range $i, $pattern := $featured | first 4 }}
+            {{ partial "pattern-card.html" (dict "pattern" $pattern "index" $i) }}
+          {{ end }}
+        </div>
     </section>
 
     <section class="mx-auto max-w-[920px] px-8 py-8 md:py-[44px]">
         {{ partial "section-heading.html" (dict "label" "MOMENTS OF RECOGNITION" "link" "/timeline/" "linkText" "Full timeline →") }}
 
-        {{ $timeline := .Site.GetPage "/timeline" }}
-        {{ if $timeline }}
-          {{ $featured := (where $timeline.Pages "Params.featuredOnHomepage" true) }}
-          {{ if $featured }}
-            <div class="relative pb-12 md:pb-[44px] mt-8">
-              {{- /* Vertical spine */ -}}
-              <div class="absolute left-4 top-0 bottom-0 w-px bg-[var(--timeline-line)]"></div>
-              {{ range (sort $featured "Date" "desc") | first 10 }}
-                {{ partial "timeline-moment.html" . }}
-              {{ end }}
-            </div>
-          {{ end }}
+        {{ $moments := where site.RegularPages "Section" "timeline" }}
+        {{ $featured := where $moments "Params.featuredOnHomepage" true }}
+        {{ if eq (len $featured) 0 }}
+          {{ $featured = $moments }}
+        {{ end }}
+        {{ if gt (len $featured) 0 }}
+          <div class="relative pb-12 md:pb-[44px] mt-8">
+            {{- /* Vertical spine */ -}}
+            <div class="absolute left-4 top-0 bottom-0 w-px bg-[var(--timeline-line)]"></div>
+            {{ range sort $featured "Date" "desc" | first 10 }}
+              {{ partial "timeline-moment.html" . }}
+            {{ end }}
+          </div>
         {{ end }}
     </section>
 </main>

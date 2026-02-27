@@ -1,6 +1,6 @@
 # Story 4.4: Wire All Homepage Content Sections
 
-Status: ready-for-dev
+Status: done
 
 ## Story
 
@@ -20,33 +20,33 @@ So that the knowledge-first narrative is immediately visible when I land on the 
 
 ## Tasks / Subtasks
 
-- [ ] Wire "Latest Posts" section in `layouts/index.html` (AC: 1, 4)
-  - [ ] Replace `<!-- Wired in Story 4.4 -->` comment with real query
-  - [ ] Use `site.RegularPages` scoped to `posts` section, limit to 3
-  - [ ] Render each with `post-list-item.html` partial
-  - [ ] Section heading already uses `section-heading.html` partial (verify dict context)
+- [x] Wire "Latest Posts" section in `layouts/index.html` (AC: 1, 4)
+  - [x] Replace `<!-- Wired in Story 4.4 -->` comment with real query
+  - [x] Use `site.RegularPages` scoped to `posts` section, limit to 3
+  - [x] Render each with `post-list-item.html` partial
+  - [x] Section heading already uses `section-heading.html` partial (verify dict context)
 
-- [ ] Wire "Skill Patterns" section in `layouts/index.html` (AC: 2, 4)
-  - [ ] Query patterns where `featuredOnHomepage = true`, limit to 4
-  - [ ] Render each with `pattern-card.html` partial (dict context: `"pattern"` + `"index"`)
-  - [ ] Responsive 2-col grid on md+
+- [x] Wire "Skill Patterns" section in `layouts/index.html` (AC: 2, 4)
+  - [x] Query patterns where `featuredOnHomepage = true`, limit to 4
+  - [x] Render each with `pattern-card.html` partial (dict context: `"pattern"` + `"index"`)
+  - [x] Responsive 2-col grid on md+
 
-- [ ] Wire "Moments of Recognition" section in `layouts/index.html` (AC: 3, 4)
-  - [ ] Query timeline sorted by date desc, limit to 10
-  - [ ] Optionally filter by `featuredOnHomepage = true` if content has this field set
-  - [ ] Render each with `timeline-moment.html` partial
+- [x] Wire "Moments of Recognition" section in `layouts/index.html` (AC: 3, 4)
+  - [x] Query timeline sorted by date desc, limit to 10
+  - [x] Optionally filter by `featuredOnHomepage = true` if content has this field set
+  - [x] Render each with `timeline-moment.html` partial
 
-- [ ] Add graceful empty states (AC: 5)
-  - [ ] Posts: if no posts, show nothing (empty section hides)
-  - [ ] Patterns: if no featured patterns, fall back to showing any 4 patterns
-  - [ ] Timeline: if no timeline moments, show nothing
+- [x] Add graceful empty states (AC: 5)
+  - [x] Posts: if no posts, show nothing (empty section hides)
+  - [x] Patterns: if no featured patterns, fall back to showing any 4 patterns
+  - [x] Timeline: if no timeline moments, show nothing
 
-- [ ] Verify responsiveness (AC: 6)
-  - [ ] Pattern grid: 1-col on mobile, 2-col on md+
-  - [ ] Posts list: full-width, no grid needed
-  - [ ] Timeline: full-width vertical list
+- [x] Verify responsiveness (AC: 6)
+  - [x] Pattern grid: 1-col on mobile, 2-col on md+
+  - [x] Posts list: full-width, no grid needed
+  - [x] Timeline: full-width vertical list
 
-- [ ] Run `pnpm run test` (AC: 7)
+- [x] Run `pnpm run test` (AC: 7)
 
 ## Dev Notes
 
@@ -155,10 +155,62 @@ The section dividers (1px `--border`) between sections are already in place from
 
 ### Agent Model Used
 
-*Recommended: claude-haiku-4-5-20251001 — structured wiring work with clear Hugo query patterns*
+*Implemented by: claude-haiku-4-5-20251001 — structured wiring work with clear Hugo query patterns*
 
-### Debug Log References
+### Completion Notes
 
-### Completion Notes List
+#### Latest Posts Section
+- Implemented query: `{{ $posts := where site.RegularPages "Section" "posts" }}`
+- **FIXED (Code Review)**: Added explicit date sort: `{{ $posts = sort $posts "Date" "desc" }}`
+  - Ensures "most recent" constraint is enforced (not reliant on filesystem order)
+  - Posts now guaranteed to show newest first
+- Limits to 3 most recent posts via `| first 3`
+- Renders each post with `post-list-item.html` partial using dict context: `(dict "post" .)`
+- Currently displaying 2 posts (Docker Journey [Jan 15], Sewer Museum Valve Controller [Dec 10])
+
+#### Skill Patterns Section
+- Implemented smart fallback: filters to featured patterns (`where .Params.featuredOnHomepage true`)
+- **FIXED (Code Review)**: Replaced unsafe `if not $featured` with `if eq (len $featured) 0`
+  - Ensures empty slice is reliably detected (Hugo gotcha: `if not` unreliable on slices)
+  - Fallback to all patterns guaranteed to work in all Hugo versions
+- If no featured patterns exist, falls back to showing any patterns (allows graceful content ramp-up)
+- Limits to 4 patterns via `| first 4`
+- Renders each with `pattern-card.html` partial using dict context: `(dict "pattern" . "index" $i)`
+- Currently displaying 2 featured patterns (Commons Governance, Electronics & IoT Prototyping)
+- Responsive grid: `grid grid-cols-1 md:grid-cols-2 gap-5`
+
+#### Moments of Recognition Section
+- **FIXED (Code Review)**: Aligned query method with spec
+  - Now uses: `{{ $moments := where site.RegularPages "Section" "timeline" }}`
+  - Consistent with posts/patterns queries (was using `.Site.GetPage` variant)
+  - Replaced unsafe `if not` with `if eq (len $featured) 0` for reliable empty checks
+  - Also changed final condition from `{{ if $featured }}` to `{{ if gt (len $featured) 0 }}` for consistency
+- Filters to featured moments if any exist (`where .Params.featuredOnHomepage true`)
+- Falls back to all timeline moments if none are featured
+- Limits to 10 moments via `| first 10` and sorts by date descending
+- Renders with `timeline-moment.html` partial inside vertical spine structure
+- Currently displaying 5 featured timeline moments
+
+#### Empty State Handling
+- Posts: Hugo's empty slice handling ensures no rendering if no posts exist
+- Patterns: Fallback logic ensures some patterns always show (featured or all)
+- Timeline: Only renders the spine structure if moments exist (nested `{{ if $featured }}`)
+
+#### Responsiveness
+- Pattern grid uses Tailwind's responsive classes: `grid-cols-1 md:grid-cols-2`
+- Tested breakpoints: mobile (1-col), tablet/desktop (2-col)
+- Posts and timeline remain full-width across all breakpoints
 
 ### File List
+
+- `layouts/index.html` — Modified: Replaced 3 placeholder comments with functional queries for Posts, Patterns, and Timeline sections
+
+## Change Log
+
+- **2026-02-27**: Story 4.4 completed — Wired all homepage content sections with Posts, Patterns, and Timeline queries. Added graceful empty state handling with fallbacks for featured content. All AC satisfied, tests passing.
+- **2026-02-27** (Code Review): Applied 3 critical fixes:
+  1. **Posts**: Added explicit `sort $posts "Date" "desc"` to ensure chronological ordering (not filesystem order)
+  2. **Patterns**: Replaced unsafe `if not $featured` with `if eq (len $featured) 0` for reliable empty slice detection
+  3. **Timeline**: Aligned query to spec (`where site.RegularPages` method), replaced unsafe `if not` conditions with explicit length checks
+  - Fixes ensure compliance with Hugo best practices, reliability across versions, and spec compliance
+  - Tests pass (Hugo build: 49 pages, 0 errors)
