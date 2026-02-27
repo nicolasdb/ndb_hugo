@@ -60,21 +60,21 @@ development_status:
   epic-2-retrospective: done
 
   # Epic 3: Block-Backed Content Publishing (renamed from Pearl-Backed)
-  epic-3: in-progress
+  epic-3: done
   3-1-create-post-archetypes-content-structure: done
   3-2-build-block-meta-confidence-partials: done
   3-3-build-evidence-trail-partial: done
   3-4-build-post-list-post-detail-pages: done
   3-5-create-first-real-post-with-evidence-trail: done
-  epic-3-retrospective: optional
+  epic-3-retrospective: done
 
   # Epic 4: Patterns Gallery & Growth Timeline
-  epic-4: backlog
-  4-1-create-pattern-content-section-archetype: backlog
-  4-2-build-pattern-card-pattern-pages: backlog
-  4-3-create-timeline-content-section-partial: backlog
-  4-4-wire-all-homepage-content-sections: backlog
-  4-5-seed-minimal-sample-content-for-template-verification: backlog
+  epic-4: in-progress
+  4-1-create-pattern-content-section-archetype: done
+  4-2-build-pattern-card-pattern-pages: ready-for-dev
+  4-3-create-timeline-content-section-partial: ready-for-dev
+  4-4-wire-all-homepage-content-sections: ready-for-dev
+  4-5-seed-meta-content-for-template-verification: ready-for-dev
   epic-4-retrospective: optional
 
   # Epic 5: Content Seeding & Branding

@@ -513,18 +513,22 @@ So that the knowledge-first narrative is immediately visible when I land on the 
 **And** the homepage is responsive across `sm`/`md`/`lg` breakpoints
 **And** `pnpm run test` passes
 
-### Story 4.5: Seed Minimal Sample Content for Template Verification
+### Story 4.5: Seed Meta-Content for Template Verification & Authoring Documentation
 
-As a **developer**,
-I want minimal sample content in patterns and timeline sections,
-So that templates can be visually verified before real content is added in Epic 5.
+As a **portfolio owner**,
+I want sample content that documents the manual content publishing workflow itself,
+So that templates are verified with genuinely useful content AND I have authoring reference material that survives into Epic 5.
+
+**Meta-Content Approach (Epic 3 Retro Decision):**
+Instead of throwaway placeholders, seed content that dog-foods the content model. The first pattern IS the skill of using the system — documenting the Hugo authoring workflow while simultaneously being a real pattern with real evidence blocks. Timeline moments use real project milestones from Epics 1-3.
 
 **Acceptance Criteria:**
 
 **Given** all pattern and timeline templates and partials are built
-**When** sample content is seeded
-**Then** at least 2 pattern files exist in `content/patterns/` with placeholder skill descriptions and block counts
-**And** at least 3 timeline moment files exist in `content/timeline/` with placeholder dates and quotes
+**When** meta-content is seeded
+**Then** a pattern file exists at `content/patterns/manual-content-publishing.md` documenting the Hugo authoring workflow (drafting posts, writing evidence.yaml, creating patterns, adding timeline moments)
+**And** at least 1 additional pattern file exists in `content/patterns/` (topic of choice)
+**And** at least 3 timeline moment files exist in `content/timeline/` using real project milestones (e.g., "first archetype created", "first evidence trail rendered", "first pattern documented")
 **And** at least 1 pattern has `featuredOnHomepage: true` and appears on the homepage
 **And** at least 1 timeline moment has `featuredOnHomepage: true` and appears on the homepage
 **And** pattern detail pages render correctly with all fields
