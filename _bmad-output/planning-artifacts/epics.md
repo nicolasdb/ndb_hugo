@@ -3,7 +3,7 @@ stepsCompleted: ["step-01", "step-02", "step-03", "step-04"]
 status: complete
 completedAt: '2026-02-12'
 totalEpics: 5
-totalStories: 23
+totalStories: 24
 inputDocuments:
   - '_bmad-output/01-prd-skill-discovery-system.md'
   - '_bmad-output/planning-artifacts/architecture.md'
@@ -151,9 +151,11 @@ NFR-5: Privacy & Control — fine-grained visibility controls (public/private/sh
 ### Epic 5: Content Seeding & Branding
 **User outcome:** The portfolio is populated with real content that demonstrates the knowledge-first approach. Nicolas's personal branding replaces all remaining generic assets.
 
+- **Prep:** Extract DESIGN-SPEC into structured TOML, sweep Epics 1-4 for deferred items, document Hugo gotchas
 - Replace author photo, favicon, OG images with Nicolas's branding
 - Update `about.md` with Nicolas's real bio
 - Update `hugo.yaml` with menu items for new sections (patterns, timeline)
+- First real post: ndb_hugo system documentation (confronts architecture, validates schemas)
 - Seed real content: 2-3 posts (with evidence trails), 3-4 patterns, 5-10 timeline moments
 - Tag milestone: `v0.2.0-phase0-complete`
 
@@ -539,7 +541,40 @@ Instead of throwaway placeholders, seed content that dog-foods the content model
 
 ## Epic 5: Content Seeding & Branding
 
-The portfolio is populated with real content that demonstrates the knowledge-first approach. Nicolas's personal branding replaces all remaining generic assets.
+The portfolio is populated with real content that demonstrates the knowledge-first approach. Nicolas's personal branding replaces all remaining generic assets. Epic 5 is content-heavy with Nicolas hands-on — dual acceptance criteria (technical ACs + content/author attention points). The first real post documents ndb_hugo itself, confronting the architecture end-to-end while creating genuinely useful portfolio content.
+
+**Epic 4 Retro Decisions:**
+- Story 5.0 added as prep: TOML extraction, backlog sweep, Hugo gotchas
+- Story 5.3 refocused: ndb_hugo system documentation as first real post
+- Nicolas directly involved in content creation (storytelling agent may assist alongside dev agent)
+- No design debt — visual glitches fixed directly during epic, not deferred
+- General goal: content schemas become source material for a reusable skill (backend-frontend contract, post-Phase 0)
+
+**Story Sequence (Epic 4 Retro — mandatory order):**
+1. **5.0** — Design-Config TOML, Backlog Sweep & Hugo Gotchas (prep — before epic starts)
+2. **5.1** — Replace Branding Assets (quick win — make the site Nicolas's)
+3. **5.2** — Update About Page & Site Configuration (identity)
+4. **5.3** — First real post: ndb_hugo system documentation (confronts architecture, validates schemas, source for backend contract skill)
+5. **5.4** — Seed remaining patterns & timeline content (with confidence from 5.3)
+6. **5.5** — Final Polish & Phase 0 Milestone Tag
+
+### Story 5.0: Design-Config TOML, Backlog Sweep & Hugo Gotchas (Prep)
+
+As a **development team**,
+I want all DESIGN-SPEC measurable values extracted into structured TOML, all deferred items from Epics 1-4 swept into a backlog, and recurring Hugo gotchas documented,
+So that Epic 5 starts with a clean slate — no tech debt, no lost deferred items, and a machine-readable design contract.
+
+**Acceptance Criteria:**
+
+**Given** the DESIGN-SPEC contains measurable values (sizes, colors, spacings, component specs) embedded in prose
+**When** the extraction and sweep are completed
+**Then** `_bmad-output/implementation-artifacts/design-config.toml` exists with all measurable values from DESIGN-SPEC organized by component
+**And** the DESIGN-SPEC prose document references the TOML as the authoritative source for values
+**And** TOML values are cross-checked against implemented partials (actual CSS/HTML matches TOML)
+**And** `_bmad-output/implementation-artifacts/backlog.md` exists with all deferred items swept from Epic 1-4 story records
+**And** Hugo gotchas are documented in project knowledge (slice empty checks, safeCSS for dynamic variables, and any others found during sweep)
+**And** story template is updated to reference `design-config.toml` as the values contract for dev agents
+**And** backlog review is flagged as mandatory commitment for Epic 5 retrospective
 
 ### Story 5.1: Replace Branding Assets
 
@@ -574,17 +609,22 @@ So that I understand who Nicolas is and can explore the full site.
 **And** site metadata in `hugo.yaml` (title, description, author) reflects Nicolas's identity
 **And** `pnpm run test` passes
 
-### Story 5.3: Seed Real Posts & Evidence Trails
+### Story 5.3: Seed Real Posts & Evidence Trails (ndb_hugo Documentation First)
 
 As a **portfolio owner**,
-I want 2-3 real posts published with evidence trails,
-So that the portfolio demonstrates the knowledge-first approach with authentic content.
+I want 2-3 real posts published with evidence trails, starting with a post that documents ndb_hugo itself,
+So that the portfolio demonstrates the knowledge-first approach with authentic content AND the architecture is validated end-to-end through documentation.
+
+**Epic 4 Retro Decision:** The first real post documents the ndb_hugo system — post page bundle structure, frontmatter schema, evidence.yaml format and color semantics, pattern content type and confidence scoring, timeline moments and the recognition model, how the homepage assembles everything. Writing this post confronts every architectural assumption and validates the content pipeline. The resulting schemas become source material for a reusable backend-frontend contract skill (post-Phase 0).
+
+**Content Creation Notes:** Nicolas is hands-on for content quality. Dev agent scaffolds and validates schemas. Storytelling agent may assist with narrative shaping. Stories have dual acceptance criteria: technical ACs (files exist, templates render, tests pass) AND content/author attention points (author understands schemas, content reads naturally to outside audience).
 
 **Acceptance Criteria:**
 
 **Given** all post templates, partials, and archetypes are functional
 **When** real posts are seeded
 **Then** at least 2 additional posts exist as page bundles in `content/posts/` (beyond the one from Epic 3)
+**And** the first new post documents ndb_hugo's content architecture (frontmatter schemas, evidence.yaml format, pattern/timeline models, homepage assembly)
 **And** each post has populated core and block frontmatter fields with real data
 **And** at least 2 posts have `evidence.yaml` sidecars with real block entries
 **And** posts appear on the post list page and homepage "Latest Posts" section
