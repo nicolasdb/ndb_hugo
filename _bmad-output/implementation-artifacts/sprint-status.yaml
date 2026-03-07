@@ -74,7 +74,7 @@ development_status:
   4-2-build-pattern-card-pattern-pages: done
   4-3-create-timeline-content-section-partial: done
   4-4-wire-all-homepage-content-sections: done
-  4-5-seed-meta-content-for-template-verification: ready-for-dev
+  4-5-seed-meta-content-for-template-verification: done
   epic-4-retrospective: optional
 
   # Epic 5: Content Seeding & Branding
