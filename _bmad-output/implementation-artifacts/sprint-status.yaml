@@ -78,11 +78,19 @@ development_status:
   epic-4-retrospective: done
 
   # Epic 5: Content Seeding & Branding
-  epic-5: backlog
-  5-0-design-config-toml-backlog-sweep-hugo-gotchas: backlog
-  5-1-replace-branding-assets: backlog
-  5-2-update-about-page-site-configuration: backlog
-  5-3-seed-real-posts-evidence-trails: backlog
-  5-4-seed-real-patterns-timeline-content: backlog
-  5-5-final-polish-phase-0-milestone-tag: backlog
+  epic-5: in-progress
+  5-0-design-config-toml-backlog-sweep-hugo-gotchas: ready-for-dev
+  5-1-replace-branding-assets: ready-for-dev
+  5-2-update-about-page-site-configuration: ready-for-dev
+  5-3-seed-real-posts-evidence-trails: ready-for-dev
+  5-4-seed-real-patterns-timeline-content: ready-for-dev
+  5-5-final-polish-phase-0-milestone-tag: ready-for-dev
   epic-5-retrospective: optional
+
+
+  # Key design decisions carried into each story:
+  # - Dual acceptance criteria (technical + content/author attention points) for content-heavy stories (5.3, 5.4)
+  # - Story 5.0 documents the design-config.toml structure with the critical fixes from code reviews (confidence bar 3px, timeline dot 5px)
+  # - Story 5.3 includes the full ndb_hugo post outline, frontmatter schema, and evidence.yaml with real Epic 1-4 milestones
+  # - Story 5.5 enforces the no-design-debt policy explicitly — fix it now, not Phase 1
+  # - Model recommendations: Sonnet for 5.0 and 5.3 (structural/writing), Haiku for 5.1, 5.2, 5.4 (content seeding)
