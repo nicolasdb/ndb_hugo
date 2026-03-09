@@ -79,7 +79,7 @@ development_status:
 
   # Epic 5: Content Seeding & Branding
   epic-5: in-progress
-  5-0-design-config-toml-backlog-sweep-hugo-gotchas: ready-for-dev
+  5-0-design-config-toml-backlog-sweep-hugo-gotchas: done
   5-1-replace-branding-assets: ready-for-dev
   5-2-update-about-page-site-configuration: ready-for-dev
   5-3-seed-real-posts-evidence-trails: ready-for-dev

@@ -26,6 +26,7 @@ so that {{benefit}}.
 - Relevant architecture patterns and constraints
 - Source tree components to touch
 - Testing standards summary
+- Design values contract: `_bmad-output/implementation-artifacts/design-config.toml` — use this for ALL measurable values (px sizes, radii, spacing). Do NOT infer values from DESIGN-SPEC prose alone.
 
 ### Project Structure Notes
 

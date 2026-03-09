@@ -1,5 +1,7 @@
 # ndb Visual Charter — Design Specification
 
+> **Values Contract:** Measurable values (pixel sizes, colors, radii, spacing) are maintained in the authoritative source: `_bmad-output/implementation-artifacts/design-config.toml`. When this prose and the TOML disagree, **TOML is correct**. Update both when values change.
+
 **Date:** 2026-02-10
 **Status:** Phase 0 foundation locked
 **Token file:** `assets/css/main.css` (Hugo repo, extracted to shared package later)

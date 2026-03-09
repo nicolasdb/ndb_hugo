@@ -9,6 +9,12 @@ This backlog captures deferred items, future work, and post-Phase 0 tasks. Items
 
 ## Post-Phase 0 (Deferred Features)
 
+### SVG Logo Sizing Cleanup
+- **Source:** Story 2.3 completion notes
+- **Description:** Logo SVG requires a triple-layer sizing approach (HTML width/height attrs + inline style + Tailwind classes) due to Inkscape export complexity. The implementation works but is inelegant. Cleanup deferred to UI polishing epic.
+- **Scope:** Portfolio / Phase 1
+- **Priority:** Low (functional, just messy)
+
 ### Constellation SVG for Pattern Cards
 - **Source:** Story 4-2 (deferred), DESIGN-SPEC section 6
 - **Description:** Procedural mini-graph SVG (72x44px) for pattern cards. Nodes connected when distance < 22px, color by confidence threshold. Currently replaced by simple confidence bar.

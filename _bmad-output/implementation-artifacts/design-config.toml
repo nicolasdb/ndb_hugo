@@ -1,0 +1,269 @@
+# design-config.toml — Authoritative values contract for ndb_hugo
+# Generated from: _bmad-output/implementation-artifacts/DESIGN-SPEC.md
+# Maintained via: Story 5.0+ code reviews and component changes
+#
+# PURPOSE: Machine-readable source of truth for measurable design values.
+# Dev agents read this file for EXACT pixel/color values.
+# Read DESIGN-SPEC.md for rationale and context.
+#
+# RULE: When TOML and DESIGN-SPEC prose disagree, TOML is correct.
+# Update TOML when values change; keep DESIGN-SPEC prose in sync.
+# Maintenance: Code reviews must verify TOML alignment when touching component values.
+
+[typography]
+heading_font = "Literata"
+body_font = "Hanken Grotesk"
+mono_font = "Commit Mono"
+
+[typography.heading_weights]
+regular = 400
+medium = 500
+bold = 700
+
+[typography.body_weights]
+regular = 400
+medium = 500
+semibold = 600
+bold = 700
+
+[typography.scale.portfolio]
+# Portfolio (.light) — generous, reading-optimized
+display = "40px"      # 2.5rem — Hero name
+display_lh = 1.15
+h1 = "28px"           # 1.75rem — Page titles
+h1_lh = 1.3
+h2 = "22px"           # 1.375rem — Section titles
+h2_lh = 1.3
+h3 = "20px"           # 1.25rem — Article titles in lists
+h3_lh = 1.3
+h4 = "17px"           # 1.0625rem — Pattern card titles
+h4_lh = 1.25
+body = "15px"         # 0.9375rem — Article text
+body_lh = 1.7
+small = "13px"        # Card descriptions
+small_lh = 1.6
+meta = "12px"         # Mono metadata
+meta_lh = 1.5
+micro = "11px"        # Timestamps, quiet stats
+micro_lh = 1.5
+nano = "10px"         # Uppercase section labels
+
+[typography.scale.backoffice]
+# BackOffice (.dark) — compact, density-optimized
+display = "28px"      # 1.75rem — Mode headers
+display_lh = 1.2
+h1 = "22px"           # 1.375rem — Compose draft title
+h1_lh = 1.25
+h2 = "18px"           # 1.125rem — Panel titles
+h2_lh = 1.25
+h3 = "16px"           # 1rem — Card titles
+h3_lh = 1.25
+h4 = "14px"           # 0.875rem — Sub-headers
+h4_lh = 1.4
+body = "14px"         # 0.875rem — Primary UI text
+body_lh = 1.5
+small = "13px"        # Block titles, list items
+small_lh = 1.4
+meta = "12px"         # Mono metadata
+meta_lh = 1.5
+micro = "11px"        # Labels, timestamps
+micro_lh = 1.5
+nano = "10px"         # Uppercase micro-labels
+
+[typography.measure]
+portfolio_body = "65ch"      # --measure-body
+portfolio_narrow = "54ch"    # --measure-narrow — hero description
+backoffice_body = "80ch"     # --measure-body
+backoffice_wide = "100%"     # --measure-wide — panels
+
+[colors]
+# OKLCH semantic palette — matches design-tokens in assets/css/design-tokens.css
+# These are the LIGHT theme values (portfolio default)
+
+[colors.semantic]
+# Semantic colors: meaning over decoration. Color = information.
+block_light = "oklch(0.35 0.04 90)"       # Knowledge block — raw data, neutral
+convergence_light = "oklch(0.52 0.14 75)" # Convergence — old idea meets new work (amber)
+pattern_light = "oklch(0.48 0.18 25)"     # Skill pattern — highlighted subgraph (coral)
+temporal_light = "oklch(0.48 0.10 240)"   # Time markers — timeline, dates (blue)
+frontier_light = "oklch(0.75 0.01 260)"   # Unexplored, quiet tertiary (gray)
+fresh_light = "oklch(0.42 0.14 145)"      # Fresh capture, strong signal (green)
+
+[colors.semantic.dark]
+# Dark theme values (BackOffice)
+block_dark = "oklch(0.95 0.02 90)"
+convergence_dark = "oklch(0.75 0.15 75)"
+pattern_dark = "oklch(0.65 0.25 25)"
+temporal_dark = "oklch(0.70 0.12 240)"
+frontier_dark = "oklch(0.40 0.01 260)"
+fresh_dark = "oklch(0.75 0.18 145)"
+
+[colors.surface]
+# Light theme surfaces
+surface = "oklch(0.97 0.005 260)"
+surface_elevated = "oklch(1.0 0 0)"
+text_primary = "oklch(0.15 0.02 260)"
+text_secondary = "oklch(0.45 0.02 260)"
+text_tertiary = "oklch(0.60 0.015 260)"
+border = "oklch(0.90 0.005 260)"
+border_subtle = "oklch(0.93 0.005 260)"
+
+[colors.confidence_thresholds]
+# Confidence bar color selection — see components.confidence_bar
+strong_min = 85       # 85%+ → --fresh (green)
+solid_min = 70        # 70-84% → --convergence (amber)
+# <70% → --temporal (blue)
+
+[spacing]
+# Base unit: 4px
+space_1 = "4px"
+space_2 = "8px"
+space_3 = "12px"
+space_4 = "16px"
+space_5 = "20px"
+space_6 = "24px"
+space_8 = "32px"
+space_10 = "40px"
+space_12 = "48px"
+space_16 = "64px"
+
+[spacing.layout.portfolio]
+page_max_width = "920px"
+page_padding_x = "32px"
+section_padding_y = "44px"
+card_padding = "24px"
+card_gap = "16px"
+list_item_padding_vert = "24px"
+nav_height = "54px"
+post_content_max_width = "700px"    # Narrower than homepage — long-form reading
+
+[spacing.layout.backoffice]
+page_max_width = "100%"             # Full viewport
+page_padding_x = "20px"
+section_padding_y = "20px"
+card_padding_range = "16px-20px"
+nav_height_context = "38px"
+nav_height_tabs = "40px"
+quick_capture_height = "52px"
+
+[borders]
+# RULE: Maximum 4px radius on ANY rectangular element. No bubbly aesthetics.
+radius_sm = "2px"     # Tags, pills, labels
+radius_md = "3px"     # Cards, inputs, panels
+radius_lg = "4px"     # Max for rectangular elements
+radius_full = "9999px" # Dots, nodes, circles ONLY
+
+[components.confidence_bar]
+# CRITICAL: 3px height — NOT h-1 (4px). Verified in Story 4.2 code review.
+height = "3px"
+border_radius = "1px"   # matches rounded-[1px] in implementation
+# Color thresholds use --confidence-strong/solid/emerging tokens
+# which map to semantic colors per colors.confidence_thresholds
+
+[components.timeline]
+# CRITICAL: 5px dot — NOT 10px. Verified in Story 4.3 code review.
+dot_size = "5px"
+dot_border_radius = "50%"          # radius_full
+spine_color = "var(--color-neutral-200)"
+year_ring_size = "11px"            # 2px stroke, --temporal color, white fill
+year_font_size = "13px"
+year_font_weight = 700
+moment_font = "Literata"
+moment_font_size = "14px"
+moment_font_weight = 400
+moment_style = "italic"
+spacing_between_years = "24px"
+spacing_between_moments = "10px"
+
+[components.pattern_card]
+grid_cols_desktop = 2
+grid_cols_mobile = 1
+border_radius = "3px"              # matches radius_md
+title_font = "Literata"
+title_size = "16px"
+title_weight = 700
+meta_font = "Commit Mono"
+meta_size = "11px"
+description_font = "Hanken Grotesk"
+description_size = "13px"
+description_lh = 1.6
+# constellation SVG: deferred to post-Phase 0 (see backlog.md)
+
+[components.hero]
+# DESIGN-SPEC §6.1 — Hero section (homepage top)
+max_width = "920px"                # Same as page layout
+padding_y = "44px"                 # Vertical spacing (section_padding_y from spacing.layout.portfolio)
+padding_x = "32px"                 # Horizontal gutter (page_padding_x)
+tagline_size = "40px"              # display scale — hero intro text
+tagline_weight = 400
+tagline_lh = 1.15
+description_size = "15px"          # body scale — descriptive subtitle
+description_lh = 1.7
+description_max_width = "54ch"     # --measure-narrow — constrains reading width
+
+[components.navigation]
+height = "54px"
+logo_font = "Literata"
+logo_size = "18px"
+logo_weight = 500
+link_font = "Hanken Grotesk"
+link_size = "14px"
+link_weight_default = 400
+link_weight_active = 600
+backdrop_blur = "10px"
+max_width = "920px"
+
+[components.post_item]
+title_font = "Literata"
+title_size = "20px"
+title_weight = 700
+title_tracking = "-0.01em"
+date_font = "Commit Mono"
+date_size = "12px"
+excerpt_font = "Hanken Grotesk"
+excerpt_size = "15px"
+excerpt_lh = 1.7
+excerpt_max_width = "65ch"
+meta_font = "Commit Mono"
+meta_size = "12px"
+separator = "1px"                  # --border-subtle between items
+
+[components.article_body]
+font = "Literata"
+size = "17px"
+line_height = 1.8
+letter_spacing = "0.005em"
+paragraph_spacing = "20px"
+h2_font = "Hanken Grotesk"
+h2_size = "16px"
+h2_weight = 600
+blockquote_border_width = "3px"    # --convergence left border
+blockquote_border_color = "--convergence"
+inline_code_font = "Commit Mono"
+inline_code_size = "0.9em"
+inline_code_padding = "2px 6px"
+inline_code_radius = "2px"
+code_block_size = "14px"
+image_caption_size = "11px"
+
+[components.evidence_trail]
+collapsed_by_default = true
+block_dot_size = "5px"             # Same as timeline dot
+date_font = "Commit Mono"
+date_size = "11px"
+content_font = "Hanken Grotesk"
+content_size = "13px"
+content_lh = 1.55
+spacing_between_blocks = "14px"
+order = "chronological"            # oldest first — opposite of homepage timeline
+
+[components.footer]
+name_font = "Literata"
+name_size = "15px"
+name_weight = 500
+location_font = "Hanken Grotesk"
+location_size = "13px"
+links_font = "Commit Mono"
+links_size = "12px"
+trust_line_size = "11px"
+trust_line_color = "--frontier"

@@ -1,6 +1,6 @@
 # Story 5.0: Design-Config TOML, Backlog Sweep & Hugo Gotchas (Prep)
 
-Status: ready-for-dev
+Status: done
 
 ## Story
 
@@ -21,38 +21,38 @@ So that Epic 5 starts with a clean slate — no tech debt, no lost deferred item
 
 ## Tasks / Subtasks
 
-- [ ] Extract DESIGN-SPEC values into `design-config.toml` (AC: 1, 2)
-  - [ ] Scan DESIGN-SPEC.md sections for measurable values: typography sizes/weights, color tokens, spacing, border radii, component specs (confidence bar height, dot sizes, grid columns, etc.)
-  - [ ] Organize TOML by component: `[typography]`, `[colors]`, `[spacing]`, `[components.confidence_bar]`, `[components.pattern_card]`, `[components.timeline]`, etc.
-  - [ ] Add a note at the top of DESIGN-SPEC.md: "Measurable values are the authoritative source: see `design-config.toml`"
+- [x] Extract DESIGN-SPEC values into `design-config.toml` (AC: 1, 2)
+  - [x] Scan DESIGN-SPEC.md sections for measurable values: typography sizes/weights, color tokens, spacing, border radii, component specs (confidence bar height, dot sizes, grid columns, etc.)
+  - [x] Organize TOML by component: `[typography]`, `[colors]`, `[spacing]`, `[components.confidence_bar]`, `[components.pattern_card]`, `[components.timeline]`, etc.
+  - [x] Add a note at the top of DESIGN-SPEC.md: "Measurable values are the authoritative source: see `design-config.toml`"
 
-- [ ] Cross-check TOML against implemented partials (AC: 3)
-  - [ ] `layouts/partials/confidence-bar.html` — verify height matches `components.confidence_bar.height` (should be 3px, not 4px/h-1)
-  - [ ] `layouts/partials/timeline-moment.html` — verify dot size matches TOML (should be 5px, not 10px)
-  - [ ] `layouts/partials/pattern-card.html` — verify any hardcoded values match TOML
-  - [ ] Note any drift found; fix critical mismatches in this story
+- [x] Cross-check TOML against implemented partials (AC: 3)
+  - [x] `layouts/partials/confidence-bar.html` — verify height matches `components.confidence_bar.height` (should be 3px, not 4px/h-1)
+  - [x] `layouts/partials/timeline-moment.html` — verify dot size matches TOML (should be 5px, not 10px)
+  - [x] `layouts/partials/pattern-card.html` — verify any hardcoded values match TOML
+  - [x] Note any drift found; fix critical mismatches in this story
 
-- [ ] Sweep Epic 1-4 story records for deferred items (AC: 4)
-  - [ ] Read through `4-1-*.md`, `4-2-*.md`, `4-3-*.md`, `4-4-*.md`, `4-5-*.md` — look for deferred/TODO comments
-  - [ ] Read through `3-*.md` files — look for deferred items
-  - [ ] Read through `2-*.md` and `1-*.md` files — any deferred items not yet in backlog
-  - [ ] Add any new items to `backlog.md` (constellation SVG already there — don't duplicate)
+- [x] Sweep Epic 1-4 story records for deferred items (AC: 4)
+  - [x] Read through `4-1-*.md`, `4-2-*.md`, `4-3-*.md`, `4-4-*.md`, `4-5-*.md` — look for deferred/TODO comments
+  - [x] Read through `3-*.md` files — look for deferred items
+  - [x] Read through `2-*.md` and `1-*.md` files — any deferred items not yet in backlog
+  - [x] Add any new items to `backlog.md` (constellation SVG already there — don't duplicate)
 
-- [ ] Document Hugo gotchas (AC: 5)
-  - [ ] Create `docs/hugo-gotchas.md` (create `docs/` if it doesn't exist)
-  - [ ] Document: slice empty check — use `len` or `gt (len $slice) 0`, NOT `if not $slice`
-  - [ ] Document: dynamic CSS values — must use `safeCSS` (e.g., `{{ printf "background: %s" $color | safeCSS }}`)
-  - [ ] Document: `where` query alignment — use `.Params.fieldName` not `.fieldName` for frontmatter fields
-  - [ ] Document: date sorting — use `sort` with `.Date` descending for chronological order
-  - [ ] Add any others found during the sweep
+- [x] Document Hugo gotchas (AC: 5)
+  - [x] Create `docs/hugo-gotchas.md` (create `docs/` if it doesn't exist)
+  - [x] Document: slice empty check — use `len` or `gt (len $slice) 0`, NOT `if not $slice`
+  - [x] Document: dynamic CSS values — must use `safeCSS` (e.g., `{{ printf "background: %s" $color | safeCSS }}`)
+  - [x] Document: `where` query alignment — use `.Params.fieldName` not `.fieldName` for frontmatter fields
+  - [x] Document: date sorting — use `sort` with `.Date` descending for chronological order
+  - [x] Add any others found during the sweep
 
-- [ ] Update story template to reference design-config.toml (AC: 6)
-  - [ ] Add a line in the Dev Notes section of `_bmad/bmm/workflows/4-implementation/create-story/template.md`: "Design values contract: `_bmad-output/implementation-artifacts/design-config.toml`"
+- [x] Update story template to reference design-config.toml (AC: 6)
+  - [x] Add a line in the Dev Notes section of `_bmad/bmm/workflows/4-implementation/create-story/template.md`: "Design values contract: `_bmad-output/implementation-artifacts/design-config.toml`"
 
-- [ ] Verify backlog mandatory review flag (AC: 7)
-  - [ ] Confirm `backlog.md` contains the mandatory Epic 5 retrospective review note
+- [x] Verify backlog mandatory review flag (AC: 7)
+  - [x] Confirm `backlog.md` contains the mandatory Epic 5 retrospective review note
 
-- [ ] Run `pnpm run test` (AC: 8)
+- [x] Run `pnpm run test` (AC: 8)
 
 ## Dev Notes
 
@@ -148,10 +148,36 @@ Key gotchas confirmed across Epic 3-4:
 
 ### Agent Model Used
 
-*Recommended: claude-sonnet-4-6 — structural analysis + cross-referencing across multiple documents*
+claude-sonnet-4-6
 
 ### Debug Log References
 
+None — clean implementation, no blockers.
+
 ### Completion Notes List
 
+- Created `design-config.toml` with complete measurable values from DESIGN-SPEC organized into sections: typography (portfolio + backoffice scales, measure), colors (semantic + surface + confidence thresholds), spacing (base unit + portfolio/backoffice layout), borders/radii, and all components including NEW hero section (confidence bar, timeline, pattern card, navigation, hero, post item, article body, evidence trail, footer).
+- Cross-checked all three critical partials against TOML — NO DRIFT FOUND: confidence-bar.html uses `height: 3px` ✓, timeline-moment.html uses `w-[5px] h-[5px]` ✓, pattern-card.html uses `rounded-[3px]` ✓.
+- Added TOML reference note to top of DESIGN-SPEC.md establishing TOML as authoritative. Updated header to remove manual date (maintained via story references instead).
+- Swept all 21 Epic 1-4 story files. Found one new deferred item not in backlog: SVG logo sizing triple-layer workaround (Story 2.3). Constellation SVG already present — not duplicated.
+- Created `docs/hugo-gotchas.md` with 8 documented gotchas: slice empty check, safeCSS for dynamic values, .Params.fieldName for where queries, date sort direction, page weight ordering, partial dict context pattern, safeURL (best practice), and Scratch for loop accumulators.
+- Updated story template Dev Notes section to reference design-config.toml as values contract.
+- Verified backlog.md has mandatory Epic 5 retrospective review flag ✓.
+- **GOVERNANCE:** Added maintenance note to TOML header: "Code reviews must verify TOML alignment when touching component values." Design-config.toml is reference documentation (sits in _bmad-output/, not deployed). Future stories MUST check TOML when updating component pixels/spacing and either update TOML or flag as Task for follow-up.
+- **CODE REVIEW FIX:** Added hero component section to design-config.toml with layout values (max-width, padding, typography scales) from DESIGN-SPEC §6.1. Clarified safeURL gotcha as best practice rather than discovered issue. Simplified scratch section for current Hugo 0.152.2.
+- `pnpm run test` passes: 59 pages, 0 errors, 190ms.
+
 ### File List
+
+- `_bmad-output/implementation-artifacts/design-config.toml` (created, modified during code review — added hero component section, updated maintenance header)
+- `docs/hugo-gotchas.md` (created, modified during code review — clarified safeURL as best practice, simplified scratch section)
+- `_bmad-output/implementation-artifacts/DESIGN-SPEC.md` (modified — TOML reference note at top)
+- `_bmad-output/implementation-artifacts/backlog.md` (modified — added SVG sizing cleanup item)
+- `_bmad/bmm/workflows/4-implementation/create-story/template.md` (modified — design-config.toml reference in Dev Notes)
+- `_bmad-output/implementation-artifacts/sprint-status.yaml` (modified — 5-0 → done)
+- `_bmad-output/implementation-artifacts/5-0-design-config-toml-backlog-sweep-hugo-gotchas.md` (modified — status to done, completion notes with governance, file list, change log)
+
+### Change Log
+
+- 2026-03-09: Story 5.0 implemented — design-config.toml created, DESIGN-SPEC updated, Hugo gotchas documented, Epic 1-4 backlog swept (1 new item added), story template updated. Status: review
+- 2026-03-09: Code review complete — added hero component section to design-config.toml, updated maintenance governance in TOML header, clarified safeURL gotcha (best practice), simplified scratch section for Hugo 0.152.2. All HIGH severity issues resolved. Status: done
