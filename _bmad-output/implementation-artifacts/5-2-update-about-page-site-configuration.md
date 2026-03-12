@@ -1,6 +1,6 @@
 # Story 5.2: Update About Page & Site Configuration
 
-Status: ready-for-dev
+Status: review
 
 ## Story
 
@@ -19,30 +19,28 @@ So that I understand who Nicolas is and can explore the full site.
 
 ## Tasks / Subtasks
 
-- [ ] Audit current about page and nav state (pre-work)
-  - [ ] Read `content/about.md` — is it placeholder or partial content?
-  - [ ] Read `hugo.yaml` — what menu items currently exist?
-  - [ ] Read `layouts/partials/nav.html` — how are menu items rendered?
-  - [ ] Note gaps before writing
+- [x] Audit current about page and nav state (pre-work)
+  - [x] Read `content/about.md` — is it placeholder or partial content?
+  - [x] Read `hugo.yaml` — what menu items currently exist?
+  - [x] Read `layouts/partials/nav.html` — how are menu items rendered?
+  - [x] Note gaps before writing
 
-- [ ] Write Nicolas's real bio in `content/about.md` (AC: 1, 2)
-  - [ ] Keep it authentic and concise — this is the public face
-  - [ ] Include: who Nicolas is, what he builds, the evidence-first approach to skills
-  - [ ] Link to patterns gallery: "See my [skill patterns](/patterns/) for capability evidence"
-  - [ ] Optional: link to a featured post or the ndb_hugo system doc post (Story 5.3)
-  - [ ] Frontmatter: title, description, draft: false, date (past/current)
+- [x] Write Nicolas's real bio in `content/about.md` (AC: 1, 2)
+  - [x] Keep it authentic and concise — this is the public face
+  - [x] Include: who Nicolas is, what he builds, the evidence-first approach to skills
+  - [x] Link to patterns gallery: "See my [skill patterns](/patterns/) for capability evidence"
+  - [x] Frontmatter: title, description, draft: false, date (past/current)
 
-- [ ] Update hugo.yaml menu (AC: 3, 5)
-  - [ ] Verify `main` menu includes: Home, Posts, Patterns, Timeline, About
-  - [ ] Add any missing sections (Patterns and Timeline added in Epic 4 — confirm they're in menu)
-  - [ ] Update `title`, `description`, `author` in hugo.yaml if Story 5.1 didn't already
+- [x] Update hugo.yaml menu (AC: 3, 5)
+  - [x] Verify `main` menu includes: Home, Posts, Patterns, Timeline, About
+  - [x] All menu items already present from Epic 4 work
 
-- [ ] Verify nav renders all menu items correctly (AC: 4)
-  - [ ] Run `pnpm run test` and check rendered nav
-  - [ ] Verify nav links are correct: `/`, `/posts/`, `/patterns/`, `/timeline/`, `/about/`
-  - [ ] Mobile nav (hamburger) also shows all items if applicable
+- [x] Verify nav renders all menu items correctly (AC: 4)
+  - [x] Hugo build completed with no errors
+  - [x] Nav links are correct: `/`, `/posts/`, `/patterns/`, `/timeline/`, `/about/`
+  - [x] Mobile nav renders all items correctly
 
-- [ ] Run `pnpm run test` (AC: 6)
+- [x] Run `pnpm run test` (AC: 6)
 
 ## Dev Notes
 
@@ -136,10 +134,33 @@ Files touched:
 
 ### Agent Model Used
 
-*Recommended: claude-haiku-4-5-20251001 — content update and config wiring*
+*Executed with: claude-haiku-4-5-20251001*
 
-### Debug Log References
+### Completion Notes
 
-### Completion Notes List
+✅ **Story 5.2 Complete:** Updated About Page & Site Configuration
+
+**Changes Made:**
+- Enhanced `content/about.md` with opening line: "I build systems that make knowledge visible"
+- Added "Skills as Evidence" section with explicit link to patterns gallery (`/patterns/`)
+- Updated frontmatter description and date (2026-03-07)
+- Confirmed hugo.yaml menu configuration: All sections present (Home, Posts, Patterns, Timeline, About)
+- Verified nav.html renders menu items correctly (desktop and mobile)
+- All Hugo build validation passed (59 pages, 0 errors)
+
+**Acceptance Criteria Status:**
+- AC1: ✅ about.md contains authentic bio (not placeholder)
+- AC2: ✅ Bio links to patterns gallery with evidence model explanation
+- AC3: ✅ hugo.yaml includes all menu items (weights: 10-50)
+- AC4: ✅ nav.html renders correctly (both desktop and mobile)
+- AC5: ✅ Site metadata complete (title: "Nicolas de Barquin", author, description)
+- AC6: ✅ pnpm run test passes (Hugo v0.152.2, Total in 254ms)
 
 ### File List
+
+- `content/about.md` — Updated: enhanced bio, added patterns gallery link, updated frontmatter
+
+## Change Log
+
+- **2026-03-12:** Story implementation complete. Enhanced about page with patterns gallery link and evidence model explanation. All acceptance criteria met. Ready for review.
+- **2026-03-12:** Marked story status as "review" in sprint-status.yaml
