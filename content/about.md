@@ -1,6 +1,6 @@
 ---
 title: "About"
-date: 2026-03-07
+date: 2026-03-12
 draft: false
 description: "Nicolas de Barquin — building knowledge systems, one evidence block at a time."
 ---

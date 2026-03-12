@@ -81,7 +81,7 @@ development_status:
   epic-5: in-progress
   5-0-design-config-toml-backlog-sweep-hugo-gotchas: done
   5-1-replace-branding-assets: done
-  5-2-update-about-page-site-configuration: review
+  5-2-update-about-page-site-configuration: done
   5-3-seed-real-posts-evidence-trails: ready-for-dev
   5-4-seed-real-patterns-timeline-content: ready-for-dev
   5-5-final-polish-phase-0-milestone-tag: ready-for-dev

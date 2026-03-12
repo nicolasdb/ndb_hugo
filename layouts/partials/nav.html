@@ -36,7 +36,7 @@
     <div class="mx-auto max-w-[920px] px-4 py-4 flex flex-col gap-4">
       {{ range .Site.Menus.main }}
       <a href="{{ .URL }}" @click="open = false"
-         class="font-body text-[14px] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--text-primary)] {{ if $.IsMenuCurrent "main" . }}text-[var(--text-primary)] font-semibold{{ else }}text-[var(--text-secondary)] font-normal{{ end }}">
+         class="font-mono text-[14px] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--text-primary)] {{ if $.IsMenuCurrent "main" . }}text-[var(--text-primary)] font-semibold{{ else }}text-[var(--text-secondary)] font-normal{{ end }}">
         {{ .Name }}
       </a>
       {{ end }}

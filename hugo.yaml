@@ -48,9 +48,10 @@ params:
   author: Nicolas de Barquin
   authorimage: /assets/images/global/author.webp
   og_image: "/images/og-images/default-og.svg"
+  og_description: "Portfolio and skills repository — building knowledge systems with evidence-first patterns. See the patterns gallery for capability evidence."
   site_logo: /images/debarquin.svg
   moto: "Portfolio & Skills Repository"
-  description: "Personal portfolio showcasing projects, skills, and growth journey."
+  description: "Portfolio and skills repository — building knowledge systems with evidence-first patterns."
   disable_theme_toggle: true
   newsletter_signup: false
 
