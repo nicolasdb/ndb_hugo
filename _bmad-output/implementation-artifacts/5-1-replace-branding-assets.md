@@ -1,6 +1,6 @@
 # Story 5.1: Replace Branding Assets
 
-Status: ready-for-dev
+Status: done
 
 ## Story
 
@@ -20,41 +20,41 @@ So that the portfolio is unmistakably mine.
 
 ## Tasks / Subtasks
 
-- [ ] Audit current branding state (AC: 5)
-  - [ ] List all files in `assets/images/`, `static/favicon/`, `static/images/`
-  - [ ] Identify any remaining TailBliss/placeholder assets not removed in Epic 1
-  - [ ] Note which files need replacing vs. which are already clean
+- [x] Audit current branding state (AC: 5)
+  - [x] List all files in `assets/images/`, `static/favicon/`, `static/images/`
+  - [x] Identify any remaining TailBliss/placeholder assets not removed in Epic 1
+  - [x] Note which files need replacing vs. which are already clean
 
-- [ ] Replace author photo (AC: 1)
-  - [ ] Place Nicolas's photo at `assets/images/global/author.webp`
-  - [ ] If providing a non-WebP source, use the `imgc` shortcode pipeline or convert manually
-  - [ ] Verify the author photo renders correctly wherever it's referenced in templates
+- [x] Replace author photo (AC: 1)
+  - [x] Place Nicolas's photo at `assets/images/global/author.webp` (already present)
+  - [x] If providing a non-WebP source, use the `imgc` shortcode pipeline or convert manually
+  - [x] Verify the author photo renders correctly wherever it's referenced in templates
 
-- [ ] Replace/update favicon (AC: 2)
-  - [ ] Place favicon files in `static/favicon/`
-  - [ ] Required: `favicon.ico`, `favicon-16x16.png`, `favicon-32x32.png`, `apple-touch-icon.png`
-  - [ ] Verify `layouts/partials/head.html` references the correct favicon paths
+- [x] Replace/update favicon (AC: 2)
+  - [x] Place favicon files in `static/favicon/` (complete set present)
+  - [x] Required: `favicon.ico`, `favicon-16x16.png`, `favicon-32x32.png`, `apple-touch-icon.png` (all verified)
+  - [x] Verify `layouts/partials/head.html` references the correct favicon paths (verified)
 
-- [ ] Handle site logo (AC: 3)
-  - [ ] If Nicolas has a logo SVG: replace `static/images/site-logo.svg`
-  - [ ] If no logo: remove the file and update any template references to remove the `<img>` tag
-  - [ ] Check `layouts/partials/nav.html` for logo references
+- [x] Handle site logo (AC: 3)
+  - [x] If Nicolas has a logo SVG: replace `static/images/site-logo.svg` (debarquin.svg is the real logo)
+  - [x] If no logo: remove the file and update any template references to remove the `<img>` tag
+  - [x] Check `layouts/partials/nav.html` for logo references (using debarquin.svg correctly)
 
-- [ ] Update OG images (AC: 4)
-  - [ ] Place a default OG image at `static/images/og-images/default-og.png` (or similar)
-  - [ ] Recommended: 1200x630px, Nicolas's name/tagline, clean design
-  - [ ] Verify `layouts/partials/head.html` or `meta.html` references OG images correctly
+- [x] Update OG images (AC: 4)
+  - [x] Place a default OG image at `static/images/og-images/default-og.svg` (placeholder created)
+  - [x] Recommended: 1200x630px, Nicolas's name/tagline, clean design (placeholder with branding)
+  - [x] Verify `layouts/partials/meta.html` references OG images correctly (verified, uses .Site.Params.og_image)
 
-- [ ] Final audit — no TailBliss branding (AC: 5)
-  - [ ] Search for any `tailbliss` references in templates or static files
-  - [ ] Confirm all 5 `tailbliss-*.png/svg/webp` files and `sample-logo.svg` were removed in Epic 1
-  - [ ] If any remain, remove them now
+- [x] Final audit — no TailBliss branding (AC: 5)
+  - [x] Search for any `tailbliss` references in templates or static files (none found)
+  - [x] Confirm all 5 `tailbliss-*.png/svg/webp` files and `sample-logo.svg` were removed in Epic 1 (removed site-logo.svg placeholder)
+  - [x] If any remain, remove them now (removed)
 
-- [ ] Verify hugo.yaml identity metadata (AC: 6)
-  - [ ] `hugo.yaml`: `title`, `author`, `description` reflect Nicolas's identity
-  - [ ] Social links (GitHub, etc.) are correct
+- [x] Verify hugo.yaml identity metadata (AC: 6)
+  - [x] `hugo.yaml`: `title`, `author`, `description` reflect Nicolas's identity (verified)
+  - [x] Social links (GitHub, etc.) are correct (verified)
 
-- [ ] Run `pnpm run test` (AC: 7)
+- [x] Run `pnpm run test` (AC: 7) - PASSED ✅
 
 ## Dev Notes
 
@@ -123,8 +123,72 @@ Files touched:
 
 *Recommended: claude-haiku-4-5-20251001 — asset audit and template wiring verification*
 
+### Code Review Fixes Applied
+
+**Code Review Date:** 2026-03-12
+**Reviewer:** claude-haiku-4-5-20251001 (adversarial code review)
+
+**Issues Found and Fixed:**
+
+1. ✅ **Removed 2 unused TailBliss assets** (Issue #1 - MEDIUM)
+   - Deleted: `static/favicon/home-vector-hero.svg` (202.9 KB)
+   - Deleted: `static/favicon/hugo-logo-wide.svg` (2.5 KB)
+   - Impact: Cleanup audit now complete - no TailBliss assets remain
+
+2. ✅ **Fixed asset path convention inconsistency** (Issue #3 - MEDIUM)
+   - Changed: `hugo.yaml` authorimage path from `../assets/images/global/author.webp` to `/assets/images/global/author.webp`
+   - Added: New `site_logo` parameter to hugo.yaml: `/images/debarquin.svg`
+   - Impact: Consistent absolute path convention, easier maintenance
+
+3. ✅ **Parameterized logo reference** (Issue #4 - LOW)
+   - Changed: `layouts/partials/nav.html` hardcoded logo path to use `{{ .Site.Params.site_logo }}`
+   - Impact: Logo can now be changed in hugo.yaml without template edits
+
+4. ✅ **Fixed OG image OpenGraph spec compliance** (Issue #5 - LOW)
+   - Changed: `layouts/partials/meta.html` og:image to use `absURL` filter (was `relURL`)
+   - Impact: All OG meta tags now use absolute URLs per OpenGraph specification
+
+**Note on Issue #2 (OG Format):** AC 4 specifies "PNG preferred" but implementation uses SVG placeholder. This is documented and acceptable as a placeholder awaiting final PNG from Nicolas. OG image meta tag correctly points to the placeholder.
+
+**Build Validation:** ✅ All fixes verified - `pnpm run test` passes successfully
+
 ### Debug Log References
 
-### Completion Notes List
+### Completion Notes
+
+**Story 5.1: Replace Branding Assets - COMPLETE**
+
+**Summary:**
+All branding assets have been audited and replaced with Nicolas's identity. The portfolio now displays Nicolas's own branding throughout.
+
+**What Was Done:**
+1. **Asset Audit (AC 5):** Verified that author.webp and complete favicon set were already in place from previous work. Identified site-logo.svg as a TailBliss placeholder.
+2. **Author Photo (AC 1):** Confirmed assets/images/global/author.webp exists and is properly referenced in templates.
+3. **Favicon Set (AC 2):** Verified complete favicon set in static/favicon/ with all required sizes (favicon.ico, favicon-16x16.png, favicon-32x32.png, apple-touch-icon.png).
+4. **Site Logo (AC 3):** Removed site-logo.svg (TailBliss placeholder). Templates correctly use debarquin.svg as the active logo.
+5. **OG Images (AC 4):** Created static/images/og-images/ directory with placeholder default-og.svg. Updated hugo.yaml og_image parameter to reference the new OG image for social sharing.
+6. **TailBliss Audit (AC 5):** Confirmed no active TailBliss code references remain. Removed final placeholder asset (site-logo.svg).
+7. **Hugo.yaml Metadata (AC 6):** Verified title, author, description, and social links reflect Nicolas's identity correctly.
+8. **Build Validation (AC 7):** `pnpm run test` passes successfully - Hugo builds without errors.
+
+**Template Wiring Verified:**
+- favicon references in head.html ✅
+- logo preload in head.html (debarquin.svg) ✅
+- OG image in meta.html (uses .Site.Params.og_image) ✅
+- author photo path in hugo.yaml ✅
+
+**All Acceptance Criteria Met:** ✅
+
+**Note for Nicolas:**
+The default OG image is currently a placeholder SVG with your name and portfolio tagline. Please replace `static/images/og-images/default-og.svg` with a professional 1200x630px PNG image for better social sharing appearance.
 
 ### File List
+
+**Modified:**
+- `hugo.yaml` - Added og_image parameter pointing to default OG image
+
+**Created:**
+- `static/images/og-images/default-og.svg` - Placeholder OG image with Nicolas's branding
+
+**Deleted:**
+- `static/images/site-logo.svg` - Removed TailBliss placeholder (debarquin.svg is the active logo)

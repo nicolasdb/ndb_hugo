@@ -46,8 +46,9 @@ markup:
 
 params:
   author: Nicolas de Barquin
-  authorimage: ../assets/images/global/author.webp
-  og_image: ""
+  authorimage: /assets/images/global/author.webp
+  og_image: "/images/og-images/default-og.svg"
+  site_logo: /images/debarquin.svg
   moto: "Portfolio & Skills Repository"
   description: "Personal portfolio showcasing projects, skills, and growth journey."
   disable_theme_toggle: true

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <!-- Background with gradient -->
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4F46E5;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#7C3AED;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bgGradient)"/>
+
+  <!-- Content -->
+  <text x="600" y="315" font-family="system-ui, -apple-system, sans-serif" font-size="72" font-weight="700" fill="white" text-anchor="middle" dominant-baseline="middle">
+    Nicolas de Barquin
+  </text>
+  <text x="600" y="380" font-family="system-ui, -apple-system, sans-serif" font-size="32" fill="rgba(255,255,255,0.9)" text-anchor="middle" dominant-baseline="middle">
+    Portfolio &amp; Skills Repository
+  </text>
+
+  <!-- Placeholder note -->
+  <text x="600" y="590" font-family="monospace" font-size="14" fill="rgba(255,255,255,0.7)" text-anchor="middle" dominant-baseline="middle">
+    [PLACEHOLDER - Replace with actual OG image (1200x630px PNG)]
+  </text>
+</svg>
