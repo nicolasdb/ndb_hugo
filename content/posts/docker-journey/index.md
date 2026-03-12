@@ -7,7 +7,6 @@ tags: ["docker", "networking", "teaching"]
 blockCount: 6
 timespan: "March 2024 – January 2025"
 patterns: ["container-orchestration"]
-confidence: 72
 ---
 
 In March 2024, I couldn't make two Docker containers talk to each other on a custom bridge network. The official documentation assumed a working knowledge of Linux networking that I didn't have, and every Stack Overflow answer started three steps ahead of where I was.

@@ -22,13 +22,12 @@
       {{ end }}
       <div class="font-mono text-[12px] text-[var(--text-tertiary)] flex items-center gap-2 mt-2 flex-wrap">
         {{ with $post.ReadingTime }}<span>{{ . }} min</span>{{ end }}
+        {{ with $post.Params.blockCount }}<span>·</span><span>{{ . }} blocks</span>{{ end }}
         {{ with $post.Params.tags }}
           <span>·</span>
           {{ range $i, $t := . }}{{ if $i }}, {{ end }}{{ $t }}{{ end }}
         {{ end }}
       </div>
-      {{/* Block-meta for list item (compact view) */}}
-      {{ partial "block-meta.html" (dict "page" $post) }}
     </div>
     {{ with $post.Date }}
     <span class="font-body text-[14px] text-[var(--text-tertiary)] whitespace-nowrap hidden sm:block">{{ .Format "January 2, 2006" }}</span>

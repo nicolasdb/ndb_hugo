@@ -8,12 +8,14 @@
 {{define "main"}}
 <article class="mx-auto max-w-[920px] px-8">
   <header class="pt-12 md:pt-[68px] pb-10 md:pb-[52px]">
-    <h1 class="font-heading text-[40px] font-bold tracking-[-0.02em] max-w-[18ch] leading-[1.2] text-[var(--text-primary)]">
+    <h1 class="font-heading text-[40px] font-bold tracking-[-0.02em] max-w-[600px] leading-[1.2] text-[var(--text-primary)]">
       {{ .Title }}
     </h1>
     <div class="font-mono text-[12px] text-[var(--text-tertiary)] flex items-center gap-2 mt-4 flex-wrap">
       {{ with .Date }}<span>{{ .Format "January 2, 2006" }}</span>{{ end }}
       {{ with .ReadingTime }}<span>·</span><span>{{ . }} min read</span>{{ end }}
+      {{ with .Params.blockCount }}<span>·</span><span>{{ . }} blocks</span>{{ end }}
+      {{ with .Params.timespan }}<span>·</span><span>{{ . }}</span>{{ end }}
     </div>
     {{ with .Params.tags }}
     <div class="flex items-center gap-2 mt-3 flex-wrap">
@@ -22,15 +24,28 @@
       {{ end }}
     </div>
     {{ end }}
-    {{/* Block-meta partial — shows block metadata when present */}}
-    {{ partial "block-meta.html" (dict "page" .) }}
   </header>
 
-  <div class="pb-10 md:pb-[52px] prose font-body text-[17px] leading-[1.7] text-[var(--text-secondary)] max-w-[65ch]">
+  <div class="pb-10 md:pb-[52px] prose font-body text-[17px] leading-[1.7] text-[var(--text-secondary)] max-w-[600px]">
     {{ .Content }}
   </div>
 
   {{/* Evidence trail — shows chronological block journey when available */}}
   {{ partial "evidence-trail.html" (dict "page" .) }}
+
+  {{/* Connected patterns — renders pattern cards for linked patterns */}}
+  {{ with .Params.patterns }}
+  <section class="pb-10 md:pb-[52px]">
+    <h2 class="font-mono text-[11px] tracking-[0.08em] uppercase text-[var(--text-tertiary)] mb-4">Connected Patterns</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      {{ range . }}
+        {{ $patternPage := site.GetPage (printf "/patterns/%s" .) }}
+        {{ if $patternPage }}
+          {{ partial "pattern-card.html" (dict "pattern" $patternPage) }}
+        {{ end }}
+      {{ end }}
+    </div>
+  </section>
+  {{ end }}
 </article>
 {{end}}

@@ -1,0 +1,28 @@
+blocks:
+  - date: "2025-12-01"
+    color: fresh
+    content: "Started ndb_hugo-tailbliss. First question: how do you make skills visible without self-assessment? Answer: evidence trails."
+
+  - date: "2026-02-07"
+    color: pattern
+    content: "Architecture locked. Post bundles with evidence.yaml sidecars. Pattern + Timeline as separate content sections. The contract is defined before any UI exists."
+
+  - date: "2026-02-14"
+    color: fresh
+    content: "First archetype created. hugo new content posts/{slug} scaffolds the entire evidence structure in one command."
+
+  - date: "2026-02-18"
+    color: pattern
+    content: "Evidence trail partial built. YAML sidecar becomes a collapsible timeline of dated insight. The content model works."
+
+  - date: "2026-02-26"
+    color: convergence
+    content: "Pattern content section live. Skills modeled as evidence clusters, not self-described levels."
+
+  - date: "2026-03-04"
+    color: convergence
+    content: "Homepage wired: posts + patterns + timeline visible together. The knowledge-first narrative is visible."
+
+  - date: "2026-03-12"
+    color: block
+    content: "Writing this post. Documenting the architecture while using it. The system is eating itself, in the best way."

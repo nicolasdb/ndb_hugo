@@ -1,0 +1,20 @@
+blocks:
+  - date: "2024-01-20"
+    color: fresh
+    content: "Fablab container networking: built from intuition, spent three weeks debugging assumptions I hadn't questioned. First warning sign."
+
+  - date: "2024-06-10"
+    color: convergence
+    content: "Rebuilding the Docker bridge plugin evidence-first. Smallest possible test first. Each layer verified before extending. The results were different."
+
+  - date: "2024-11-15"
+    color: pattern
+    content: "Pattern crystallized: 'what would falsify this?' as a standard question before any architectural commitment. Consistently catches assumptions."
+
+  - date: "2025-08-03"
+    color: temporal
+    content: "Applied evidence-first to a firmware decision at the museum installation project. Avoided a conformal coating failure by testing the edge case first."
+
+  - date: "2026-02-07"
+    color: convergence
+    content: "Building ndb_hugo: the evidence.yaml format is a direct implementation of this approach. Confidence scores that mean something require evidence trails that exist."

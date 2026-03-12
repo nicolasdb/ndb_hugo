@@ -44,9 +44,9 @@
     {{ with $params.patterns }}
       <div class="flex flex-wrap items-center gap-2">
         {{ range . }}
-          <span class="inline-block px-2 py-0.5 rounded-[2px] border border-[var(--border)] text-[var(--text-secondary)]">
+          <a href="/patterns/{{ . }}" class="inline-block px-2 py-0.5 rounded-[2px] border border-[var(--border)] text-[var(--text-secondary)] hover:border-[var(--text-tertiary)] transition-colors">
             {{ . }}
-          </span>
+          </a>
         {{ end }}
       </div>
     {{ end }}
