@@ -1,0 +1,23 @@
+{{define "main"}}
+<article class="mx-auto max-w-[var(--width-container)] px-8">
+  <header class="pt-12 md:pt-[68px] pb-10 md:pb-[52px]">
+    <div class="mb-6">
+      <h1 class="font-heading text-h1-section font-bold tracking-[-0.02em] max-w-[18ch] leading-[1.2] text-[var(--text-primary)]">
+        {{ .Title }}
+      </h1>
+      {{ with .Description }}
+      <p class="font-body text-[15px] leading-[1.5] text-[var(--text-secondary)] max-w-[var(--width-subtitle)] mt-1">
+        {{ . }}
+      </p>
+      {{ end }}
+    </div>
+  </header>
+
+  <div class="pb-10 md:pb-[52px] prose font-body text-[17px] leading-[1.7] text-[var(--text-secondary)]">
+    {{ .Content }}
+  </div>
+
+  {{/* Evidence trail — shows chronological block journey when available */}}
+  {{ partial "evidence-trail.html" (dict "page" .) }}
+</article>
+{{end}}

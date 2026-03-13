@@ -7,11 +7,18 @@
 */}}
 
 {{ define "main" }}
-<main class="mx-auto max-w-[920px] px-8">
+<main class="mx-auto max-w-[var(--width-container)] px-8">
   <header class="pt-12 md:pt-[68px] pb-8 md:pb-[44px]">
-    {{ partial "section-heading.html" (dict "label" "MOMENTS OF RECOGNITION" "link" "/timeline/" "linkText" "Full timeline →") }}
+    <h1 class="font-heading text-h1-section font-bold tracking-[-0.02em] leading-[1.2] text-[var(--text-primary)]">
+      {{ .Title }}
+    </h1>
+    {{ with .Description }}
+    <p class="font-body text-[15px] leading-[1.5] text-[var(--text-secondary)] max-w-[var(--width-subtitle)] mt-1">
+      {{ . }}
+    </p>
+    {{ end }}
     {{ with .Content }}
-    <div class="font-body text-[17px] leading-[1.7] text-[var(--text-secondary)] max-w-[54ch] mt-3">
+    <div class="font-body text-[17px] leading-[1.7] text-[var(--text-secondary)] max-w-[var(--width-prose)] mt-3">
       {{ . }}
     </div>
     {{ end }}
@@ -27,13 +34,10 @@
       {{ range (sort .Pages "Date" "desc") }}
         {{- /* Show year marker when year changes */ -}}
         {{ if ne (.Date.Year | string) $prev_year }}
-          <div class="relative pl-12 mb-6 mt-8 first:mt-0">
-            {{- /* Year marker ring (11px with 2px stroke, temporal color) */ -}}
-            <div class="absolute left-[7px] top-0 flex items-center justify-center">
-              <div class="w-[11px] h-[11px] rounded-full border-2 border-[var(--temporal)] bg-white flex items-center justify-center">
-                <span class="font-mono text-xs font-bold text-[var(--temporal)] absolute">{{ .Date.Year }}</span>
-              </div>
-            </div>
+          <div class="relative pl-12 mb-4 mt-10 first:mt-0">
+            {{- /* Year marker ring + year label */ -}}
+            <div class="absolute left-[11px] top-[3px] w-[11px] h-[11px] rounded-full border-2 border-[var(--temporal)] bg-[var(--surface-primary)]"></div>
+            <span class="font-mono text-[13px] font-bold text-[var(--temporal)]">{{ .Date.Year }}</span>
           </div>
           {{ $prev_year = (.Date.Year | string) }}
         {{ end }}

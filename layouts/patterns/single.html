@@ -6,7 +6,7 @@
 */}}
 
 {{ define "main" }}
-<article class="mx-auto max-w-[920px] px-8">
+<article class="mx-auto max-w-[var(--width-container)] px-8">
 
   {{/* Back link */}}
   <div class="pt-8 md:pt-[44px] pb-6">
@@ -16,7 +16,7 @@
   </div>
 
   <header class="pb-8 md:pb-[44px]">
-    <h1 class="font-heading text-[40px] font-bold tracking-[-0.02em] leading-[1.2] text-[var(--text-primary)]">
+    <h1 class="font-heading text-h1-section font-bold tracking-[-0.02em] leading-[1.2] text-[var(--text-primary)]">
       {{ .Title }}
     </h1>
 
@@ -56,7 +56,7 @@
   </header>
 
   {{/* Body content */}}
-  <div class="pb-10 md:pb-[52px] prose font-body text-[17px] leading-[1.7] text-[var(--text-secondary)] max-w-[65ch]">
+  <div class="pb-10 md:pb-[52px] prose font-body text-[17px] leading-[1.7] text-[var(--text-secondary)] max-w-[72ch]">
     {{ .Content }}
   </div>
 

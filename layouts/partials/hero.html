@@ -1,10 +1,10 @@
 {{ with .Params.hero }}
-<header aria-label="Hero" class="mx-auto max-w-[920px] px-8 pt-[68px] pb-[52px]">
+<header aria-label="Hero" class="mx-auto max-w-[var(--width-container)] px-8 pt-[68px] pb-[52px]">
   <h1 class="font-heading text-[40px] font-bold tracking-[-0.02em] max-w-[18ch]">
     {{ $.Title }}
   </h1>
   {{ with .description }}
-  <p class="font-body text-[17px] leading-[1.7] text-[var(--text-secondary)] max-w-[54ch] mt-3">
+  <p class="font-body text-[17px] leading-[1.7] text-[var(--text-secondary)] max-w-[72ch] mt-3">
     {{ . }}
   </p>
   {{ end }}

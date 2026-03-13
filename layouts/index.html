@@ -2,12 +2,9 @@
 <main>
     {{ partial "hero.html" . }}
 
-    <div class="mx-auto max-w-[920px] px-8">
-      <div class="h-px bg-[var(--border)]"></div>
-    </div>
-
-    <section class="mx-auto max-w-[920px] px-8 py-8 md:py-[44px]">
-        {{ partial "section-heading.html" (dict "label" "LATEST POSTS" "link" "/posts/" "linkText" "All posts →") }}
+    <section class="mx-auto max-w-[var(--width-container)] px-8 py-8 md:py-[44px]">
+        {{ $postsSection := site.GetPage "/posts" }}
+        {{ partial "section-heading.html" (dict "label" "LATEST POSTS" "link" "/posts/" "linkText" "All posts →" "subtitle" $postsSection.Description) }}
         {{ $posts := where site.RegularPages "Section" "posts" }}
         {{ $posts = sort $posts "Date" "desc" }}
         {{ range $posts | first 3 }}
@@ -15,8 +12,9 @@
         {{ end }}
     </section>
 
-    <section class="mx-auto max-w-[920px] px-8 py-8 md:py-[44px]">
-        {{ partial "section-heading.html" (dict "label" "SKILL PATTERNS" "link" "/patterns/" "linkText" "All patterns →") }}
+    <section class="mx-auto max-w-[var(--width-container)] px-8 py-8 md:py-[44px]">
+        {{ $patternsSection := site.GetPage "/patterns" }}
+        {{ partial "section-heading.html" (dict "label" "SKILL PATTERNS" "link" "/patterns/" "linkText" "All patterns →" "subtitle" $patternsSection.Description) }}
         {{ $patterns := where site.RegularPages "Section" "patterns" }}
         {{ $featured := where $patterns "Params.featuredOnHomepage" true }}
         {{ if eq (len $featured) 0 }}
@@ -29,8 +27,9 @@
         </div>
     </section>
 
-    <section class="mx-auto max-w-[920px] px-8 py-8 md:py-[44px]">
-        {{ partial "section-heading.html" (dict "label" "MOMENTS OF RECOGNITION" "link" "/timeline/" "linkText" "Full timeline →") }}
+    <section class="mx-auto max-w-[var(--width-container)] px-8 py-8 md:py-[44px]">
+        {{ $timelineSection := site.GetPage "/timeline" }}
+        {{ partial "section-heading.html" (dict "label" "MOMENTS OF RECOGNITION" "link" "/timeline/" "linkText" "Full timeline →" "subtitle" $timelineSection.Description) }}
 
         {{ $moments := where site.RegularPages "Section" "timeline" }}
         {{ $featured := where $moments "Params.featuredOnHomepage" true }}
@@ -41,7 +40,16 @@
           <div class="relative pb-12 md:pb-[44px] mt-8">
             {{- /* Vertical spine */ -}}
             <div class="absolute left-4 top-0 bottom-0 w-px bg-[var(--timeline-line)]"></div>
+            {{ $prev_year := "" }}
             {{ range sort $featured "Date" "desc" | first 10 }}
+              {{- /* Year marker when year changes */ -}}
+              {{ if ne (.Date.Year | string) $prev_year }}
+                <div class="relative pl-12 mb-4 mt-10 first:mt-0">
+                  <div class="absolute left-[11px] top-[3px] w-[11px] h-[11px] rounded-full border-2 border-[var(--temporal)] bg-[var(--surface-primary)]"></div>
+                  <span class="font-mono text-[13px] font-bold text-[var(--temporal)]">{{ .Date.Year }}</span>
+                </div>
+                {{ $prev_year = (.Date.Year | string) }}
+              {{ end }}
               {{ partial "timeline-moment.html" . }}
             {{ end }}
           </div>

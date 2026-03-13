@@ -3,7 +3,7 @@
      @keydown.escape="open = false"
      :class="scrolled ? 'bg-[var(--surface)]/90 backdrop-blur-[10px] border-b border-[var(--border)]' : 'bg-[var(--surface)] border-b border-transparent'"
      class="sticky top-0 w-full z-50 transition-none h-[54px]">
-  <div class="mx-auto max-w-[920px] px-4 h-full flex items-center justify-between">
+  <div class="mx-auto max-w-[var(--width-container)] px-4 h-full flex items-center justify-between">
     {{/* Logo */}}
     <a href="/" aria-label="Nicolas de Barquin — home" class="flex items-center focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--text-primary)]">
       <img src="{{ .Site.Params.site_logo }}" alt="" aria-hidden="true" width="28" height="28" style="width:28px;height:28px" class="w-7 h-7" />
@@ -33,7 +33,7 @@
   {{/* Mobile menu panel */}}
   <div x-show="open" x-cloak id="mobile-nav-menu"
        class="sm:hidden bg-[var(--surface-elevated)] border-b border-[var(--border)]">
-    <div class="mx-auto max-w-[920px] px-4 py-4 flex flex-col gap-4">
+    <div class="mx-auto max-w-[var(--width-container)] px-4 py-4 flex flex-col gap-4">
       {{ range .Site.Menus.main }}
       <a href="{{ .URL }}" @click="open = false"
          class="font-mono text-[14px] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--text-primary)] {{ if $.IsMenuCurrent "main" . }}text-[var(--text-primary)] font-semibold{{ else }}text-[var(--text-secondary)] font-normal{{ end }}">

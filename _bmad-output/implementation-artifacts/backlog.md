@@ -9,6 +9,12 @@ This backlog captures deferred items, future work, and post-Phase 0 tasks. Items
 
 ## Post-Phase 0 (Deferred Features)
 
+### Tailwind Arbitrary Value Audit
+- **Source:** Story 5.5 — discovered `text-[var(--text-h1-section)]` silently generated `color:` instead of `font-size:` because Tailwind v4 can't infer the CSS property type from a `var()` reference
+- **Description:** Deep scan of all templates and CSS for Tailwind arbitrary values that use `var()` references incorrectly (e.g. `text-[var(...)]`, `bg-[var(...)]`). Replace with either: (a) proper token class names like `text-h1-section`, or (b) explicit arbitrary property syntax like `[font-size:var(...)]`. Also check for hardcoded pixel/ch values that should be centralized into `main.css` design tokens.
+- **Scope:** Portfolio / Phase 1 — quality/maintainability task
+- **Priority:** Medium (silent rendering bugs are hard to catch without visual inspection)
+
 ### SVG Logo Sizing Cleanup
 - **Source:** Story 2.3 completion notes
 - **Description:** Logo SVG requires a triple-layer sizing approach (HTML width/height attrs + inline style + Tailwind classes) due to Inkscape export complexity. The implementation works but is inelegant. Cleanup deferred to UI polishing epic.

@@ -18,7 +18,7 @@
         <a href="{{ $post.RelPermalink }}" class="hover:text-[var(--text-secondary)]">{{ $post.Title }}</a>
       </h2>
       {{ with $post.Description }}
-      <p class="font-body text-[15px] leading-[1.7] text-[var(--text-secondary)] mt-2 max-w-[54ch]">{{ . }}</p>
+      <p class="font-body text-[15px] leading-[1.7] text-[var(--text-secondary)] mt-2">{{ . }}</p>
       {{ end }}
       <div class="font-mono text-[12px] text-[var(--text-tertiary)] flex items-center gap-2 mt-2 flex-wrap">
         {{ with $post.ReadingTime }}<span>{{ . }} min</span>{{ end }}

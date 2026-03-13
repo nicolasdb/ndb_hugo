@@ -40,6 +40,17 @@
   --space-44: 44px;
   --space-52: 52px;
   --space-68: 68px;
+
+  /* Layout width tokens — single source of truth */
+  --width-container: 920px;
+  --width-prose: 72ch;
+  --width-summary: 54ch;
+  --width-heading-hero: 18ch;
+  --width-subtitle: 72ch;
+
+  /* Heading size tokens */
+  --text-h1-hero: 40px;    /* homepage hero */
+  --text-h1-section: 32px; /* section pages */
 }
 
 /* 5. Custom utility */
@@ -61,7 +72,7 @@ img[loading="lazy"] {
 
 /* 7. Prose styles for markdown content */
 .prose {
-  max-width: 65ch;
+  max-width: var(--width-prose);
   color: var(--text-secondary);
 }
 

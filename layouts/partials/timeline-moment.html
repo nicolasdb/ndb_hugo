@@ -3,9 +3,9 @@ Timeline moment partial — renders a single timeline entry
 Context: page object with Params.{date, color, quote, linkedPost}
 */ -}}
 <div class="relative pl-12 pb-6">
-  {{- /* Color dot on spine */ -}}
+  {{- /* Color dot on spine — centered on left-4 (16px) spine */ -}}
   <div
-    class="absolute left-[7px] top-1 w-[5px] h-[5px] rounded-full"
+    class="absolute left-[14px] top-2 w-[5px] h-[5px] rounded-full"
     style="{{ printf "background-color: var(--%s)" (.Params.color | default "block") | safeCSS }}"
   ></div>
 
