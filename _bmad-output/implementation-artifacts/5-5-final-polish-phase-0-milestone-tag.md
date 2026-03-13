@@ -165,6 +165,8 @@ claude-opus-4-6
 - ✅ Custom templates created: `layouts/about/single.html`, `layouts/contact/single.html`
 - ✅ Final test: 75 pages, 0 errors, production build clean
 - ✅ Milestone tag: `v0.2.0-phase0-complete` created and pushed
+- ✅ Code review fixes: replaced all hardcoded `18ch`/`72ch`/`40px` with design tokens (`--width-heading-hero`, `--width-prose`, `--text-h1-hero`) in hero.html, about/single.html, contact/single.html, posts/single.html, patterns/single.html
+- ✅ Code review: documented previously undocumented changed files (hugo.yaml footer, post-list-item.html, timeline-moment.html, manual-content-publishing.md) in File List
 
 ### File List
 
@@ -184,7 +186,11 @@ claude-opus-4-6
 - `layouts/_default/list.html` — h1 size token
 - `layouts/partials/nav.html` — width container token
 - `layouts/partials/footer.html` — width container token
-- `layouts/partials/hero.html` — width container token (hero h1 unchanged at 40px)
+- `layouts/partials/hero.html` — width container token; h1 and description now use `--width-heading-hero` and `--width-subtitle` tokens (code review fix)
+- `layouts/partials/post-list-item.html` — minor fix (undocumented in original commit)
+- `layouts/partials/timeline-moment.html` — minor fix (undocumented in original commit)
+- `hugo.yaml` — footer LinkedIn link added
+- `content/patterns/manual-content-publishing.md` — minor fix (undocumented in original commit)
 - `_bmad-output/implementation-artifacts/backlog.md` — added Tailwind arbitrary value audit task
 - `_bmad-output/implementation-artifacts/sprint-status.yaml` — status updated
 - `_bmad-output/implementation-artifacts/5-5-final-polish-phase-0-milestone-tag.md` — task tracking
