@@ -8,7 +8,7 @@ confidence: 78
 blockCount: 8
 timespan: "December 2025 – February 2026"
 trajectory: rising
-featuredOnHomepage: true
+featuredOnHomepage: false
 ---
 
 ## The Content Stack
