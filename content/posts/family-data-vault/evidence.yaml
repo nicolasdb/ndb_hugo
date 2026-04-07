@@ -1,0 +1,24 @@
+blocks:
+  - date: "2026-03-01"
+    color: fresh
+    content: "Provisioned six Solid pods locally — one per family member. First concrete proof that WebID-based identity per person was viable and worth pursuing."
+
+  - date: "2026-03-08"
+    color: fresh
+    content: "Tested full pod portability: exported, wiped, re-imported. WebID persisted, ACLs traveled, apps auto-discovered the new endpoint. Portability is real, not theoretical."
+
+  - date: "2026-03-15"
+    color: pattern
+    content: "Defined the admin honesty problem: Solid secures data between peers but not from the administrator. Reframed the trust model — transparency via audit logs replaces blind trust."
+
+  - date: "2026-03-20"
+    color: fresh
+    content: "Designed the monthly family briefcase format: storage stats, transparency report, feature changelog. Transparency as structured communication, not just good intentions."
+
+  - date: "2026-03-28"
+    color: frontier
+    content: "Sketched the liaison agent layer (OpenClaw): natural-language queries over the family knowledge graph, respecting ACL boundaries. Not yet built — the design is clear, the execution is next."
+
+  - date: "2026-04-05"
+    color: convergence
+    content: "Client-side encryption scoped as phase 2. The admin-trust problem and the encryption solution converged: encrypt at rest for sensitive pods, audit logs for everything else. Two-layer model solidified."
