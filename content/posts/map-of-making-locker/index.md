@@ -35,7 +35,7 @@ Every maker network has a group chat. And every group chat showcase the same rec
 
 These are not small talk. These are real, urgent, practical needs. We ran the numbers on one VULCA's group chat over four years — 1,072 messages. The same clusters appear again and again. Grant and consortium partner search is by far the loudest need. Residency brokering follows close behind. Finding a space to visit, checking if a space is still active — these too.
 
-The questions are predictable. And look at what they all have in common: they need a *location*. Where to go. Who to reach near there. Whether a space still exists on a map somewhere. Even when a friend answers, the answer points back to a place — a website, a pin, a contact tied to an address. The map should be answering this. It isn't. So we ask 200 people instead.
+The questions are predictable. And look at what they all have in common: *location, location, location*. Where to go. Who to reach near that place. Whether a space still exists on a map somewhere. Even when a friend answers, the answer points back to a place — a website, a pin, a contact tied to an address. The map is actually the natural move to answer those. It isn't. So we ask 200 people instead.
 
 <div class="mt-8"></div>
 {{< embed-html src="vulca_chat_question_trends_v3.html" >}}
@@ -58,6 +58,10 @@ But nobody goes back to update. There's no incentive to — the presence is alre
 
 Meanwhile, each platform sends the same request to the same coordinator — log in, find the field, update it. Not urgent enough to act on. Not ignorable either. A non-priority urgency, arriving from everywhere at once. The kind of weight that doesn't break anything visibly — until someone checks if the Venice fab lab is still open, and nobody knows.
 
+<figure style="margin: 2rem auto; text-align: center; max-width: 480px;">
+  <img src="boromir.jpg" alt="One does not simply update 15 maps" style="width:100%; height:auto; border-radius:4px;" />
+</figure>
+
 So we stopped trusting the maps. Not consciously, not as a decision — it just happened. The WhatsApp group became the single source of... hope.
 
 ---
@@ -68,9 +72,13 @@ What if it worked the other way?
 
 Instead of pushing your data to fifteen platforms, you publish *one file* — and give us the URL. That's it. A small, structured file that says: here's who we are, where we are, what we do, whether we're open. It can live anywhere online.
 
-Every map, every directory, every bot that cares about your space reads *from you* — not from a copy of a copy of a copy.
-
+Every map, every directory, every bot that cares about your space reads *from you* — not from a copy of a copy of a copy.  
 You update once. Everyone gets the fresh version. Automatically.
+
+<figure style="margin: 2rem auto; text-align: center; max-width: 520px;">
+  <img src="magical-federated-mesh.webp" alt="The federated mesh — servers syncing content to create a shared data space" style="width:100%; height:auto; border-radius:4px;" />
+  <figcaption style="font-size:0.75rem; color:var(--text-tertiary); margin-top:0.4rem;">Source: <a href="https://www.pfrazee.com/blog/practical-decentralization">Paul Frazee — Practical Decentralization</a></figcaption>
+</figure>
 
 This is the exact same logic behind SpaceAPI, which hackerspace communities have been using for years. Thousands of spaces, one simple endpoint per space. Works beautifully. We want to build on that spirit for the broader maker ecosystem.
 
@@ -100,7 +108,7 @@ We'll run online workshops with RFF (Réseau des Fablabs Français) and VOW (Ver
 
 **What happens once we include your URL:**
 
-- Your flag on the map goes from ⚪ to 🔵 — confirmed by you, fresh from you
+- Your flag on the map goes from ⚪ → 🔵 — confirmed by you, fresh
 - You can embed a live map view directly on your own website
 - Any change you make to your file reflects on the map immediately — no login, no form, no middleman
 
@@ -131,6 +139,11 @@ The minimal file is the seed. The ontology is what grows.
 A maker in Marseille logs into RFF Mattermost and posts in the #map-of-making channel: *"J'ai envie de partir en long week-end à Berlin ou Hamburg, rencontrer des makers et filer un coup de main — quelqu'un connaît des espaces ouverts à ça?"*
 
 A bot reads the query. It cross-references RFF and VOW endpoints. Filters for spaces in Berlin and Hamburg with `open_for_hosting: true`. Finds three spaces. Posts back: names, contacts, a small map — with travel times from Marseille-Saint-Charles shown on each pin. Berlin: 12h. Hamburg: 15h30. The maker sees it, decides it's worth it, and replies directly to one of the contacts.
+
+<figure style="margin: 1.5rem auto; text-align: center; max-width: 560px;">
+  <img src="Berlin_map.png" alt="Marseille to Berlin by train — 12h itinerary" style="width:100%; height:auto; border-radius:4px;" />
+  <figcaption style="font-size:0.75rem; color:var(--text-tertiary); margin-top:0.4rem;">Marseille-Saint-Charles → Berlin Hbf, ~12h by TGV</figcaption>
+</figure>
 
 No new tab. No waiting for 200 people. The map comes to wherever you already talk.
 

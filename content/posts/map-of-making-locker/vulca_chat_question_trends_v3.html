@@ -14,8 +14,8 @@
 
 <div style="position:relative;width:100%;height:270px;">
   <canvas id="trendChart" role="img"
-    aria-label="Grant and Erasmus+ partner search: 23 occurrences, amber. Residency offering: 17, amber. Find a space to visit: 14, teal. Skills and equipment match: 13, teal. Residency seeking: 8, amber. Is this space still open: 6, teal.">
-    Grant/Erasmus+ partner: 23 · Residency offering: 17 · Find space to visit: 14 · Skills/equipment: 13 · Residency seeking: 8 · Space status: 6
+    aria-label="Grant and consortium search: 23 occurrences, amber. Residency offering: 17, amber. Space discovery: 14, teal. Skills and equipment: 13, teal. Residency seeking: 8, amber. Space status: 6, teal.">
+    Grant/consortium: 23 · Residency offering: 17 · Space discovery: 14 · Skills/equipment: 13 · Residency seeking: 8 · Space status: 6
   </canvas>
 </div>
 
@@ -28,12 +28,42 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <script>
 const data = [
-  { label: 'Grant / Erasmus+ partner',  value: 23, color: '#BA7517' },
-  { label: 'Residency — offering',       value: 17, color: '#BA7517' },
-  { label: 'Find a space to visit',      value: 14, color: '#0F6E56' },
-  { label: 'Skills / equipment match',   value: 13, color: '#0F6E56' },
-  { label: 'Residency — seeking',        value:  8, color: '#BA7517' },
-  { label: 'Is this space still open?',  value:  6, color: '#0F6E56' },
+  {
+    label: 'Grant & consortium search',
+    value: 23,
+    color: '#BA7517',
+    question: '"Looking for hosting orgs for an Erasmus+ mobility project — IoT and art focus."'
+  },
+  {
+    label: 'Residency — offering',
+    value: 17,
+    color: '#BA7517',
+    question: '"Our Fablab has space for a maker residency in June — who is looking?"'
+  },
+  {
+    label: 'Space discovery',
+    value: 14,
+    color: '#0F6E56',
+    question: '"I\'ll be in Bath for a few days — any labs I could visit?"'
+  },
+  {
+    label: 'Skills & equipment',
+    value: 13,
+    color: '#0F6E56',
+    question: '"We need metalwork and welding for a project — anyone know a space with that?"'
+  },
+  {
+    label: 'Residency — seeking',
+    value:  8,
+    color: '#BA7517',
+    question: '"Any maker residency in Europe open for applications this summer?"'
+  },
+  {
+    label: 'Space status',
+    value:  6,
+    color: '#0F6E56',
+    question: '"Does anyone know if the University fab lab in Venice is still active?"'
+  },
 ];
 
 new Chart(document.getElementById('trendChart'), {
@@ -56,8 +86,12 @@ new Chart(document.getElementById('trendChart'), {
       legend: { display: false },
       tooltip: {
         callbacks: {
-          label: ctx => `  ${ctx.raw} occurrences`
-        }
+          label: ctx => `  ${ctx.raw} occurrences`,
+          afterLabel: ctx => `  e.g. ${data[ctx.dataIndex].question}`
+        },
+        bodyFont: { size: 11 },
+        padding: 10,
+        boxPadding: 4
       }
     },
     scales: {
