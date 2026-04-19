@@ -1,0 +1,20 @@
+blocks:
+  - date: "2018-07-01"
+    color: fresh
+    content: "FAB14, Toulouse. First articulation of the federated vision: instead of pushing data to central directories, each fablab publishes from its own website and aggregators read from the source. The seed of the locker concept. Source: https://github.com/nicolasdb/nicolasdb.github.io/blob/master/_posts/2018-08-06-fab14workshop.md"
+
+  - date: "2025-01-15"
+    color: fresh
+    content: "Started building the knowledge graph layer for maker networks. Analysed 1,072 messages from a European network's group chat over four years — grant search, residency brokering, space discovery kept recurring as unsolved needs."
+
+  - date: "2025-11-01"
+    color: convergence
+    content: "Maps of Making launched at the VULCA seminar in Ispra. The federated data model from FAB14 met the knowledge graph work from 2025 — the locker as a concrete, actionable first step crystallised."
+
+  - date: "2026-01-01"
+    color: pattern
+    content: "Defined the bottom-up schema design principle: fields are not designed top-down but derived from the questions groups actually ask. SpaceAPI confirmed the model works at scale for hackerspace communities."
+
+  - date: "2026-04-17"
+    color: fresh
+    content: "First public call for pilot participation with RFF and VOW. The minimal JSON file spec published — a deliberate low-floor entry point to maximise adoption without sacrificing the federated architecture."

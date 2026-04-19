@@ -11,15 +11,15 @@ patterns: []
 confidence: 72
 ---
 
-Last month I spent an evening provisioning six digital "pods" on my laptop. One for each of us: my two sisters, my brother, my dad, our boss (yes, really), and me. It felt like handing out keys to a house we hadn't built yet.
+Last month I spent some time to provisioning six digital "pods" on my laptop. One for each of us: my two sisters, my brother, my dad,... my boss (yes, really), and myself. It felt like handing out keys to a house we hadn't built yet.
 
 Now that house is taking shape. Here's what I'm building, why it matters for our family, and the honest trade-offs you should understand before moving in.
 
 ## The Suitcase Analogy: Your Data, Portable by Design
 
-Imagine your digital life as a suitcase. Right now, your photos live in Google's warehouse, your messages in Meta's vault, your documents in Microsoft's basement. You don't have keys — you have permission that can be revoked.
+Imagine your digital life as a **suitcase**. Right now, your photos live in Google's warehouse, your messages in Meta's vault, your documents in Microsoft's basement. You don't have keys — you have permission that can be revoked.
 
-Solid pods flip this. Your suitcase has your name on it. It lives on a server (right now, one I'm renting), but it's yours. The contents are standard files — photos as photos, documents as documents, relationships described in a way any software can understand. If you want to move your suitcase to your own basement, or a service in France, or just keep a backup under your bed, you pick it up and go. No export nightmares. No "your account has been terminated."
+Solid pods flip this. Your **suitcase has your name on it**. It lives on a server (right now, one I'm renting), but it's yours. The contents are standard files — photos as photos, documents as documents, relationships described in a way any software can understand. If you want to move your suitcase to your own basement, or a service in France, or just keep a backup under your bed, you pick it up and go. No export nightmares. No "your account has been terminated."
 
 This portability isn't just theoretical. I tested it: exported a pod, wiped it, re-imported it elsewhere. My WebID — my digital passport — stayed the same. The permissions I'd set ("sister can see photos") traveled with me. The apps found me at my new address automatically.
 

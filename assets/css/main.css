@@ -7,6 +7,7 @@
 /* 3. Source paths — tell Tailwind where to scan for utility classes */
 @source "../../layouts";
 @source "../../content";
+@source not "../../content/**/*.html";
 
 /* 4. Theme extensions — only what design-tokens.css can't provide */
 @theme {

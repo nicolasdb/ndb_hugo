@@ -1,0 +1,7 @@
+{{- $src := .Get "src" -}}
+{{- $file := .Page.Resources.Get $src -}}
+{{- if $file -}}
+  {{- $file.Content | safeHTML -}}
+{{- else -}}
+  <!-- embed-html: file "{{ $src }}" not found in page bundle -->
+{{- end -}}

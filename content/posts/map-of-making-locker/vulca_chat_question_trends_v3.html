@@ -1,0 +1,78 @@
+
+<h2 class="sr-only">Horizontal bar chart of recurring question types in a European maker network group chat, 2022–2026. Teal bars are answerable with a minimal space endpoint today. Amber bars require richer schema and represent the biggest unmet needs.</h2>
+
+<div style="display:flex;gap:20px;flex-wrap:wrap;margin-bottom:18px;font-size:12px;color:var(--color-text-secondary);">
+  <span style="display:flex;align-items:center;gap:7px;">
+    <span style="width:12px;height:12px;border-radius:2px;background:#0F6E56;flex-shrink:0;"></span>
+    Answerable with minimal JSON today
+  </span>
+  <span style="display:flex;align-items:center;gap:7px;">
+    <span style="width:12px;height:12px;border-radius:2px;background:#BA7517;flex-shrink:0;"></span>
+    Requires richer schema — unmet by any map today
+  </span>
+</div>
+
+<div style="position:relative;width:100%;height:270px;">
+  <canvas id="trendChart" role="img"
+    aria-label="Grant and Erasmus+ partner search: 23 occurrences, amber. Residency offering: 17, amber. Find a space to visit: 14, teal. Skills and equipment match: 13, teal. Residency seeking: 8, amber. Is this space still open: 6, teal.">
+    Grant/Erasmus+ partner: 23 · Residency offering: 17 · Find space to visit: 14 · Skills/equipment: 13 · Residency seeking: 8 · Space status: 6
+  </canvas>
+</div>
+
+<p style="font-size:11px;color:var(--color-text-tertiary);margin-top:14px;line-height:1.6;border-top:0.5px solid var(--color-border-tertiary);padding-top:10px;">
+  Amber bars — 48 of 89 occurrences — represent questions no map answers today, even a perfectly fresh one.
+  Consortium matchmaking alone accounts for 26% of all recurring requests.
+  <br>Hand-counted from one VULCA chat export, 2022–2026 · 1,072 messages.
+</p>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+const data = [
+  { label: 'Grant / Erasmus+ partner',  value: 23, color: '#BA7517' },
+  { label: 'Residency — offering',       value: 17, color: '#BA7517' },
+  { label: 'Find a space to visit',      value: 14, color: '#0F6E56' },
+  { label: 'Skills / equipment match',   value: 13, color: '#0F6E56' },
+  { label: 'Residency — seeking',        value:  8, color: '#BA7517' },
+  { label: 'Is this space still open?',  value:  6, color: '#0F6E56' },
+];
+
+new Chart(document.getElementById('trendChart'), {
+  type: 'bar',
+  data: {
+    labels: data.map(d => d.label),
+    datasets: [{
+      data: data.map(d => d.value),
+      backgroundColor: data.map(d => d.color),
+      borderWidth: 0,
+      borderRadius: 3,
+      borderSkipped: false
+    }]
+  },
+  options: {
+    indexAxis: 'y',
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        callbacks: {
+          label: ctx => `  ${ctx.raw} occurrences`
+        }
+      }
+    },
+    scales: {
+      x: {
+        min: 0,
+        max: 28,
+        grid: { color: 'rgba(128,128,128,0.08)' },
+        ticks: { color: '#999', font: { size: 11 }, stepSize: 5, autoSkip: false },
+        title: { display: true, text: 'occurrences (2022 – 2026)', color: '#aaa', font: { size: 11 } }
+      },
+      y: {
+        grid: { display: false },
+        ticks: { color: '#555', font: { size: 12 }, autoSkip: false }
+      }
+    }
+  }
+});
+</script>
