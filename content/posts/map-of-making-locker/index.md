@@ -116,21 +116,27 @@ Some questions are answerable from day one, with just the minimal file:
 - *"Which spaces in Germany have woodworking?"* → yes, from `specialties`
 - *"Who are the current members of VOW?"* → yes, from `network_memberships`
 
-Others — like finding spaces that have hosted Erasmus+ residencies, or knowing current machine availability — need richer fields. That's a conversation we need to have with the networks, using the real questions from group chats as the guide. Which fields would have answered the most common questions? That's how we design the schema: bottom-up, from actual need.
+Others — finding spaces that have hosted Erasmus+ residencies, or knowing current machine availability — need richer fields. But "richer fields" undersells what's actually happening.
 
-The minimal file is the foundation. Each field we add together expands what becomes answerable — without adding burden, because it's still just one file you control.
+When we agree on what `specialties` means — that "woodworking" and "wood shop" are the same thing, that "laser cutting" implies certain capabilities — we're building a shared vocabulary. A small ontology. That's what makes cross-network queries possible: not just more data, but *data that means the same thing* across RFF files and VOW files and spaces in Porto or Nairobi.
+
+This isn't new territory. The Internet of Production has been building exactly this kind of semantic layer for manufacturing — a shared language for production resources, processes, and supply chains. The maker community's contribution is a vocabulary designed bottom-up, from the real questions that group chats have been asking for years. Which fields would have answered the most common questions? That's the design method.
+
+The minimal file is the seed. The ontology is what grows.
 
 ---
 
 ## Imagine
 
-A maker in France opens her community platform and posts in the #map-of-making channel: *"Looking for a 5-day metalwork residency in Germany, Erasmus+ funded, June 2026."*
+A maker in Marseille logs into RFF Mattermost and posts in the #map-of-making channel: *"J'ai envie de partir en long week-end à Berlin ou Hamburg, rencontrer des makers et filer un coup de main — quelqu'un connaît des espaces ouverts à ça?"*
 
-A bot queries the network. Crosses RFF data with VOW data. Finds three matching spaces. Drafts a clear answer with names, contacts, and a small map. Posts it back — in the same channel, in seconds.
+A bot reads the query. It cross-references RFF and VOW endpoints. Filters for spaces in Berlin and Hamburg with `open_for_hosting: true`. Finds three spaces. Posts back: names, contacts, a small map — with travel times from Marseille-Saint-Charles shown on each pin. Berlin: 12h. Hamburg: 15h30. The maker sees it, decides it's worth it, and replies directly to one of the contacts.
 
-No new tab. No external website to navigate. No waiting for 200 people to wake up. The map comes to wherever your community already talks.
+No new tab. No waiting for 200 people. The map comes to wherever you already talk.
 
-That's not science fiction. It's a direct consequence of spaces publishing structured, live, open data. And it's where this is going.
+And notice what *didn't* happen: no hallucination, no scraped website, no stale PDF. Structured data, a spatial query, and a language model that turned a casual French message into a precise question — and a precise answer back into plain language. The model doesn't need to be large. It just needs to know how to build the query.
+
+That's not science fiction. It's a direct consequence of spaces publishing one structured, live, open file. And it's where this is going.
 
 ---
 
@@ -138,9 +144,9 @@ That's not science fiction. It's a direct consequence of spaces publishing struc
 
 It doesn't go away. It gets better.
 
-Right now, the group chat is doing two jobs at once: it's the warm, human connective tissue of a community *and* the fallback infrastructure for questions a map should answer. When the second job is handled, the first one has room to breathe.
+Right now, the group chat is doing two jobs at once: it's the warm, human connective tissue of a community *and* the fallback infrastructure for orphan questions. When the second job is handled, the first one has room to breathe.
 
-Imagine the same channel, quieter on logistics — and open for the conversations that actually need humans. The weirder collaborations. The harder questions. The ideas that don't fit a form field. The group chat was never the problem. It was the silent warning that the map infrastructure beneath it hadn't arrived yet. Once it does, we get to find out what the community talks about when it stops fielding "are you still open?"
+Imagine the same channel, quieter on logistics — and open for the conversations that actually need humans. The weirder collaborations. The harder questions. The ideas that don't fit a form field. The group chat was never the problem. It was the silent warning that the map infrastructure beneath it hadn't arrived yet. Once it does, we get to find out what the community talks about when it stops asking "are you still open?"
 
 ---
 
@@ -150,12 +156,10 @@ We're starting with two networks — RFF and VOW — as the first pilot. We want
 
 If you're a space manager or network coordinator: the first workshops are coming soon through RFF and VOW channels. If you're elsewhere in the world and want in, reach out — the model is designed to extend.
 
-If you're a developer or FLOSS enthusiast who wants to dig into the architecture — linked open data, federated endpoints, the locker as a full sovereignty stack — this is the first in a series. The next articles go into the schema that unlocks consortium matching and residency brokering, then the individual maker layer and how data flows bottom-up by consent. The repo will be public.
-
-The map is broken. We know how to fix it. We just need to build it together.
+If you're a developer or FLOSS enthusiast who wants to dig into the architecture — linked open data, federated endpoints, we design a full sovereignty stack to store personal documentation — this is the first in a series. The next articles go into the schema that unlocks consortium matching and residency brokering, then the individual maker layer and how data flows bottom-up based on consent. The repo will be public.
 
 ---
 
-*Maps of Making is a project by [Nicolas de Barquin](https://ndb.nicolasdb.com) (Syntonie ASBL, Brussels) and [Jason Pettiaux](https://jasonpettiaux.be), coordinated from Brussels with letters of intent from 12 organizations across three continents — European networks (RFF France, HTT UK), individual spaces in Spain, Ireland, Croatia, Italy, and Portugal, researchers, and global networks representing 200+ spaces across Africa, Asia, and Latin America (FabCare, GIG, ReFFAO, Internet of Production).*
+*Maps of Making is a project by [Nicolas de Barquin](https://nicolasdb.com) (Openfab, Brussels) and [Jason Pettiaux](https://jasonpettiaux.com/projets/mapsofmaking), coordinated from Brussels with the moral support from 12 organizations across four continents — European networks (RFF France, HTT UK), individual spaces in Spain, Ireland, Croatia, Italy, and Portugal, researchers, and global networks representing spaces across Africa, Asia, and Latin America (FabCare, GIG, ReFFAO, Internet of Production).*
 
 *This approach builds on [SpaceAPI](https://spaceapi.io/), [W3C Linked Data](https://www.w3.org/standards/semanticweb/data), and [Solid](https://solidproject.org/).*
