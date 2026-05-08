@@ -80,13 +80,13 @@ You update once. Everyone gets the fresh version. Automatically.
   <figcaption style="font-size:0.75rem; color:var(--text-tertiary); margin-top:0.4rem;">Source: <a href="https://www.pfrazee.com/blog/practical-decentralization">Paul Frazee — Practical Decentralization</a></figcaption>
 </figure>
 
-This is the exact same logic behind SpaceAPI, which hackerspace communities have been using for years. Thousands of spaces, one simple endpoint per space. Works beautifully. We want to build on that spirit for the broader maker ecosystem.
+This is the exact same logic behind SpaceAPI, which hackerspace communities have been using for years. Hundreds of spaces, one simple endpoint per space. Works beautifully. We want to build on that spirit for the broader maker ecosystem.
 
 ---
 
 ## What we're asking right now
 
-Concretely: **a public URL** pointing to a structured file about your space. Where it lives is up to you — your website, GitHub, Nextcloud, Google Drive, a VPS, whatever your stack already has. The only condition: the URL is reachable without a login.
+Concretely: **a public URL** pointing to a structured file about your space. Where it lives is up to you — your website, GitHub, Nextcloud, Google Drive, a VPS, whatever your stack already has. The only condition: the URL must be reachable without a login.
 
 It looks something like this:
 
@@ -95,11 +95,13 @@ It looks something like this:
   "name": "FabLab of Ooo",
   "address": "12 Sugar Plum Street, Land of Ooo",
   "website": "https://fablab-of-ooo.example",
-  "contact": "hello@fablab-of-ooo.example",
-  "status": "open",
+  "logo": "https://fablab-of-ooo.example/glob.png",
+  "contact": {"email": "princess.bubblegum@fablab-of-ooo.example"},
+  "state": {"open": true },
   "opening_hours": "Mon–Fri 14:00–20:00",
   "specialties": ["woodworking", "electronics", "candy engineering"],
-  "network_memberships": ["VULCA", "Adventure Makers Network"]
+  "sdg": ["04", "09", "12", "17"],
+  "network_memberof": ["VULCA", "Adventure Makers Network"]
 }
 ```
  
