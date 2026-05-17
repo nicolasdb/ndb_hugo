@@ -99,7 +99,7 @@ It looks something like this:
   "contact": {"email": "princess.bubblegum@fablab-of-ooo.example"},
   "state": {"open": true },
   "opening_hours": "Mon–Fri 14:00–20:00",
-  "specialties": ["woodworking", "electronics", "candy engineering"],
+  "specialties": ["sovereingty", "electronics", "candy science"],
   "sdg": ["04", "09", "12", "17"],
   "network_memberof": ["VULCA", "Adventure Makers Network"]
 }
