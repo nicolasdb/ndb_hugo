@@ -129,4 +129,4 @@ A backoffice CMS is coming in Epic 5. Until then, this workflow has served us we
 
 The friction we *do* have — editing YAML, manual git commits — keeps us thoughtful. We don't create content casually. Every post, pattern, and moment represents real work.
 
-This document itself is dog-food. It's a pattern about the workflow for creating patterns.
+This document itself is about walking-the-talk. It's a pattern about the workflow for creating patterns.
